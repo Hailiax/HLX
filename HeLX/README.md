@@ -1,5 +1,5 @@
 Unifies fp and oop styles  
-New ways to handle async flow and pointers  
+New ways to handle (concurrent) async flow and pointers  
 Very very clean tab-based syntax  
   
 HeLX is a mutant child of ECMAScript  
