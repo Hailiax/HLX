@@ -1,4 +1,5 @@
 Unifies fp and oop styles  
+(I'm looking at wolfram and prolog to see if there are any other cool things)
 New ways to handle (concurrent) async flow and pointers  
 Very very clean tab-based syntax  
   
