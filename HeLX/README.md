@@ -1,4 +1,4 @@
-Unifies many programming paradigms  
+Experiment in unifing many programming paradigms  
 New ways to handle (concurrent) async flow and pointers  
 New way to handle backwards-compatability  
   
