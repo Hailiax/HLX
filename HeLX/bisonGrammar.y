@@ -16,7 +16,7 @@ primary_expression
 	: IDENTIFIER																	{;}
 	| CONSTANT																		{;}
 	| STRING_LITERAL																{;}
-	//| '(' expression ')'															{;}
+	| '(' expression ')'															{;}
 	;					
 
 postfix_expression					
