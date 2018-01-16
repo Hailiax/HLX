@@ -1,14 +1,13 @@
-%token IDENTIFIER CONSTANT STRING_LITERAL SIZEOF RANGE
-%token PTR_OP INC_OP DEC_OP LEFT_OP RIGHT_OP LE_OP GE_OP EQ_OP NE_OP
-%token AND_OP OR_OP MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN
+%token IDENTIFIER CONSTANT UNDEFINED STRING_LITERAL TEMPLATE_LITERAL REGEXP_LITERAL
+
+%token PTR_OP INC_OP DEC_OP LEFT_OP RIGHT_OP EQ_OP NE_OP NOT_OP XOR_OP
+%token AND_OP OR_OP MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN NOT_ASSIGN EXP_ASSIGN
 %token SUB_ASSIGN LEFT_ASSIGN RIGHT_ASSIGN AND_ASSIGN
 %token XOR_ASSIGN OR_ASSIGN TYPE_NAME
 
-%token TYPEDEF EXTERN STATIC AUTO REGISTER
-%token CHAR SHORT INT LONG SIGNED UNSIGNED FLOAT DOUBLE CONST VOLATILE VOID
-%token STRUCT UNION ENUM ELLIPSIS
-
-%token CASE DEFAULT IF ELSE SWITCH WHILE DO FOR GOTO CONTINUE BREAK RETURN
+%token CASE DEFAULT IF ELSE SWITCH WHILE DO FOR CONTINUE BREAK RETURN
+%token TRY CATCH FINALLY THROW DEBUGGER DELETE IMPORT IN OF INSTANCEOF NEW TYPEOF
+%token ELLIPSIS DOUB_DOT ARROW_FUNC REV_ARROW BIND_OP TYPE_DEC
 
 %start translation_unit
 %%
@@ -17,9 +16,9 @@ primary_expression
 	: IDENTIFIER																	{;}
 	| CONSTANT																		{;}
 	| STRING_LITERAL																{;}
-	| '(' expression ')'															{;}
+	//| '(' expression ')'															{;}
 	;					
-					
+
 postfix_expression					
 	: primary_expression															{;}
 	| postfix_expression '[' expression ']'											{;}
@@ -181,7 +180,7 @@ storage_class_specifier
 	| AUTO																			{;}
 	| REGISTER																		{;}
 	;													
-													
+											
 type_specifier													
 	: VOID																			{;}
 	| CHAR																			{;}
@@ -396,7 +395,7 @@ jump_statement
 	| RETURN ';'																	{;}
 	| RETURN expression ';'															{;}
 	;													
-													
+											
 translation_unit													
 	: external_declaration															{;}
 	| translation_unit external_declaration											{;}

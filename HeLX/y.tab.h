@@ -41,125 +41,125 @@
    enum yytokentype {
      IDENTIFIER = 258,
      CONSTANT = 259,
-     STRING_LITERAL = 260,
-     SIZEOF = 261,
-     PTR_OP = 262,
-     INC_OP = 263,
-     DEC_OP = 264,
-     LEFT_OP = 265,
-     RIGHT_OP = 266,
-     LE_OP = 267,
-     GE_OP = 268,
+     UNDEFINED = 260,
+     STRING_LITERAL = 261,
+     TEMPLATE_LITERAL = 262,
+     REGEXP_LITERAL = 263,
+     PTR_OP = 264,
+     INC_OP = 265,
+     DEC_OP = 266,
+     LEFT_OP = 267,
+     RIGHT_OP = 268,
      EQ_OP = 269,
      NE_OP = 270,
-     AND_OP = 271,
-     OR_OP = 272,
-     MUL_ASSIGN = 273,
-     DIV_ASSIGN = 274,
-     MOD_ASSIGN = 275,
-     ADD_ASSIGN = 276,
-     SUB_ASSIGN = 277,
-     LEFT_ASSIGN = 278,
-     RIGHT_ASSIGN = 279,
-     AND_ASSIGN = 280,
-     XOR_ASSIGN = 281,
-     OR_ASSIGN = 282,
-     TYPE_NAME = 283,
-     TYPEDEF = 284,
-     EXTERN = 285,
-     STATIC = 286,
-     AUTO = 287,
-     REGISTER = 288,
-     CHAR = 289,
-     SHORT = 290,
-     INT = 291,
-     LONG = 292,
-     SIGNED = 293,
-     UNSIGNED = 294,
-     FLOAT = 295,
-     DOUBLE = 296,
-     CONST = 297,
-     VOLATILE = 298,
-     VOID = 299,
-     STRUCT = 300,
-     UNION = 301,
-     ENUM = 302,
-     ELLIPSIS = 303,
-     CASE = 304,
-     DEFAULT = 305,
-     IF = 306,
-     ELSE = 307,
-     SWITCH = 308,
-     WHILE = 309,
-     DO = 310,
-     FOR = 311,
-     GOTO = 312,
-     CONTINUE = 313,
-     BREAK = 314,
-     RETURN = 315,
-     RANGE = 316
+     NOT_OP = 271,
+     XOR_OP = 272,
+     AND_OP = 273,
+     OR_OP = 274,
+     MUL_ASSIGN = 275,
+     DIV_ASSIGN = 276,
+     MOD_ASSIGN = 277,
+     ADD_ASSIGN = 278,
+     NOT_ASSIGN = 279,
+     EXP_ASSIGN = 280,
+     SUB_ASSIGN = 281,
+     LEFT_ASSIGN = 282,
+     RIGHT_ASSIGN = 283,
+     AND_ASSIGN = 284,
+     XOR_ASSIGN = 285,
+     OR_ASSIGN = 286,
+     TYPE_NAME = 287,
+     CASE = 288,
+     DEFAULT = 289,
+     IF = 290,
+     ELSE = 291,
+     SWITCH = 292,
+     WHILE = 293,
+     DO = 294,
+     FOR = 295,
+     CONTINUE = 296,
+     BREAK = 297,
+     RETURN = 298,
+     TRY = 299,
+     CATCH = 300,
+     FINALLY = 301,
+     THROW = 302,
+     DEBUGGER = 303,
+     DELETE = 304,
+     IMPORT = 305,
+     IN = 306,
+     OF = 307,
+     INSTANCEOF = 308,
+     NEW = 309,
+     TYPEOF = 310,
+     ELLIPSIS = 311,
+     DOUB_DOT = 312,
+     ARROW_FUNC = 313,
+     REV_ARROW = 314,
+     BIND_OP = 315,
+     TYPE_DEC = 316
    };
 #endif
 /* Tokens.  */
 #define IDENTIFIER 258
 #define CONSTANT 259
-#define STRING_LITERAL 260
-#define SIZEOF 261
-#define PTR_OP 262
-#define INC_OP 263
-#define DEC_OP 264
-#define LEFT_OP 265
-#define RIGHT_OP 266
-#define LE_OP 267
-#define GE_OP 268
+#define UNDEFINED 260
+#define STRING_LITERAL 261
+#define TEMPLATE_LITERAL 262
+#define REGEXP_LITERAL 263
+#define PTR_OP 264
+#define INC_OP 265
+#define DEC_OP 266
+#define LEFT_OP 267
+#define RIGHT_OP 268
 #define EQ_OP 269
 #define NE_OP 270
-#define AND_OP 271
-#define OR_OP 272
-#define MUL_ASSIGN 273
-#define DIV_ASSIGN 274
-#define MOD_ASSIGN 275
-#define ADD_ASSIGN 276
-#define SUB_ASSIGN 277
-#define LEFT_ASSIGN 278
-#define RIGHT_ASSIGN 279
-#define AND_ASSIGN 280
-#define XOR_ASSIGN 281
-#define OR_ASSIGN 282
-#define TYPE_NAME 283
-#define TYPEDEF 284
-#define EXTERN 285
-#define STATIC 286
-#define AUTO 287
-#define REGISTER 288
-#define CHAR 289
-#define SHORT 290
-#define INT 291
-#define LONG 292
-#define SIGNED 293
-#define UNSIGNED 294
-#define FLOAT 295
-#define DOUBLE 296
-#define CONST 297
-#define VOLATILE 298
-#define VOID 299
-#define STRUCT 300
-#define UNION 301
-#define ENUM 302
-#define ELLIPSIS 303
-#define CASE 304
-#define DEFAULT 305
-#define IF 306
-#define ELSE 307
-#define SWITCH 308
-#define WHILE 309
-#define DO 310
-#define FOR 311
-#define GOTO 312
-#define CONTINUE 313
-#define BREAK 314
-#define RETURN 315
-#define RANGE 316
+#define NOT_OP 271
+#define XOR_OP 272
+#define AND_OP 273
+#define OR_OP 274
+#define MUL_ASSIGN 275
+#define DIV_ASSIGN 276
+#define MOD_ASSIGN 277
+#define ADD_ASSIGN 278
+#define NOT_ASSIGN 279
+#define EXP_ASSIGN 280
+#define SUB_ASSIGN 281
+#define LEFT_ASSIGN 282
+#define RIGHT_ASSIGN 283
+#define AND_ASSIGN 284
+#define XOR_ASSIGN 285
+#define OR_ASSIGN 286
+#define TYPE_NAME 287
+#define CASE 288
+#define DEFAULT 289
+#define IF 290
+#define ELSE 291
+#define SWITCH 292
+#define WHILE 293
+#define DO 294
+#define FOR 295
+#define CONTINUE 296
+#define BREAK 297
+#define RETURN 298
+#define TRY 299
+#define CATCH 300
+#define FINALLY 301
+#define THROW 302
+#define DEBUGGER 303
+#define DELETE 304
+#define IMPORT 305
+#define IN 306
+#define OF 307
+#define INSTANCEOF 308
+#define NEW 309
+#define TYPEOF 310
+#define ELLIPSIS 311
+#define DOUB_DOT 312
+#define ARROW_FUNC 313
+#define REV_ARROW 314
+#define BIND_OP 315
+#define TYPE_DEC 316
 
 
 
