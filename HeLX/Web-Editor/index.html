@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HeLX Editor</title>
+<script>
+var Feed = "Testing + Hello";
+var FeedIndex = 0;
+var ModuleInit = {
+	print: function(text) {
+		document.getElementById('out').innerHTML += text + '<br>';
+	},
+	printErr: function(text) { console.error(text) },
+	noInitialRun: true,
+	preRun: function() {
+    function stdin() {
+     	if (FeedIndex < Feed.length){
+     		return Feed.charCodeAt(FeedIndex++);
+     	}
+     	return null;
+    }
+    FS.init(stdin);
+  },
+};
+Module = Object.assign({}, ModuleInit);
+document.onclick = function(){
+	document.head.removeChild( document.getElementById('compiler') );
+	for (var i = 0; i < emccVars.length; i++){ window[emccVars[i]] = undefined; }
+	Module = Object.assign({}, ModuleInit);
+	var srcpt = document.createElement('script');
+	srcpt.id = 'compiler';
+	srcpt.src = 'asm.js';
+	document.head.appendChild(srcpt);
+};
+var emccVars = ["moduleOverrides","key","ENVIRONMENT_IS_WEB","ENVIRONMENT_IS_WORKER","ENVIRONMENT_IS_NODE","ENVIRONMENT_IS_SHELL","nodeFS","nodePath","TRY_USE_DUMP","STACK_ALIGN","staticAlloc","dynamicAlloc","alignMemory","getNativeTypeSize","warnOnce","functionPointers","addFunction","removeFunction","funcWrappers","getFuncWrapper","makeBigInt","dynCall","getCompilerSetting","Runtime","GLOBAL_BASE","ABORT","EXITSTATUS","assert","globalScope","getCFunc","JSfuncs","toC","ccall","cwrap","setValue","getValue","ALLOC_NORMAL","ALLOC_STACK","ALLOC_STATIC","ALLOC_DYNAMIC","ALLOC_NONE","allocate","getMemory","Pointer_stringify","AsciiToString","stringToAscii","UTF8Decoder","UTF8ArrayToString","UTF8ToString","stringToUTF8Array","stringToUTF8","lengthBytesUTF8","UTF16Decoder","UTF16ToString","stringToUTF16","lengthBytesUTF16","UTF32ToString","stringToUTF32","lengthBytesUTF32","allocateUTF8","demangle","demangleAll","jsStackTrace","stackTrace","PAGE_SIZE","WASM_PAGE_SIZE","ASMJS_PAGE_SIZE","MIN_TOTAL_MEMORY","alignUp","HEAP","buffer","HEAP8","HEAPU8","HEAP16","HEAPU16","HEAP32","HEAPU32","HEAPF32","HEAPF64","updateGlobalBuffer","updateGlobalBufferViews","STATIC_BASE","STATICTOP","staticSealed","STACK_BASE","STACKTOP","STACK_MAX","DYNAMIC_BASE","DYNAMICTOP_PTR","writeStackCookie","checkStackCookie","abortStackOverflow","abortOnCannotGrowMemory","enlargeMemory","TOTAL_STACK","TOTAL_MEMORY","getTotalMemory","callRuntimeCallbacks","__ATPRERUN__","__ATINIT__","__ATMAIN__","__ATEXIT__","__ATPOSTRUN__","runtimeInitialized","runtimeExited","preRun","ensureInitRuntime","preMain","exitRuntime","postRun","addOnPreRun","addOnInit","addOnPreMain","addOnExit","addOnPostRun","writeStringToMemory","writeArrayToMemory","writeAsciiToMemory","unSign","reSign","Math_abs","Math_cos","Math_sin","Math_tan","Math_acos","Math_asin","Math_atan","Math_atan2","Math_exp","Math_log","Math_sqrt","Math_ceil","Math_floor","Math_pow","Math_imul","Math_fround","Math_round","Math_min","Math_max","Math_clz32","Math_trunc","runDependencies","runDependencyWatcher","dependenciesFulfilled","runDependencyTracking","getUniqueRunDependency","addRunDependency","removeRunDependency","memoryInitializer","dataURIPrefix","isDataURI","ASM_CONSTS","tempDoublePtr","copyTempFloat","copyTempDouble","___lock","ERRNO_CODES","ERRNO_MESSAGES","___setErrNo","PATH","TTY","MEMFS","IDBFS","NODEFS","WORKERFS","_stdin","_stdout","_stderr","FS","SYSCALLS","___syscall140","___syscall145","___syscall146","___syscall54","___syscall6","cttz_i8","___unlock","__exit","_exit","_emscripten_memcpy_big","fs","NODEJS_PATH","ASSERTIONS","intArrayFromString","intArrayToString","decodeBase64","intArrayFromBase64","tryParseAsDataURI","nullFunc_ii","nullFunc_iiii","invoke_ii","invoke_iiii","asm","real____errno_location","real____udivdi3","real____uremdi3","real__bitshift64Lshr","real__bitshift64Shl","real__fflush","real__free","real__i64Add","real__i64Subtract","real__llvm_bswap_i32","real__main","real__malloc","real__sbrk","real_establishStackSpace","real_getTempRet0","real_setTempRet0","real_setThrew","real_stackAlloc","real_stackRestore","real_stackSave","___errno_location","___udivdi3","___uremdi3","_bitshift64Lshr","_bitshift64Shl","_fflush","_free","_i64Add","_i64Subtract","_llvm_bswap_i32","_main","_malloc","_memcpy","_memset","_sbrk","establishStackSpace","getTempRet0","runPostSets","setTempRet0","setThrew","stackAlloc","stackRestore","stackSave","dynCall_ii","dynCall_iiii","data","applyMemoryInitializer","memoryInitializerBytes","ExitStatus","initialStackTop","preloadStartTime","calledMain","run","exit","abortDecorators","abort","shouldRunNow","doBrowserLoad","useRequest"];
+</script>
+<script src="asm.js" id="compiler"></script>
+</head>
+
+<body>
+	<pre id="out"></pre>
+</body>
+</html>
