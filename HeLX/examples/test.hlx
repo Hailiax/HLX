@@ -1,0 +1,7 @@
+HeLX Spec A 'https://hexl.hailiax.io/specs/0'
+
+pythag = ( a b ) =>
+	result: { a^2 + b^2 } ^0.5
+
+test = new pythag( 3 4 )
+console.log( test.result )

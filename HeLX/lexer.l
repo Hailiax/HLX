@@ -1,5 +1,5 @@
 D			[0-9]
-L			[a-zA-Z_]
+L			[a-zA-Z_$]
 E			([eE][+-]|[eE])
 R			(\\.|[^\\/\n])
 RF			(\\.|[^*\\/\n])
@@ -15,6 +15,8 @@ void comment();
 void line_comment();
 int check_type();
 
+void setyylval();
+
 void count_tabs();
 int last_tab_level = 0;
 %}
@@ -24,6 +26,7 @@ int last_tab_level = 0;
 "//"						{ line_comment(); }
 "\t"						{ count(); return '\t'; }
 "\b"						{ count(); return '\b'; }
+"HeLX".*					{ count(); return HLX; }
 
 "break"						{ count(); return BREAK; }
 "case"						{ count(); return CASE; }
@@ -49,26 +52,26 @@ int last_tab_level = 0;
 "typeof"					{ count(); return TYPEOF; }
 "while"						{ count(); return WHILE; }
 
-"undefined"					{ count(); return UNDEFINED; }
-"null"						{ count(); return CONSTANT; }
-"true"						{ count(); return CONSTANT; }
-"false"						{ count(); return CONSTANT; }
+"undefined"					{ count(); setyylval(0); return CONSTANT; }
+"null"						{ count(); setyylval(0); return CONSTANT; }
+"true"						{ count(); setyylval(0); return CONSTANT; }
+"false"						{ count(); setyylval(0); return CONSTANT; }
 
-{L}({L}|{D})*				{ count(); return IDENTIFIER; }
+{L}({L}|{D})*				{ count(); setyylval(0); return IDENTIFIER; }
 
-[0-9]						{ count(); return CONSTANT; }
-0[xXbBoO][0-9A-Fa-f]+		{ count(); return CONSTANT; }
-{D}+"."?{D}*{E}?{D}+		{ count(); return CONSTANT; }
+[0-9]+						{ count(); setyylval(0); return CONSTANT; }
+0[xXbBoO][0-9A-Fa-f]+		{ count(); setyylval(0); return CONSTANT; }
+{D}+"."?{D}*{E}?{D}+		{ count(); setyylval(0); return CONSTANT; }
 
-'(\\.|[^\\'\n])+'			{ count(); return STRING_LITERAL; }
-\"(\\.|[^\\"])*\"			{ count(); return TEMPLATE_LITERAL; }
-"/"{RF}{R}*"/"{F}			{ count(); return REGEXP_LITERAL; }
+'(\\.|[^\\'\n])+'			{ count(); setyylval(1); return STRING_LITERAL; }
+\"(\\.|[^\\"])*\"			{ count(); setyylval(1); return TEMPLATE_LITERAL; }
+"/"{RF}{R}*"/"{F}			{ count(); setyylval(1); return REGEXP_LITERAL; }
 
 "=>"						{ count(); return ARROW_FUNC; }
 "<="						{ count(); return REV_ARROW; }
 ">="						{ count(); return BIND_OP; }
 "::"						{ count(); return TYPE_DEC; }
-".."						{ count(); return DOUB_DOT; }
+".."						{ count(); return MINI_ELLIPSIS; }
 "..."						{ count(); return ELLIPSIS; }
 ">>="						{ count(); return RIGHT_ASSIGN; }
 "<<="						{ count(); return LEFT_ASSIGN; }
@@ -86,7 +89,6 @@ int last_tab_level = 0;
 "<<"						{ count(); return LEFT_OP; }
 "++"						{ count(); return INC_OP; }
 "--"						{ count(); return DEC_OP; }
-"->"						{ count(); return PTR_OP; }
 "&&"						{ count(); return AND_OP; }
 "||"						{ count(); return OR_OP; }
 "=="						{ count(); return EQ_OP; }
@@ -100,8 +102,8 @@ int last_tab_level = 0;
 "="							{ count(); return '='; }
 "("							{ count(); return '('; }
 ")"							{ count(); return ')'; }
-("["|"<:")					{ count(); return '['; }
-("]"|":>")					{ count(); return ']'; }
+"["							{ count(); return '['; }
+"]"							{ count(); return ']'; }
 "."							{ count(); return '.'; }
 "&"							{ count(); return '&'; }
 "!"							{ count(); return '!'; }
@@ -172,6 +174,16 @@ void count_tabs() {
 	unput(',');
 
 	last_tab_level = this_tab_level;
+}
+
+
+void setyylval(int trim){
+	if (trim){
+		int len = strlen(yytext);
+		memmove(yytext, yytext+1, len-2);
+		yytext[len-2] = 0;
+	}
+	yylval.str = strdup(yytext);
 }
 
 
