@@ -1,12 +1,5 @@
-D			[0-9]
-L			[a-zA-Z_$]
-E			([eE][+-]|[eE])
-R			(\\.|[^\\/\n])
-RF			(\\.|[^*\\/\n])
-F			[igmuy]{0,5}
-
-
 %{
+
 #include <stdio.h>
 #include "y.tab.h"
 
@@ -17,9 +10,20 @@ int check_type();
 
 void setyylval();
 
+void end_file();
 void count_tabs();
 int last_tab_level = 0;
+
 %}
+
+D			[0-9]
+L			[a-zA-Z_$]
+E			([eE][+-]|[eE])
+R			(\\.|[^\\/\n])
+RF			(\\.|[^*\\/\n])
+F			[igmuy]{0,5}
+
+%s READYEND
 
 %%
 "/*"						{ comment(); }
@@ -27,6 +31,9 @@ int last_tab_level = 0;
 "\t"						{ count(); return '\t'; }
 "\b"						{ count(); return '\b'; }
 "HeLX".*					{ count(); return HLX; }
+
+<INITIAL><<EOF>>			{ end_file(); BEGIN(READYEND); }
+<READYEND><<EOF>>			{ return 0; }
 
 "break"						{ count(); return BREAK; }
 "case"						{ count(); return CASE; }
@@ -52,16 +59,16 @@ int last_tab_level = 0;
 "typeof"					{ count(); return TYPEOF; }
 "while"						{ count(); return WHILE; }
 
-"undefined"					{ count(); setyylval(0); return CONSTANT; }
-"null"						{ count(); setyylval(0); return CONSTANT; }
-"true"						{ count(); setyylval(0); return CONSTANT; }
-"false"						{ count(); setyylval(0); return CONSTANT; }
+"null"						{ count(); setyylval(0); return NUL; }
+"undefined"					{ count(); setyylval(0); return UND; }
+"true"						{ count(); setyylval(0); return BOOL; }
+"false"						{ count(); setyylval(0); return BOOL; }
 
 {L}({L}|{D})*				{ count(); setyylval(0); return IDENTIFIER; }
 
-[0-9]+						{ count(); setyylval(0); return CONSTANT; }
-0[xXbBoO][0-9A-Fa-f]+		{ count(); setyylval(0); return CONSTANT; }
-{D}+"."?{D}*{E}?{D}+		{ count(); setyylval(0); return CONSTANT; }
+[0-9]+						{ count(); setyylval(0); return NUMBER; }
+0[xXbBoO][0-9A-Fa-f]+		{ count(); setyylval(0); return NUMBER; }
+{D}+"."?{D}*{E}?{D}+		{ count(); setyylval(0); return NUMBER; }
 
 '(\\.|[^\\'\n])+'			{ count(); setyylval(1); return STRING_LITERAL; }
 \"(\\.|[^\\"])*\"			{ count(); setyylval(1); return TEMPLATE_LITERAL; }
@@ -70,8 +77,8 @@ int last_tab_level = 0;
 "=>"						{ count(); return ARROW_FUNC; }
 "<="						{ count(); return REV_ARROW; }
 ">="						{ count(); return BIND_OP; }
-"::"						{ count(); return TYPE_DEC; }
-".."						{ count(); return MINI_ELLIPSIS; }
+"::"						{ count(); return ASSERT; }
+".."						{ count(); return TREMA; }
 "..."						{ count(); return ELLIPSIS; }
 ">>="						{ count(); return RIGHT_ASSIGN; }
 "<<="						{ count(); return LEFT_ASSIGN; }
@@ -100,8 +107,10 @@ int last_tab_level = 0;
 ","							{ count(); return ','; }
 ":"							{ count(); return ':'; }
 "="							{ count(); return '='; }
+" ("						{ count(); return F_PAREN; }
 "("							{ count(); return '('; }
 ")"							{ count(); return ')'; }
+" ["						{ count(); return F_BRACKET; }
 "["							{ count(); return '['; }
 "]"							{ count(); return ']'; }
 "."							{ count(); return '.'; }
@@ -184,6 +193,15 @@ void setyylval(int trim){
 		yytext[len-2] = 0;
 	}
 	yylval.str = strdup(yytext);
+}
+
+
+void end_file() {
+	unput(',');
+	for ( ; last_tab_level > 0; last_tab_level-- ){
+		unput('\b');
+	}
+	unput(',');
 }
 
 

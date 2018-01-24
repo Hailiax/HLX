@@ -1,7 +1,12 @@
 HeLX Spec A 'https://hexl.hailiax.io/specs/0'
 
-pythag = ( a b ) =>
-	result: { a^2 + b^2 } ^0.5
+Point = ( xx yy ) =>
+	x: xx
+	y: yy
+	hypot = ( n m ) => { n^2 + m^2 } ^ 0.5
+	distance: ( ) => hypot( x y )
 
-test = new pythag( 3 4 )
-console.log( test.result )
+pt = new Point( 3 4 )
+console.log( pt.x )
+console.log( pt.y )
+console.log( pt.distance() )
