@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HeLX Editor</title>
+<script>
+
+var ide, input, output = "";
+var index = 0;
+
+var Module = {
+	print: function(text) {
+		output += text + '<br>';
+		ide.postMessage(output,'*');
+	},
+	printErr: function(text) { console.error(text) },
+	noInitialRun: true,
+	preRun: function() {
+	    function stdin() {
+	     	if (index < input.length){
+	     		return input.charCodeAt(index++);
+	     	}
+	     	return null;
+	    }
+	    FS.init(stdin);
+	},
+};
+
+window.addEventListener("message", function(evt){
+	ide = evt.source;
+	input = evt.data;
+	ccall('main');
+}, false);
+
+</script>
+<script src="compiler.asm.js"></script>
+</head>
+<body>
+</body>
+</html>
