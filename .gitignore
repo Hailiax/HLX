@@ -1,5 +1,7 @@
-# Mac files
+# Local files
 *.DS_Store
+_notes
+*/_notes
 
 # Prerequisites
 *.d
