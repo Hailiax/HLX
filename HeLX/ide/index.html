@@ -23,32 +23,34 @@
 	
 <script> window.onload = function(){
 
-compile = function(){
-	compiler = document.createElement('iframe');
-	compiler.src = 'compiler.html';
-	compiler.style.display = 'none';
-	document.body.appendChild(compiler);
-	compiler.onload = function(){
-		compiler.contentWindow.postMessage(editor.getValue(),'*');
+	compile = function(){
+		compiler = document.createElement('iframe');
+		compiler.src = 'compiler.html';
+		compiler.style.display = 'none';
+		document.body.appendChild(compiler);
+		compiler.onload = function(){
+			compiler.contentWindow.postMessage(editor.getValue(),'*');
+		};
 	};
-};
 
-window.addEventListener("message", function( output ){ try{
-	document.getElementsByClassName('cli')[0].value = output.data;
+	window.addEventListener("message", function( output ){ try{
+		document.getElementsByClassName('cli')[0].value = output.data;
 
-	var e = new Event("keydown");
-	e.keyCode = 13;
-	e.which = e.keyCode;
-	document.getElementsByClassName('cli')[0].dispatchEvent(e);
+		var e = new Event("keydown");
+		e.keyCode = 13;
+		e.which = e.keyCode;
+		document.getElementsByClassName('cli')[0].dispatchEvent(e);
 
-	console.log( document.getElementsByClassName('cli')[0].value );
-	document.body.removeChild(compiler);
-}catch(e){} }, false);
+		console.log( document.getElementsByClassName('cli')[0].value );
+		document.body.removeChild(compiler);
+	}catch(e){} }, false);
 
-editor = ace.edit("editor");
-editor.setTheme("ace/theme/clouds");
-editor.setOption("showPrintMargin", false);
-editor.session.setMode("ace/mode/javascript");
+	editor = ace.edit("editor");
+	editor.setTheme("ace/theme/clouds");
+	editor.setOption("showPrintMargin", false);
+	editor.session.setMode("ace/mode/javascript");
+		
+	editor.setValue("HeLX Spec A 'https://hexl.hailiax.io/specs/0'\n\n",1);
 
 } </script>
 <style>
