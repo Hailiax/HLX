@@ -10,7 +10,7 @@ var index = 0;
 
 var Module = {
 	print: function(text) {
-		output += text + '<br>';
+		output += text + '\n';
 		ide.postMessage(output,'*');
 	},
 	printErr: function(text) { console.error(text) },

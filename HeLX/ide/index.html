@@ -2,41 +2,105 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>HeLX Editor</title>
+
+<script src="./jsconsole/polyfill.min.js"></script>
+<link href="./jsconsole/ace.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js"></script>
+
 <script> window.onload = function(){
 
-test = `HeLX Spec A 'https://hexl.hailiax.io/specs/0'
-
-Point = ( xx yy ) =>
-	x: xx
-	y: yy
-	hypot = ( n m ) => { n^2 + m^2 } ^ 0.5
-	distance: ( ) => hypot( x y )
-
-pt = new Point( 3 4 )
-console.log( pt.x )
-console.log( pt.y )
-console.log( pt.distance() )`;
-
-compile = function( input ){
+compile = function(){
 	compiler = document.createElement('iframe');
 	compiler.src = 'compiler.html';
 	compiler.style.display = 'none';
 	document.body.appendChild(compiler);
 	compiler.onload = function(){
-		compiler.contentWindow.postMessage(input,'*');		
+		compiler.contentWindow.postMessage(editor.getValue(),'*');
 	};
 };
 
 window.addEventListener("message", function( output ){ try{
-	document.getElementById('out').innerHTML = output.data;
+	document.getElementsByClassName('cli')[0].value = output.data;
+
+	var e = new Event("keydown");
+	e.keyCode = 13;
+	e.which = e.keyCode;
+	document.getElementsByClassName('cli')[0].dispatchEvent(e);
+
+	console.log( document.getElementsByClassName('cli')[0].value );
 	document.body.removeChild(compiler);
 }catch(e){} }, false);
 
-} </script>
-</head>
+editor = ace.edit("editor");
+editor.setTheme("ace/theme/clouds");
+editor.setOption("showPrintMargin", false);
+editor.session.setMode("ace/mode/javascript");
 
+} </script>
+<style>
+
+#editor{
+	position: fixed;
+	top: 0; left: 0;
+	height: 100%;
+	width: 50%;
+}
+#root{
+	position: fixed;
+	top: 0; left: 50%;
+	height: 100%;
+	width: 50%;
+}
+#button-compile{
+	position: fixed;
+	height: 50px;
+	width: 50px;
+	background-color: #FFF;
+	font-size: 20px;
+	padding: 5px;
+	top: 50%;
+	left: 50%;
+	margin-top: -25px;
+	margin-left: -25px;
+	cursor: pointer;
+	box-shadow: 0 0 5px 2px rgba(0,0,0,0.3);
+}
+
+.ace_gutter{
+	background: transparent !important;
+}
+.ace_active-line, .ace_gutter-active-line{
+	background: #FAFAFA !important;
+}
+.LineNav{
+	display: none !important;
+}
+.prompt.input{
+	display: none !important;
+}
+.prompt.output{
+	border-bottom: 1px solid #eee;
+}
+.Line:first-child{
+	display: none !important;
+}
+.Line{
+	border-bottom: none;
+}
+
+</style>
+</head>
 <body>
-	<pre id="out"></pre>
+	
+<img id="button-compile" src="./jsconsole/icon.png" onclick="compile()" style="z-index:9999999;">
+<div style="position: fixed; height: 100%; width: 1px; background-color: #CCC; left: 50%; z-index: 9999998;"></div>	
+
+<div id="editor"></div>
+<div id="root"></div>
+
+<script type="text/javascript" src="./jsconsole/main.js"></script>
 </body>
 </html>
