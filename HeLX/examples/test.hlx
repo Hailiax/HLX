@@ -1,4 +1,4 @@
-HeLX Spec A 'https://hexl.hailiax.io/specs/0'
+HeLX Spec A 'Main'
 
 Point = ( xx yy ) =>
 	x: xx
