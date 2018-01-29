@@ -1,6 +1,7 @@
 %{
 
 #include <stdio.h>
+#include "dependencies/js_vars.h"
 #include "y.tab.h"
 
 void count();
@@ -59,10 +60,12 @@ F			[igmuy]{0,5}
 "typeof"					{ count(); return TYPEOF; }
 "while"						{ count(); return WHILE; }
 
-"null"						{ count(); setyylval(0); return NUL; }
-"undefined"					{ count(); setyylval(0); return UND; }
-"true"						{ count(); setyylval(0); return BOOL; }
-"false"						{ count(); setyylval(0); return BOOL; }
+0[nN]						{ count(); return NUL; }
+0[uU]						{ count(); return UNDEFINED; }
+0[tT]						{ count(); return TRU; }
+0[fF]						{ count(); return FALS; }
+0[iI]						{ count(); return INFINITY; }
+0[vV]						{ count(); return NOTNUMBER; }
 
 {L}({L}|{D})*				{ count(); setyylval(0); return IDENTIFIER; }
 
@@ -74,9 +77,14 @@ F			[igmuy]{0,5}
 \"(\\.|[^\\"])*\"			{ count(); setyylval(1); return TEMPLATE_LITERAL; }
 "/"{RF}{R}*"/"{F}			{ count(); setyylval(1); return REGEXP_LITERAL; }
 
-"=>"						{ count(); return ARROW_FUNC; }
-"<="						{ count(); return REV_ARROW; }
-">="						{ count(); return BIND_OP; }
+"=>"						{ count(); return BIND_ARW; }
+"+>"						{ count(); return EXTEND_ARW; }
+"#>"						{ count(); return ASYNC_ARW; }
+"*>"						{ count(); return GEN_ARW; }
+"->"						{ count(); return DRFT_ARW; }
+"~>"						{ count(); return DRFT_ARW; }
+":>"						{ count(); return DRFT_ARW; }
+"<="						{ count(); return REV_ARW; }
 "::"						{ count(); return ASSERT; }
 ".."						{ count(); return TREMA; }
 "..."						{ count(); return ELLIPSIS; }
@@ -91,6 +99,7 @@ F			[igmuy]{0,5}
 "^="						{ count(); return EXP_ASSIGN; }
 "^^="						{ count(); return XOR_ASSIGN; }
 "|="						{ count(); return OR_ASSIGN; }
+"?="						{ count(); return TERN_ASSIGN; }
 "!!="						{ count(); return NOT_ASSIGN; }
 ">>"						{ count(); return RIGHT_OP; }
 "<<"						{ count(); return LEFT_OP; }
@@ -130,6 +139,7 @@ F			[igmuy]{0,5}
 "|"							{ count(); return '|'; }
 "?"							{ count(); return '?'; }
 "@"							{ count(); return '@'; }
+"@@"						{ count(); return PTRPTR; }
 "#"							{ count(); return '#'; }
 
 [ \v\f]						{ count(); }
@@ -175,8 +185,10 @@ void count_tabs() {
 	unput(c);
 
 	delta = this_tab_level - last_tab_level;
-	while (delta++ < 0)
+	while (delta++ < 0){
+		unput(',');
 		unput('\b');
+	}
 	while (--delta > 0)
 		unput('\t');
 
@@ -192,7 +204,7 @@ void setyylval(int trim){
 		memmove(yytext, yytext+1, len-2);
 		yytext[len-2] = 0;
 	}
-	yylval.str = strdup(yytext);
+	yylval.data.s = strdup(yytext);
 }
 
 

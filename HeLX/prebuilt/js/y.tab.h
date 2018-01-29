@@ -41,141 +41,162 @@
    enum yytokentype {
      IDENTIFIER = 258,
      NUMBER = 259,
-     BOOL = 260,
-     NUL = 261,
-     UND = 262,
-     STRING_LITERAL = 263,
-     TEMPLATE_LITERAL = 264,
-     REGEXP_LITERAL = 265,
-     INC_OP = 266,
-     DEC_OP = 267,
-     LEFT_OP = 268,
-     RIGHT_OP = 269,
-     EQ_OP = 270,
-     NE_OP = 271,
-     NOT_OP = 272,
-     XOR_OP = 273,
-     AND_OP = 274,
-     OR_OP = 275,
-     MUL_ASSIGN = 276,
-     DIV_ASSIGN = 277,
-     MOD_ASSIGN = 278,
-     ADD_ASSIGN = 279,
-     NOT_ASSIGN = 280,
-     EXP_ASSIGN = 281,
-     SUB_ASSIGN = 282,
-     LEFT_ASSIGN = 283,
-     RIGHT_ASSIGN = 284,
-     AND_ASSIGN = 285,
-     XOR_ASSIGN = 286,
-     OR_ASSIGN = 287,
-     CASE = 288,
-     DEFAULT = 289,
-     IF = 290,
-     ELSE = 291,
-     SWITCH = 292,
-     WHILE = 293,
-     DO = 294,
-     FOR = 295,
-     CONTINUE = 296,
-     BREAK = 297,
-     RETURN = 298,
-     TRY = 299,
-     CATCH = 300,
-     FINALLY = 301,
-     THROW = 302,
-     DEBUGGER = 303,
-     DELETE = 304,
-     IMPORT = 305,
-     IN = 306,
-     OF = 307,
-     INSTANCEOF = 308,
-     NEW = 309,
-     TYPEOF = 310,
-     ELLIPSIS = 311,
-     TREMA = 312,
-     ARROW_FUNC = 313,
-     REV_ARROW = 314,
-     BIND_OP = 315,
-     ASSERT = 316,
-     HLX = 317,
-     F_BRACKET = 318,
-     F_PAREN = 319
+     STRING_LITERAL = 260,
+     TEMPLATE_LITERAL = 261,
+     REGEXP_LITERAL = 262,
+     NUL = 263,
+     UNDEFINED = 264,
+     TRU = 265,
+     FALS = 266,
+     INFINITY = 267,
+     NOTNUMBER = 268,
+     INC_OP = 269,
+     DEC_OP = 270,
+     LEFT_OP = 271,
+     RIGHT_OP = 272,
+     EQ_OP = 273,
+     NE_OP = 274,
+     NOT_OP = 275,
+     XOR_OP = 276,
+     AND_OP = 277,
+     OR_OP = 278,
+     MUL_ASSIGN = 279,
+     DIV_ASSIGN = 280,
+     MOD_ASSIGN = 281,
+     ADD_ASSIGN = 282,
+     NOT_ASSIGN = 283,
+     EXP_ASSIGN = 284,
+     TERN_ASSIGN = 285,
+     SUB_ASSIGN = 286,
+     LEFT_ASSIGN = 287,
+     RIGHT_ASSIGN = 288,
+     AND_ASSIGN = 289,
+     XOR_ASSIGN = 290,
+     OR_ASSIGN = 291,
+     CASE = 292,
+     DEFAULT = 293,
+     IF = 294,
+     ELSE = 295,
+     SWITCH = 296,
+     WHILE = 297,
+     DO = 298,
+     FOR = 299,
+     CONTINUE = 300,
+     BREAK = 301,
+     RETURN = 302,
+     TRY = 303,
+     CATCH = 304,
+     FINALLY = 305,
+     THROW = 306,
+     DEBUGGER = 307,
+     DELETE = 308,
+     IMPORT = 309,
+     IN = 310,
+     OF = 311,
+     INSTANCEOF = 312,
+     NEW = 313,
+     TYPEOF = 314,
+     ELLIPSIS = 315,
+     TREMA = 316,
+     ASSERT = 317,
+     HLX = 318,
+     F_BRACKET = 319,
+     F_PAREN = 320,
+     PTRPTR = 321,
+     BIND_ARW = 322,
+     EXTEND_ARW = 323,
+     ASYNC_ARW = 324,
+     GEN_ARW = 325,
+     REV_ARW = 326,
+     DRFT_ARW = 327
    };
 #endif
 /* Tokens.  */
 #define IDENTIFIER 258
 #define NUMBER 259
-#define BOOL 260
-#define NUL 261
-#define UND 262
-#define STRING_LITERAL 263
-#define TEMPLATE_LITERAL 264
-#define REGEXP_LITERAL 265
-#define INC_OP 266
-#define DEC_OP 267
-#define LEFT_OP 268
-#define RIGHT_OP 269
-#define EQ_OP 270
-#define NE_OP 271
-#define NOT_OP 272
-#define XOR_OP 273
-#define AND_OP 274
-#define OR_OP 275
-#define MUL_ASSIGN 276
-#define DIV_ASSIGN 277
-#define MOD_ASSIGN 278
-#define ADD_ASSIGN 279
-#define NOT_ASSIGN 280
-#define EXP_ASSIGN 281
-#define SUB_ASSIGN 282
-#define LEFT_ASSIGN 283
-#define RIGHT_ASSIGN 284
-#define AND_ASSIGN 285
-#define XOR_ASSIGN 286
-#define OR_ASSIGN 287
-#define CASE 288
-#define DEFAULT 289
-#define IF 290
-#define ELSE 291
-#define SWITCH 292
-#define WHILE 293
-#define DO 294
-#define FOR 295
-#define CONTINUE 296
-#define BREAK 297
-#define RETURN 298
-#define TRY 299
-#define CATCH 300
-#define FINALLY 301
-#define THROW 302
-#define DEBUGGER 303
-#define DELETE 304
-#define IMPORT 305
-#define IN 306
-#define OF 307
-#define INSTANCEOF 308
-#define NEW 309
-#define TYPEOF 310
-#define ELLIPSIS 311
-#define TREMA 312
-#define ARROW_FUNC 313
-#define REV_ARROW 314
-#define BIND_OP 315
-#define ASSERT 316
-#define HLX 317
-#define F_BRACKET 318
-#define F_PAREN 319
+#define STRING_LITERAL 260
+#define TEMPLATE_LITERAL 261
+#define REGEXP_LITERAL 262
+#define NUL 263
+#define UNDEFINED 264
+#define TRU 265
+#define FALS 266
+#define INFINITY 267
+#define NOTNUMBER 268
+#define INC_OP 269
+#define DEC_OP 270
+#define LEFT_OP 271
+#define RIGHT_OP 272
+#define EQ_OP 273
+#define NE_OP 274
+#define NOT_OP 275
+#define XOR_OP 276
+#define AND_OP 277
+#define OR_OP 278
+#define MUL_ASSIGN 279
+#define DIV_ASSIGN 280
+#define MOD_ASSIGN 281
+#define ADD_ASSIGN 282
+#define NOT_ASSIGN 283
+#define EXP_ASSIGN 284
+#define TERN_ASSIGN 285
+#define SUB_ASSIGN 286
+#define LEFT_ASSIGN 287
+#define RIGHT_ASSIGN 288
+#define AND_ASSIGN 289
+#define XOR_ASSIGN 290
+#define OR_ASSIGN 291
+#define CASE 292
+#define DEFAULT 293
+#define IF 294
+#define ELSE 295
+#define SWITCH 296
+#define WHILE 297
+#define DO 298
+#define FOR 299
+#define CONTINUE 300
+#define BREAK 301
+#define RETURN 302
+#define TRY 303
+#define CATCH 304
+#define FINALLY 305
+#define THROW 306
+#define DEBUGGER 307
+#define DELETE 308
+#define IMPORT 309
+#define IN 310
+#define OF 311
+#define INSTANCEOF 312
+#define NEW 313
+#define TYPEOF 314
+#define ELLIPSIS 315
+#define TREMA 316
+#define ASSERT 317
+#define HLX 318
+#define F_BRACKET 319
+#define F_PAREN 320
+#define PTRPTR 321
+#define BIND_ARW 322
+#define EXTEND_ARW 323
+#define ASYNC_ARW 324
+#define GEN_ARW 325
+#define REV_ARW 326
+#define DRFT_ARW 327
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 27 "toJS.y"
-{char *str;}
+#line 18 "js.y"
+{
+	struct {
+		char* s;
+		llnode* v;
+	} data;
+}
 /* Line 1529 of yacc.c.  */
-#line 179 "y.tab.h"
+#line 200 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
