@@ -6,10 +6,21 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>HeLX Editor</title>
 
-<script src="./jsconsole/polyfill.min.js"></script>
-<link href="./jsconsole/ace.css" rel="stylesheet">
+<script src="jsconsole/polyfill.min.js"></script>
+<link href="jsconsole/ace.css" rel="stylesheet">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js"></script>
 
+<script>
+	var targ = 'HeLX';
+	var loc = window.location.href.split('/');
+	if (loc[loc.length-2] !== targ){
+		if (loc[loc.length-1].substring(0,6) === targ){
+			loc[loc.length-1] = targ+'/' + loc[loc.length-1].slice(6);
+			window.location = loc.join('/');
+		}
+	}
+</script>
+	
 <script> window.onload = function(){
 
 compile = function(){
@@ -90,17 +101,20 @@ editor.session.setMode("ace/mode/javascript");
 .Line{
 	border-bottom: none;
 }
+.Input{
+	display: none !important;
+}
 
 </style>
 </head>
 <body>
 	
-<img id="button-compile" src="./jsconsole/icon.png" onclick="compile()" style="z-index:9999999;">
+<img id="button-compile" alt="Compile And Run" src="jsconsole/icon.png" onclick="compile()" style="z-index:9999999;">
 <div style="position: fixed; height: 100%; width: 1px; background-color: #CCC; left: 50%; z-index: 9999998;"></div>	
 
 <div id="editor"></div>
 <div id="root"></div>
 
-<script type="text/javascript" src="./jsconsole/main.js"></script>
+<script type="text/javascript" src="jsconsole/main.js"></script>
 </body>
 </html>
