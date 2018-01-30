@@ -88,6 +88,7 @@
 	editor.setOption("showPrintMargin", false);
 	editor.session.setMode("ace/mode/javascript");
 	editor.setValue("HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears. Click divider to change theme. Replace untitled with the title of your document.\n\n",1);
+	editor.renderer.setScrollMargin(5, 5);
 	editor.commands.addCommand({
 		name: "Save",
 		exec: Download,
@@ -169,6 +170,7 @@
 		top: 0; left: 50%;
 		height: 100%;
 		width: 50%;
+		overflow-y: auto;
 	}
 	#tall #root{
 		height: 50%;
