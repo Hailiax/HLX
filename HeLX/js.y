@@ -291,6 +291,8 @@ void yyerror(char *s){
 
 int main(){
 	new_HLX();
-	printf("%s\n",HLXHeader);
-	return yyparse();
+	printf("%s\n",);
+	yyparse();
+	printf("");
+	return 0;
 }
