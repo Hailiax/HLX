@@ -3,10 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "dependencies/hashmap.h"
-#include "dependencies/js_genrange.h"
-#include "dependencies/js_vars.h"
-#include "dependencies/js_common.h"
+#include "includes/hashmap.h"
+#include "includes/js_genrange.h"
+#include "includes/js_vars.h"
+#include "includes/js_common.h"
 
 void yyerror (char *s);
 int yylex();
@@ -22,18 +22,18 @@ void new_HLX();
 	} data;
 }
 %token <data> IDENTIFIER NUMBER STRING_LITERAL TEMPLATE_LITERAL REGEXP_LITERAL
-%token NUL UNDEFINED TRU FALS INFINITY NOTNUMBER
+%token NUL UNDEFINED TRU FALS INFINITY NOTNUMBER EPSILON
 
-%token INC_OP DEC_OP LEFT_OP RIGHT_OP EQ_OP NE_OP NOT_OP XOR_OP AND_OP OR_OP
-%token MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN NOT_ASSIGN EXP_ASSIGN TERN_ASSIGN
-%token SUB_ASSIGN LEFT_ASSIGN RIGHT_ASSIGN AND_ASSIGN XOR_ASSIGN OR_ASSIGN
+%token INC_OP DEC_OP LEFT_OP RIGHT_OP ZRIGHT_OP EQ_OP NE_OP NOT_OP XOR_OP AND_OP OR_OP
+%token MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN EXP_ASSIGN TERN_ASSIGN
+%token SUB_ASSIGN LEFT_ASSIGN RIGHT_ASSIGN ZRIGHT_ASSIGN AND_ASSIGN XOR_ASSIGN OR_ASSIGN
 
 %token CASE DEFAULT IF ELSE SWITCH WHILE DO FOR CONTINUE BREAK RETURN
 %token TRY CATCH FINALLY THROW DEBUGGER DELETE IMPORT IN OF INSTANCEOF NEW TYPEOF
 %token ELLIPSIS TREMA ASSERT HLX F_BRACKET F_PAREN PTRPTR
 %token BIND_ARW EXTEND_ARW ASYNC_ARW GEN_ARW REV_ARW DRFT_ARW
  
-%type <data> translation_unit declarator range function_literal primary_expression assignment_operator compound_statement statement_list statement expression_statement labeled_statement selection_statement iteration_statement jump_statement constant_expression logical_or_expression logical_and_expression inclusive_or_expression exclusive_or_expression and_expression equality_expression relational_expression shift_expression additive_expression multiplicative_expression prefix_expression postfix_expression expression identifier_list expression_list
+%type <data> translation_unit assignment_expression range function_literal primary_expression assignment_operator compound_statement statement_list statement expression_statement labeled_statement selection_statement iteration_statement jump_statement constant_expression logical_or_expression logical_and_expression inclusive_or_expression exclusive_or_expression and_expression equality_expression relational_expression shift_expression additive_expression multiplicative_expression prefix_expression postfix_expression expression identifier_list expression_list
 
 %start translation_unit
 
@@ -44,7 +44,7 @@ translation_unit
 	| translation_unit translation_unit								{;}
 	;
 
-/************* Todo: fix ranges, fix private variables using references, negative array index, assertions, # notation, ~ notation?, imports exports HLX acts as separate file DocsJS = import '../dep/docs.js', more elegant terneary exp, macros
+/************* Todo: fix ranges, fix private variables using references (maybe var access is useless), negative array index, assertions, # notation, ~ notation?, imports exports HLX acts as separate file DocsJS = import '../dep/docs.js', more elegant terneary exp, macros
 * Statements *
 *************/
 
@@ -104,10 +104,15 @@ jump_statement
 **************/
 
 expression
+	: assignment_expression											{;}
+	| expression '=' assignment_expression							{$$.s = cat(cat(cat(cat(var_declare($1.s,&$1.v,1),$1.s),"=HLX.extend(true,[],"),$3.s),")"); $$.v = llcat($1.v,$3.v);}
+	| expression ':' assignment_expression							{$$.s = cat(cat(cat(cat(var_declare($1.s,&$1.v,2),$1.s),"=HLX.extend(true,[],"),$3.s),")"); $$.v = llcat($1.v,$3.v);}
+	;
+
+assignment_expression
 	: constant_expression											{;}
-	| prefix_expression assignment_operator expression				{$$.s = cat(cat($1.s,$2.s),$3.s);}
-	| prefix_expression TERN_ASSIGN expression						{$$.s = cat(cat(cat(cat(cat(cat($1.s,"="),$1.s),"?"),$1.s),":"),$3.s);}
-	| declarator expression											{$$.s = cat($1.s,$2.s); $$.v = llcat($1.v,$2.v);}
+	| assignment_expression assignment_operator constant_expression	{$$.s = cat(cat(cat(cat($2.s,$1.s),","),$3.s),")");}
+	| assignment_expression TERN_ASSIGN constant_expression			{$$.s = cat(cat(cat(cat(cat(cat($1.s,"="),$1.s),"?"),$1.s),":"),$3.s);}
 	;
 
 constant_expression // Add third arg for stuff after expr
@@ -119,116 +124,114 @@ constant_expression // Add third arg for stuff after expr
 
 logical_or_expression
 	: logical_and_expression										{;}
-	| logical_or_expression OR_OP logical_and_expression			{$$.s = cat( cat($1.s,"||"), $3.s );}
+	| logical_or_expression OR_OP logical_and_expression			{$$.s = cat(cat(cat(cat("[",$1.s),"[0]||"),$3.s),"[0]]");}
 	;
 
 logical_and_expression
 	: inclusive_or_expression										{;}
-	| logical_and_expression AND_OP inclusive_or_expression			{$$.s = cat( cat($1.s,"&&"), $3.s );}
+	| logical_and_expression AND_OP inclusive_or_expression			{$$.s = cat(cat(cat(cat("[",$1.s),"[0]&&"),$3.s),"[0]]");}
 	;
 
 inclusive_or_expression
 	: exclusive_or_expression										{;}
-	| inclusive_or_expression '|' exclusive_or_expression			{$$.s = cat( cat($1.s,"|"), $3.s );}
+	| inclusive_or_expression '|' exclusive_or_expression			{$$.s = cat(cat(cat(cat("[",$1.s),"[0]|"),$3.s),"[0]]");}
 	;
 
 exclusive_or_expression
 	: and_expression												{;}
-	| exclusive_or_expression XOR_OP and_expression					{$$.s = cat( cat($1.s,"^"), $3.s );}
+	| exclusive_or_expression XOR_OP and_expression					{$$.s = cat(cat(cat(cat("[",$1.s),"[0]^"),$3.s),"[0]]");}
 	;
 
 and_expression
 	: equality_expression											{;}
-	| and_expression '&' equality_expression						{$$.s = cat( cat($1.s,"&"), $3.s );}
+	| and_expression '&' equality_expression						{$$.s = cat(cat(cat(cat("[",$1.s),"[0]&"),$3.s),"[0]]");}
 	;
 
 equality_expression
 	: relational_expression											{;}
-	| equality_expression EQ_OP relational_expression				{$$.s = cat( cat($1.s,"==="), $3.s );}
-	| equality_expression NE_OP relational_expression				{$$.s = cat( cat($1.s,"!=="), $3.s );}
+	| equality_expression EQ_OP relational_expression				{$$.s = cat(cat(cat(cat("[",$1.s),"[0]==="),$3.s),"[0]]");}
+	| equality_expression NE_OP relational_expression				{$$.s = cat(cat(cat(cat("[",$1.s),"[0]!=="),$3.s),"[0]]");}
 	;
 
 relational_expression
 	: shift_expression												{;}
-	| relational_expression '<' shift_expression					{$$.s = cat( cat($1.s,"<"), $3.s );}
-	| relational_expression '>' shift_expression					{$$.s = cat( cat($1.s,">"), $3.s );}
+	| relational_expression '<' shift_expression					{$$.s = cat(cat(cat(cat("[",$1.s),"[0]<"),$3.s),"[0]]");}
+	| relational_expression '>' shift_expression					{$$.s = cat(cat(cat(cat("[",$1.s),"[0]>"),$3.s),"[0]]");}
 	;
 
 shift_expression
 	: additive_expression											{;}
-	| shift_expression LEFT_OP additive_expression					{$$.s = cat( cat($1.s,"<<"), $3.s );}
-	| shift_expression RIGHT_OP additive_expression					{$$.s = cat( cat($1.s,">>"), $3.s );}
+	| shift_expression LEFT_OP additive_expression					{$$.s = cat(cat(cat(cat("[",$1.s),"[0]<<"),$3.s),"[0]]");}
+	| shift_expression RIGHT_OP additive_expression					{$$.s = cat(cat(cat(cat("[",$1.s),"[0]>>"),$3.s),"[0]]");}
+	| shift_expression ZRIGHT_OP additive_expression				{$$.s = cat(cat(cat(cat("[",$1.s),"[0]>>>"),$3.s),"[0]]");}
 	;
 
 additive_expression
 	: multiplicative_expression										{;}
-	| additive_expression '+' multiplicative_expression				{$$.s = cat( cat($1.s,"+"), $3.s );}
-	| additive_expression '-' multiplicative_expression				{$$.s = cat( cat($1.s,"-"), $3.s );}
+	| additive_expression '+' multiplicative_expression				{$$.s = cat(cat(cat(cat("[",$1.s),"[0]+"),$3.s),"[0]]");}
+	| additive_expression '-' multiplicative_expression				{$$.s = cat(cat(cat(cat("[",$1.s),"[0]-"),$3.s),"[0]]");}
 
 multiplicative_expression
 	: prefix_expression												{;}
-	| multiplicative_expression '*' prefix_expression				{$$.s = cat( cat($1.s,"*"), $3.s );}
-	| multiplicative_expression '/' prefix_expression				{$$.s = cat( cat($1.s,"/"), $3.s );}
-	| multiplicative_expression '^' prefix_expression				{$$.s = cat( cat($1.s,"**"), $3.s );}
-	| multiplicative_expression '%' prefix_expression				{$$.s = cat( cat($1.s,"%"), $3.s );}
+	| multiplicative_expression '*' prefix_expression				{$$.s = cat(cat(cat(cat("[",$1.s),"[0]*"),$3.s),"[0]]");}
+	| multiplicative_expression '/' prefix_expression				{$$.s = cat(cat(cat(cat("[",$1.s),"[0]/"),$3.s),"[0]]");}
+	| multiplicative_expression '^' prefix_expression				{$$.s = cat(cat(cat(cat("[",$1.s),"[0]**"),$3.s),"[0]]");}
+	| multiplicative_expression '%' prefix_expression				{$$.s = cat(cat(cat(cat("[",$1.s),"[0]%"),$3.s),"[0]]");}
 	;
 
 prefix_expression
 	: postfix_expression											{;}
-	| NEW prefix_expression											{$$.s = cat("new ",$2.s);}
-	| INC_OP prefix_expression										{$$.s = cat("++",$2.s);}
-	| DEC_OP prefix_expression										{$$.s = cat("--",$2.s);}
-	| '+' prefix_expression											{$$.s = cat("+",$2.s);}
-	| '-' prefix_expression											{$$.s = cat("-",$2.s);}
-	| '!' prefix_expression											{$$.s = cat("!",$2.s);}
-	| NOT_OP prefix_expression										{$$.s = cat("~",$2.s);}
+	| NEW prefix_expression											{$$.s = cat(cat("[new ",$2.s),"[0]]");}
+	| '+' prefix_expression											{$$.s = cat(cat("HLX.uplus(",$2.s),")");}
+	| '-' prefix_expression											{$$.s = cat(cat("HLX.uminus(",$2.s),")");}
+	| '!' prefix_expression											{$$.s = cat(cat("HLX.unot(",$2.s),")");}
+	| NOT_OP prefix_expression										{$$.s = cat(cat("HLX.ubnot(",$2.s),")");}
 	;
 
 postfix_expression
 	: primary_expression											{;}
-	| postfix_expression '[' expression ']'							{$$.s = cat(cat(cat($1.s,"["),$3.s),"]");}
-	| postfix_expression '(' ')'									{$$.s = cat($1.s,"()");}
-	| postfix_expression '(' expression_list ')'					{$$.s = cat(cat(cat($1.s,"("),$3.s),")");}
-	| postfix_expression '.' IDENTIFIER								{$$.s = cat(cat($1.s,"."),$3.s);}
-	| postfix_expression INC_OP										{$$.s = cat($1.s,"++");}
-	| postfix_expression DEC_OP										{$$.s = cat($1.s,"--");;}
+	| postfix_expression '[' expression ']'							{$$.s = cat(cat(cat($1.s,"[0]["),$3.s),"]");}
+	| postfix_expression '(' ')'									{$$.s = cat($1.s,"[0]()");}
+	| postfix_expression '(' expression_list ')'					{$$.s = cat(cat(cat($1.s,"[0]("),$3.s),")");}
+	| postfix_expression '.' IDENTIFIER								{$$.s = cat(cat($1.s,"[0]."),$3.s);}
+	| postfix_expression INC_OP										{$$.s = cat(cat("HLX.add(",$1.s),",[1])");}
+	| postfix_expression DEC_OP										{$$.s = cat(cat("HLX.sub(",$1.s),",[1])");}
 	;
 
 primary_expression
-	: IDENTIFIER													{$$.s = cat(var_access($1.s),$1.s);}
-	| NUMBER														{;}
-	| TRU															{$$.s = "true";}
-	| FALS															{$$.s = "false";}
-	| NUL															{$$.s = "null";}
-	| UNDEFINED														{$$.s = "undefined";}
-	| INFINITY														{$$.s = "Infinity";}
-	| NOTNUMBER														{$$.s = "NaN";}
-	| STRING_LITERAL												{$$.s = cat(cat("'",$1.s),"'");}
-	| TEMPLATE_LITERAL												{$$.s = cat(cat("`",$1.s),"`");}
-	| REGEXP_LITERAL												{$$.s = cat(cat("/",$1.s),"/");}
-	| function_literal												{;}
+	: IDENTIFIER													{;}
+	| NUMBER														{$$.s = cat(cat("[",$1.s),"]");}
+	| TRU															{$$.s = "[true]";}
+	| FALS															{$$.s = "[false]";}
+	| NUL															{$$.s = "[null]";}
+	| UNDEFINED														{$$.s = "[undefined]";}
+	| INFINITY														{$$.s = "[Infinity]";}
+	| EPSILON														{$$.s = "[Number.EPSILON]";}
+	| NOTNUMBER														{$$.s = "[NaN]";}
+	| STRING_LITERAL												{$$.s = cat(cat("['",$1.s),"']");}
+	| TEMPLATE_LITERAL												{$$.s = cat(cat("[`",$1.s),"`]");}
+	| REGEXP_LITERAL												{$$.s = cat(cat("[/",$1.s),"/]");}
+	| function_literal												{$$.s = cat(cat("[",$1.s),"]");}
 	| range															{;}
-	| '[' expression_list ']' 										{$$.s = cat(cat("[",$2.s),"]");}
-	| F_BRACKET expression_list ']' 								{$$.s = cat(cat("[",$2.s),"]");}
-	| '[' ']'														{$$.s = "[]";}
-	| F_BRACKET ']'													{$$.s = "[]";}
-	| '(' ')'														{$$.s = "function(){}";}
-	| F_PAREN ')'													{$$.s = "function(){}";}
+	| '[' expression_list ']' 										{$$.s = cat(cat("[[",$2.s),"]]");}
+	| F_BRACKET expression_list ']' 								{$$.s = cat(cat("[[",$2.s),"]]");}
+	| '[' ']'														{$$.s = "[[]]";}
+	| F_BRACKET ']'													{$$.s = "[[]]";}
+	| '(' ')'														{$$.s = "[function(){}]";}
+	| F_PAREN ')'													{$$.s = "[function(){}]";}
 	| '{' expression '}'											{$$.s = cat(cat("(",$2.s),")");}
 	| '{' range '}'													{$$.s = $2.s;}
 	;
 
 range
 	: NUMBER TREMA NUMBER											{$$.s = genrange_dc($1.s,$3.s);}
-	| NUMBER NUMBER													{$$.s = cat(cat($1.s,","),$2.s);}
+	| NUMBER NUMBER													{$$.s = cat(cat(cat("[",$1.s),"],"),cat(cat("[",$2.s),"]"));}
 	| NUMBER NUMBER TREMA NUMBER									{$$.s = genrange_da($1.s,$2.s,$4.s);}
-	| NUMBER NUMBER NUMBER											{$$.s = cat(cat(cat(cat($1.s,","),$2.s),","),$3.s);}
-	| NUMBER NUMBER NUMBER TREMA NUMBER								{$$.s = genrange_dg($1.s,$2.s,$3.s,$5.s);}
 	| STRING_LITERAL TREMA STRING_LITERAL							{$$.s = genrange_sc("'",$1.s,$3.s);}
-	| STRING_LITERAL STRING_LITERAL									{$$.s = cat(cat(cat(cat("'",$1.s),"'"),","),cat(cat("'",$2.s),"'"));}
+	| STRING_LITERAL STRING_LITERAL									{$$.s = cat(cat(cat(cat("['",$1.s),"']"),","),cat(cat("['",$2.s),"']"));}
 	| STRING_LITERAL STRING_LITERAL TREMA STRING_LITERAL			{$$.s = genrange_sa("'",$1.s,$2.s,$4.s);}
 	| TEMPLATE_LITERAL TREMA TEMPLATE_LITERAL						{$$.s = genrange_sc("`",$1.s,$3.s);}
-	| TEMPLATE_LITERAL TEMPLATE_LITERAL								{$$.s = cat(cat(cat(cat("`",$1.s),"`"),","),cat(cat("`",$2.s),"`"));}
+	| TEMPLATE_LITERAL TEMPLATE_LITERAL								{$$.s = cat(cat(cat(cat("[`",$1.s),"`]"),","),cat(cat("[`",$2.s),"`]"));}
 	| TEMPLATE_LITERAL TEMPLATE_LITERAL TREMA TEMPLATE_LITERAL		{$$.s = genrange_sa("`",$1.s,$2.s,$4.s);}
 	;
 
@@ -239,11 +242,6 @@ range
 expression_list
 	: expression													{;}
 	| expression_list expression									{$$.s = cat(cat($1.s,","),$2.s); $$.v = llcat($1.v,$2.v);}
-	;
-
-declarator
-	: postfix_expression '='										{$$.s = cat(cat(var_declare($1.s,&$$.v,1),$1.s),"=");}
-	| postfix_expression ':'										{$$.s = cat(cat(var_declare($1.s,&$$.v,2),$1.s),"=");}
 	;
 
 function_literal
@@ -263,19 +261,18 @@ identifier_list
 	;
 
 assignment_operator
-	: '='															{$$.s = "=";}
-	| EXP_ASSIGN													{$$.s = "**=";}
-	| MUL_ASSIGN													{$$.s = "*=";}
-	| DIV_ASSIGN													{$$.s = "/=";}
-	| MOD_ASSIGN													{$$.s = "%=";}
-	| ADD_ASSIGN													{$$.s = "+=";}
-	| SUB_ASSIGN													{$$.s = "-=";}
-	| LEFT_ASSIGN													{$$.s = "<<=";}
-	| RIGHT_ASSIGN													{$$.s = ">>=";}
-	| AND_ASSIGN													{$$.s = "&=";}
-	| XOR_ASSIGN													{$$.s = "^=";}
-	| OR_ASSIGN														{$$.s = "|=";}
-	| NOT_ASSIGN													{$$.s = "!=";}
+	: EXP_ASSIGN													{$$.s = "HLX.exp(";}
+	| MUL_ASSIGN													{$$.s = "HLX.mul(";}
+	| DIV_ASSIGN													{$$.s = "HLX.div(";}
+	| MOD_ASSIGN													{$$.s = "HLX.mod(";}
+	| ADD_ASSIGN													{$$.s = "HLX.add(";}
+	| SUB_ASSIGN													{$$.s = "HLX.sub(";}
+	| LEFT_ASSIGN													{$$.s = "HLX.lshft(";}
+	| RIGHT_ASSIGN													{$$.s = "HLX.rshft(";}
+	| ZRIGHT_ASSIGN													{$$.s = "HLX.zrshft(";}
+	| AND_ASSIGN													{$$.s = "HLX.band(";}
+	| XOR_ASSIGN													{$$.s = "HLX.bxor(";}
+	| OR_ASSIGN														{$$.s = "HLX.bor(";}
 	;
 
 %%
@@ -294,6 +291,6 @@ void yyerror(char *s){
 
 int main(){
 	new_HLX();
-	//printf("%s\n",HLXHeader);
+	printf("%s\n",HLXHeader);
 	return yyparse();
 }

@@ -50,65 +50,67 @@
      FALS = 266,
      INFINITY = 267,
      NOTNUMBER = 268,
-     INC_OP = 269,
-     DEC_OP = 270,
-     LEFT_OP = 271,
-     RIGHT_OP = 272,
-     EQ_OP = 273,
-     NE_OP = 274,
-     NOT_OP = 275,
-     XOR_OP = 276,
-     AND_OP = 277,
-     OR_OP = 278,
-     MUL_ASSIGN = 279,
-     DIV_ASSIGN = 280,
-     MOD_ASSIGN = 281,
-     ADD_ASSIGN = 282,
-     NOT_ASSIGN = 283,
-     EXP_ASSIGN = 284,
-     TERN_ASSIGN = 285,
-     SUB_ASSIGN = 286,
-     LEFT_ASSIGN = 287,
-     RIGHT_ASSIGN = 288,
-     AND_ASSIGN = 289,
-     XOR_ASSIGN = 290,
-     OR_ASSIGN = 291,
-     CASE = 292,
-     DEFAULT = 293,
-     IF = 294,
-     ELSE = 295,
-     SWITCH = 296,
-     WHILE = 297,
-     DO = 298,
-     FOR = 299,
-     CONTINUE = 300,
-     BREAK = 301,
-     RETURN = 302,
-     TRY = 303,
-     CATCH = 304,
-     FINALLY = 305,
-     THROW = 306,
-     DEBUGGER = 307,
-     DELETE = 308,
-     IMPORT = 309,
-     IN = 310,
-     OF = 311,
-     INSTANCEOF = 312,
-     NEW = 313,
-     TYPEOF = 314,
-     ELLIPSIS = 315,
-     TREMA = 316,
-     ASSERT = 317,
-     HLX = 318,
-     F_BRACKET = 319,
-     F_PAREN = 320,
-     PTRPTR = 321,
-     BIND_ARW = 322,
-     EXTEND_ARW = 323,
-     ASYNC_ARW = 324,
-     GEN_ARW = 325,
-     REV_ARW = 326,
-     DRFT_ARW = 327
+     EPSILON = 269,
+     INC_OP = 270,
+     DEC_OP = 271,
+     LEFT_OP = 272,
+     RIGHT_OP = 273,
+     ZRIGHT_OP = 274,
+     EQ_OP = 275,
+     NE_OP = 276,
+     NOT_OP = 277,
+     XOR_OP = 278,
+     AND_OP = 279,
+     OR_OP = 280,
+     MUL_ASSIGN = 281,
+     DIV_ASSIGN = 282,
+     MOD_ASSIGN = 283,
+     ADD_ASSIGN = 284,
+     EXP_ASSIGN = 285,
+     TERN_ASSIGN = 286,
+     SUB_ASSIGN = 287,
+     LEFT_ASSIGN = 288,
+     RIGHT_ASSIGN = 289,
+     ZRIGHT_ASSIGN = 290,
+     AND_ASSIGN = 291,
+     XOR_ASSIGN = 292,
+     OR_ASSIGN = 293,
+     CASE = 294,
+     DEFAULT = 295,
+     IF = 296,
+     ELSE = 297,
+     SWITCH = 298,
+     WHILE = 299,
+     DO = 300,
+     FOR = 301,
+     CONTINUE = 302,
+     BREAK = 303,
+     RETURN = 304,
+     TRY = 305,
+     CATCH = 306,
+     FINALLY = 307,
+     THROW = 308,
+     DEBUGGER = 309,
+     DELETE = 310,
+     IMPORT = 311,
+     IN = 312,
+     OF = 313,
+     INSTANCEOF = 314,
+     NEW = 315,
+     TYPEOF = 316,
+     ELLIPSIS = 317,
+     TREMA = 318,
+     ASSERT = 319,
+     HLX = 320,
+     F_BRACKET = 321,
+     F_PAREN = 322,
+     PTRPTR = 323,
+     BIND_ARW = 324,
+     EXTEND_ARW = 325,
+     ASYNC_ARW = 326,
+     GEN_ARW = 327,
+     REV_ARW = 328,
+     DRFT_ARW = 329
    };
 #endif
 /* Tokens.  */
@@ -123,65 +125,67 @@
 #define FALS 266
 #define INFINITY 267
 #define NOTNUMBER 268
-#define INC_OP 269
-#define DEC_OP 270
-#define LEFT_OP 271
-#define RIGHT_OP 272
-#define EQ_OP 273
-#define NE_OP 274
-#define NOT_OP 275
-#define XOR_OP 276
-#define AND_OP 277
-#define OR_OP 278
-#define MUL_ASSIGN 279
-#define DIV_ASSIGN 280
-#define MOD_ASSIGN 281
-#define ADD_ASSIGN 282
-#define NOT_ASSIGN 283
-#define EXP_ASSIGN 284
-#define TERN_ASSIGN 285
-#define SUB_ASSIGN 286
-#define LEFT_ASSIGN 287
-#define RIGHT_ASSIGN 288
-#define AND_ASSIGN 289
-#define XOR_ASSIGN 290
-#define OR_ASSIGN 291
-#define CASE 292
-#define DEFAULT 293
-#define IF 294
-#define ELSE 295
-#define SWITCH 296
-#define WHILE 297
-#define DO 298
-#define FOR 299
-#define CONTINUE 300
-#define BREAK 301
-#define RETURN 302
-#define TRY 303
-#define CATCH 304
-#define FINALLY 305
-#define THROW 306
-#define DEBUGGER 307
-#define DELETE 308
-#define IMPORT 309
-#define IN 310
-#define OF 311
-#define INSTANCEOF 312
-#define NEW 313
-#define TYPEOF 314
-#define ELLIPSIS 315
-#define TREMA 316
-#define ASSERT 317
-#define HLX 318
-#define F_BRACKET 319
-#define F_PAREN 320
-#define PTRPTR 321
-#define BIND_ARW 322
-#define EXTEND_ARW 323
-#define ASYNC_ARW 324
-#define GEN_ARW 325
-#define REV_ARW 326
-#define DRFT_ARW 327
+#define EPSILON 269
+#define INC_OP 270
+#define DEC_OP 271
+#define LEFT_OP 272
+#define RIGHT_OP 273
+#define ZRIGHT_OP 274
+#define EQ_OP 275
+#define NE_OP 276
+#define NOT_OP 277
+#define XOR_OP 278
+#define AND_OP 279
+#define OR_OP 280
+#define MUL_ASSIGN 281
+#define DIV_ASSIGN 282
+#define MOD_ASSIGN 283
+#define ADD_ASSIGN 284
+#define EXP_ASSIGN 285
+#define TERN_ASSIGN 286
+#define SUB_ASSIGN 287
+#define LEFT_ASSIGN 288
+#define RIGHT_ASSIGN 289
+#define ZRIGHT_ASSIGN 290
+#define AND_ASSIGN 291
+#define XOR_ASSIGN 292
+#define OR_ASSIGN 293
+#define CASE 294
+#define DEFAULT 295
+#define IF 296
+#define ELSE 297
+#define SWITCH 298
+#define WHILE 299
+#define DO 300
+#define FOR 301
+#define CONTINUE 302
+#define BREAK 303
+#define RETURN 304
+#define TRY 305
+#define CATCH 306
+#define FINALLY 307
+#define THROW 308
+#define DEBUGGER 309
+#define DELETE 310
+#define IMPORT 311
+#define IN 312
+#define OF 313
+#define INSTANCEOF 314
+#define NEW 315
+#define TYPEOF 316
+#define ELLIPSIS 317
+#define TREMA 318
+#define ASSERT 319
+#define HLX 320
+#define F_BRACKET 321
+#define F_PAREN 322
+#define PTRPTR 323
+#define BIND_ARW 324
+#define EXTEND_ARW 325
+#define ASYNC_ARW 326
+#define GEN_ARW 327
+#define REV_ARW 328
+#define DRFT_ARW 329
 
 
 
@@ -196,7 +200,7 @@ typedef union YYSTYPE
 	} data;
 }
 /* Line 1529 of yacc.c.  */
-#line 200 "y.tab.h"
+#line 204 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

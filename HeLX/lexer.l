@@ -1,7 +1,7 @@
 %{
 
 #include <stdio.h>
-#include "dependencies/js_vars.h"
+#include "includes/js_vars.h"
 #include "y.tab.h"
 
 void count();
@@ -65,6 +65,7 @@ F			[igmuy]{0,5}
 0[tT]						{ count(); return TRU; }
 0[fF]						{ count(); return FALS; }
 0[iI]						{ count(); return INFINITY; }
+0[lL]						{ count(); return EPSILON; }
 0[vV]						{ count(); return NOTNUMBER; }
 
 {L}({L}|{D})*				{ count(); setyylval(0); return IDENTIFIER; }
@@ -88,6 +89,7 @@ F			[igmuy]{0,5}
 "::"						{ count(); return ASSERT; }
 ".."						{ count(); return TREMA; }
 "..."						{ count(); return ELLIPSIS; }
+">>>="						{ count(); return ZRIGHT_ASSIGN; }
 ">>="						{ count(); return RIGHT_ASSIGN; }
 "<<="						{ count(); return LEFT_ASSIGN; }
 "+="						{ count(); return ADD_ASSIGN; }
@@ -100,7 +102,7 @@ F			[igmuy]{0,5}
 "^^="						{ count(); return XOR_ASSIGN; }
 "|="						{ count(); return OR_ASSIGN; }
 "?="						{ count(); return TERN_ASSIGN; }
-"!!="						{ count(); return NOT_ASSIGN; }
+">>>"						{ count(); return ZRIGHT_OP; }
 ">>"						{ count(); return RIGHT_OP; }
 "<<"						{ count(); return LEFT_OP; }
 "++"						{ count(); return INC_OP; }

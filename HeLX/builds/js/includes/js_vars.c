@@ -85,9 +85,8 @@ char* var_access(char *rawName){
 	int error = hashmap_get( varMap, varName, (void**)(&var) );
 
 	if ( error == MAP_OK )
-		if ( var->type == 2 )
-			return "this.";
-	return "";
+		return cat(rawName,"[0]");
+	return rawName;
 }
 
 char* var_declare(char *rawName, llnode **vars, char type){
