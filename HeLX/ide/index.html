@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HeLX Editor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<title>HeLX wIDE</title>
 
-<script src="jsconsole/polyfill.min.js"></script>
-<link href="jsconsole/ace.css" rel="stylesheet">
+<script src="includes/polyfill.min.js"></script>
+<link href="includes/ace.css" rel="stylesheet">
+<script type="text/javascript" src="includes/download.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js"></script>
 
 <script>
@@ -22,8 +23,16 @@
 </script>
 	
 <script> window.onload = function(){
+	
+	DownloadQueued = false;
+	Download = function(){
+		Name = editor.session.getLine(0).split("'")[1];
+		download(editor.getValue(), Name+".hlx", "text/plain");
+		DownloadQueued = true;
+		Compile();
+	}
 
-	compile = function(){
+	Compile = function(){
 		compiler = document.createElement('iframe');
 		compiler.src = 'compiler.html';
 		compiler.style.display = 'none';
@@ -31,17 +40,46 @@
 		compiler.onload = function(){
 			compiler.contentWindow.postMessage(editor.getValue(),'*');
 		};
+		if (document.body.id !== "tall"){ editor.focus(); }
 	};
-
-	window.addEventListener("message", function( output ){ try{
-		document.getElementsByClassName('cli')[0].value = output.data;
-
+		
+	Clear = function(){
+		document.getElementsByClassName('cli')[0].value = ':clear';
 		var e = new Event("keydown");
 		e.keyCode = 13;
 		e.which = e.keyCode;
 		document.getElementsByClassName('cli')[0].dispatchEvent(e);
+		editor.focus();
+	};
 
-		console.log( document.getElementsByClassName('cli')[0].value );
+	window.onresize = function(){
+		var w = window.innerWidth
+		|| document.documentElement.clientWidth
+		|| document.body.clientWidth;
+
+		var h = window.innerHeight
+		|| document.documentElement.clientHeight
+		|| document.body.clientHeight;
+		
+		if (w > h){
+			document.body.id = "";
+		} else{
+			document.body.id = "tall";
+		}
+	};
+	window.onresize();
+	
+	window.addEventListener("message", function( output ){ try{
+		if (DownloadQueued){
+			DownloadQueued = false;
+			download(output.data, Name+".js", "text/plain");
+		} else{
+			document.getElementsByClassName('cli')[0].value = output.data;
+			var e = new Event("keydown");
+			e.keyCode = 13;
+			e.which = e.keyCode;
+			document.getElementsByClassName('cli')[0].dispatchEvent(e);
+		}
 		document.body.removeChild(compiler);
 	}catch(e){} }, false);
 
@@ -49,74 +87,218 @@
 	editor.setTheme("ace/theme/clouds");
 	editor.setOption("showPrintMargin", false);
 	editor.session.setMode("ace/mode/javascript");
+	editor.setValue("HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears. Click divider to change theme. Replace untitled with the title of your document.\n\n",1);
+	editor.commands.addCommand({
+		name: "Save",
+		exec: Download,
+		bindKey: {mac: "cmd-s", win: "ctrl-s"}
+	});
+	editor.commands.addCommand({
+		name: "Build",
+		exec: Compile,
+		bindKey: {mac: "cmd-b", win: "ctrl-b"}
+	});
+	editor.commands.addCommand({
+		name: "Clear",
+		exec: Clear,
+		bindKey: {mac: "cmd-k", win: "ctrl-k"}
+	});
+	editor.commands.addCommand({
+		name: "sqd1",
+		exec: function(){editor.session.insert(editor.getCursorPosition(),'"');},
+		bindKey: {mac: "\u201C", win: "\u201C"}
+	});
+	editor.commands.addCommand({
+		name: "sqd2",
+		exec: function(){editor.session.insert(editor.getCursorPosition(),'"');},
+		bindKey: {mac: "\u201D", win: "\u201D"}
+	});
+	editor.commands.addCommand({
+		name: "sqs1",
+		exec: function(){editor.session.insert(editor.getCursorPosition(),"'");},
+		bindKey: {mac: "\u2018", win: "\u2018"}
+	});
+	editor.commands.addCommand({
+		name: "sqs2",
+		exec: function(){editor.session.insert(editor.getCursorPosition(),"'")},
+		bindKey: {mac: "\u2019", win: "\u2019"}
+	});
 		
-	editor.setValue("HeLX Spec A 'Main'\n\n",1);
+	Dark = true;
+	Theme = function(){
+		if (Dark){
+			editor.setTheme("ace/theme/clouds");
+			document.getElementsByClassName('cli')[0].value = ':theme light';
+			var e = new Event("keydown");
+			e.keyCode = 13;
+			e.which = e.keyCode;
+			document.getElementsByClassName('cli')[0].dispatchEvent(e);
+			document.body.className = "";
+			Dark = false;
+		} else{
+			editor.setTheme("ace/theme/clouds_midnight");
+			document.getElementsByClassName('cli')[0].value = ':theme dark';
+			var e = new Event("keydown");
+			e.keyCode = 13;
+			e.which = e.keyCode;
+			document.getElementsByClassName('cli')[0].dispatchEvent(e);
+			document.body.className = "dark";
+			Dark = true;
+		}
+		editor.focus();
+	};	
+	Theme();
+		
+	editor.focus();
 
 } </script>
 <style>
 
-#editor{
-	position: fixed;
-	top: 0; left: 0;
-	height: 100%;
-	width: 50%;
-}
-#root{
-	position: fixed;
-	top: 0; left: 50%;
-	height: 100%;
-	width: 50%;
-}
-#button-compile{
-	position: fixed;
-	height: 50px;
-	width: 50px;
-	background-color: #FFF;
-	font-size: 20px;
-	padding: 5px;
-	top: 50%;
-	left: 50%;
-	margin-top: -25px;
-	margin-left: -25px;
-	cursor: pointer;
-	box-shadow: 0 0 5px 2px rgba(0,0,0,0.3);
-}
+	#editor{
+		position: fixed;
+		top: 0; left: 0;
+		height: 100%;
+		width: 50%;
+	}
+	#tall #editor{
+		height: 50%;
+		width: 100%;
+	}
+	#root{
+		position: fixed;
+		top: 0; left: 50%;
+		height: 100%;
+		width: 50%;
+	}
+	#tall #root{
+		height: 50%;
+		width: 100%;
+		left: 0;
+		top: 50%;
+	}
+	#divider{
+		position: fixed;
+		height: 100%;
+		width: 40px;
+		left: 50%;
+		top: 0;
+		margin-top: 0;
+		margin-left: -20px;
+		z-index: 9999998;
+		cursor: pointer;
+	}
+	#tall #divider{
+		height: 40px;
+		width: 100%;
+		top: 50%;
+		left: 0;
+		margin-top: -20px;
+		margin-left: 0;
+	}
+	#divider .line{
+		position: absolute;
+		height: 100%;
+		width: 1px;
+		left: 50%;
+		margin-top: 0; 
+		margin-left: -0.5px; 
+		background-color: rgba(127,127,127,0.3);
+	}
+	#tall #divider .line{
+		height: 1px;
+		width: 100%;
+		top: 50%;
+		left: 0;
+		margin-top: -0.5px;
+		margin-left: 0;
+	}
+	.button{
+		position: fixed;
+		height: 40px;
+		width: 40px;
+		background-color: #FFF;
+		padding: 5px;
+		top: 50%;
+		left: 50%;
+		cursor: pointer;
+		box-shadow: 0 0 5px 1px rgba(0,0,0,0.2);
+		z-index:9999999;
+	}
+	.dark .button{
+		background-color: #313641;
+	}
+	#button-download{
+		margin-top: -80px;
+		margin-left: -20px;
+	}
+	#tall #button-download{
+		margin-left: -80px;
+		margin-top: -20px;
+	}
+	#button-compile{
+		margin-top: -20px;
+		margin-left: -20px;
+	}
+	#tall #button-compile{
+		margin-left: -20px;
+		margin-top: -20px;
+		transform: rotate(90deg);
+	}
+	#button-clear{
+		margin-top: 40px;
+		margin-left: -20px;
+	}
+	#tall #button-clear{
+		margin-left: 40px;
+		margin-top: -20px;
+	}
 
-.ace_gutter{
-	background: transparent !important;
-}
-.ace_active-line, .ace_gutter-active-line{
-	background: #FAFAFA !important;
-}
-.LineNav{
-	display: none !important;
-}
-.prompt.input{
-	display: none !important;
-}
-.prompt.output{
-	border-bottom: 1px solid #eee;
-}
-.Line:first-child{
-	display: none !important;
-}
-.Line{
-	border-bottom: none;
-}
-.Input{
-	display: none !important;
-}
+	.ace_gutter{
+		background: transparent !important;
+	}
+	.ace_gutter-active-line{
+		background: rgba(127,127,127,0.15) !important;
+	}
+	.ace_active-line{
+		background: transparent !important;
+	}
+	.LineNav{
+		display: none !important;
+	}
+	.prompt.input{
+		display: none !important;
+	}
+	.prompt.output{
+		border-bottom: 1px solid rgba(127,127,127,0.15);
+	}
+	.Line:first-child{
+		display: none !important;
+	}
+	.Line{
+		border-bottom: none !important;
+	}
+	.Input{
+		display: none !important;
+	}
+	.ace-clouds-midnight{
+		background-color: #282C34 !important;
+	}
+	.ace_selection{
+		background-color: rgba(127,127,127,0.2) !important;
+	}
 
 </style>
 </head>
 <body>
 	
-<img id="button-compile" alt="Compile And Run" src="jsconsole/icon.png" onclick="compile()" style="z-index:9999999;">
-<div style="position: fixed; height: 100%; width: 1px; background-color: #CCC; left: 50%; z-index: 9999998;"></div>	
+	<img class="button" id="button-download" alt="Download" src="includes/save.png" onclick="Download()">
+	<img class="button" id="button-compile" alt="Compile And Run" src="includes/run.png" onclick="Compile()">
+	<img class="button" id="button-clear" alt="Clear" src="includes/clear.png" onclick="Clear()">
+	<div id="divider" onClick="Theme()"><div class="line"></div></div>	
 
-<div id="editor"></div>
-<div id="root"></div>
+	<div id="editor"></div>
+	<div id="root"></div>
 
-<script type="text/javascript" src="jsconsole/main.js"></script>
+<script type="text/javascript" src="includes/main.js"></script>
 </body>
 </html>
