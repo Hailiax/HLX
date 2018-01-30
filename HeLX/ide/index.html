@@ -127,6 +127,11 @@
 	});
 		
 	Dark = true;
+	try {
+		if (localStorage.getItem('theme') === 'dark'){
+			Dark = false;
+		}
+	} catch(e){}
 	Theme = function(){
 		if (Dark){
 			editor.setTheme("ace/theme/clouds");
@@ -137,6 +142,7 @@
 			document.getElementsByClassName('cli')[0].dispatchEvent(e);
 			document.body.className = "";
 			Dark = false;
+			localStorage.setItem('theme','light');
 		} else{
 			editor.setTheme("ace/theme/clouds_midnight");
 			document.getElementsByClassName('cli')[0].value = ':theme dark';
@@ -146,6 +152,7 @@
 			document.getElementsByClassName('cli')[0].dispatchEvent(e);
 			document.body.className = "dark";
 			Dark = true;
+			localStorage.setItem('theme','dark');
 		}
 		editor.focus();
 	};	
