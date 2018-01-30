@@ -111,7 +111,7 @@ expression
 
 assignment_expression
 	: constant_expression											{;}
-	| assignment_expression assignment_operator constant_expression	{$$.s = cat(cat(cat(cat($2.s,$1.s),","),$3.s),")");}
+	| assignment_expression assignment_operator constant_expression	{$$.s = cat(cat(cat(cat(cat(cat("(",$1.s),"[0]"),$2.s),$3.s),"[0],"),$1.s")");}
 	| assignment_expression TERN_ASSIGN constant_expression			{$$.s = cat(cat(cat(cat(cat(cat($1.s,"="),$1.s),"?"),$1.s),":"),$3.s);}
 	;
 
@@ -182,10 +182,10 @@ multiplicative_expression
 prefix_expression
 	: postfix_expression											{;}
 	| NEW prefix_expression											{$$.s = cat(cat("[new ",$2.s),"[0]]");}
-	| '+' prefix_expression											{$$.s = cat(cat("HLX.uplus(",$2.s),")");}
-	| '-' prefix_expression											{$$.s = cat(cat("HLX.uminus(",$2.s),")");}
-	| '!' prefix_expression											{$$.s = cat(cat("HLX.unot(",$2.s),")");}
-	| NOT_OP prefix_expression										{$$.s = cat(cat("HLX.ubnot(",$2.s),")");}
+	| '+' prefix_expression											{$$.s = cat(cat(cat(cat(cat(cat("(",$2.s),"[0]=+"),$2.s),"[0],a"),$2.s),")");}
+	| '-' prefix_expression											{$$.s = cat(cat(cat(cat(cat(cat("(",$2.s),"[0]=-"),$2.s),"[0],a"),$2.s),")");}
+	| '!' prefix_expression											{$$.s = cat(cat(cat(cat(cat(cat("(",$2.s),"[0]=!"),$2.s),"[0],a"),$2.s),")");}
+	| NOT_OP prefix_expression										{$$.s = cat(cat(cat(cat(cat(cat("(",$2.s),"[0]=~"),$2.s),"[0],a"),$2.s),")");}
 	;
 
 postfix_expression
@@ -194,8 +194,8 @@ postfix_expression
 	| postfix_expression '(' ')'									{$$.s = cat($1.s,"[0]()");}
 	| postfix_expression '(' expression_list ')'					{$$.s = cat(cat(cat($1.s,"[0]("),$3.s),")");}
 	| postfix_expression '.' IDENTIFIER								{$$.s = cat(cat($1.s,"[0]."),$3.s);}
-	| postfix_expression INC_OP										{$$.s = cat(cat("HLX.add(",$1.s),",[1])");}
-	| postfix_expression DEC_OP										{$$.s = cat(cat("HLX.sub(",$1.s),",[1])");}
+	| postfix_expression INC_OP										{$$.s = cat(cat(cat(cat("(",$1.s),"[0]+=1,"),$1.s),")");}
+	| postfix_expression DEC_OP										{$$.s = cat(cat(cat(cat("(",$1.s),"[0]-=1,"),$1.s),")");}
 	;
 
 primary_expression
@@ -261,18 +261,18 @@ identifier_list
 	;
 
 assignment_operator
-	: EXP_ASSIGN													{$$.s = "HLX.exp(";}
-	| MUL_ASSIGN													{$$.s = "HLX.mul(";}
-	| DIV_ASSIGN													{$$.s = "HLX.div(";}
-	| MOD_ASSIGN													{$$.s = "HLX.mod(";}
-	| ADD_ASSIGN													{$$.s = "HLX.add(";}
-	| SUB_ASSIGN													{$$.s = "HLX.sub(";}
-	| LEFT_ASSIGN													{$$.s = "HLX.lshft(";}
-	| RIGHT_ASSIGN													{$$.s = "HLX.rshft(";}
-	| ZRIGHT_ASSIGN													{$$.s = "HLX.zrshft(";}
-	| AND_ASSIGN													{$$.s = "HLX.band(";}
-	| XOR_ASSIGN													{$$.s = "HLX.bxor(";}
-	| OR_ASSIGN														{$$.s = "HLX.bor(";}
+	: EXP_ASSIGN													{$$.s = "**=";}
+	| MUL_ASSIGN													{$$.s = "*=";}
+	| DIV_ASSIGN													{$$.s = "/=";}
+	| MOD_ASSIGN													{$$.s = "%=";}
+	| ADD_ASSIGN													{$$.s = "+=";}
+	| SUB_ASSIGN													{$$.s = "-=";}
+	| LEFT_ASSIGN													{$$.s = "<<=";}
+	| RIGHT_ASSIGN													{$$.s = ">>=";}
+	| ZRIGHT_ASSIGN													{$$.s = ">>>=";}
+	| AND_ASSIGN													{$$.s = "&=";}
+	| XOR_ASSIGN													{$$.s = "^=";}
+	| OR_ASSIGN														{$$.s = "|=";}
 	;
 
 %%
