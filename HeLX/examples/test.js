@@ -1,1 +1,1 @@
-let Point,pt;'use strict';;Point=function(xx,yy){let hypot;this.x=xx;this.y=yy;hypot=function(n,m){return (n**2+m**2)**0.5;};this.distance=function(){return hypot(x,y);};};;pt=new Point(3,4);console.log(pt.x);console.log(pt.y);console.log(pt.distance());;
+let Point,pt;;Point=function(xx,yy){let hypot;this.x=xx;this.y=yy;hypot=function(n,m){return (n**2+m**2)**0.5;};this.distance=function(){return hypot(x,y);};};;pt=new Point(3,4);print(pt.x);print(pt.y);print(pt.distance());;

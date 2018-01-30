@@ -2850,8 +2850,6 @@ void yyerror(char *s){
 int main(){
 	new_HLX();
 	printf("%s\n",HLXHeader);
-	yyparse();
-	printf("/*@HLXCNTRLEND@*/\n");
-	return 0;
+	return yyparse();
 }
 

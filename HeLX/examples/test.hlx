@@ -7,6 +7,6 @@ Point = ( xx yy ) =>
 	distance: ( ) => hypot( x y )
 
 pt = new Point( 3 4 )
-console.log( pt.x )
-console.log( pt.y )
-console.log( pt.distance() )
+print( pt.x )
+print( pt.y )
+print( pt.distance() )

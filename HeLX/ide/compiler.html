@@ -5,15 +5,12 @@
 <title>HeLX Editor</title>
 <script>
 
-var ide, input, output = "";
+var input, output = "";
 var index = 0;
 
 var Module = {
 	print: function(text) {
 		output += text + '\n';
-		if (text === "@HLXCNTRLEND@"){
-			ide.postMessage(output,'*');
-		}
 	},
 	printErr: function(text) { console.error(text) },
 	noInitialRun: true,
@@ -30,9 +27,9 @@ var Module = {
 
 window.addEventListener("message", function(evt){
 	if (evt.data.length === 0) return;
-	ide = evt.source;
 	input = evt.data;
 	ccall('main');
+	evt.source.postMessage(output,'*');
 }, false);
 
 </script>
