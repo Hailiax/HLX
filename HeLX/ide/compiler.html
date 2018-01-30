@@ -27,6 +27,7 @@ var Module = {
 };
 
 window.addEventListener("message", function(evt){
+	if (evt.data.length === 0) return;
 	ide = evt.source;
 	input = evt.data;
 	ccall('main');

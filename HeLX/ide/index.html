@@ -33,6 +33,7 @@
 	}
 
 	Compile = function(){
+		if (document.body.id !== "tall"){ editor.focus(); }
 		compiler = document.createElement('iframe');
 		compiler.src = 'compiler.html';
 		compiler.style.display = 'none';
@@ -40,7 +41,6 @@
 		compiler.onload = function(){
 			compiler.contentWindow.postMessage(editor.getValue(),'*');
 		};
-		if (document.body.id !== "tall"){ editor.focus(); }
 	};
 		
 	Clear = function(){
@@ -86,6 +86,7 @@
 	editor = ace.edit("editor");
 	editor.setTheme("ace/theme/clouds");
 	editor.setOption("showPrintMargin", false);
+	editor.getSession().setUseSoftTabs(false);
 	editor.session.setMode("ace/mode/javascript");
 	editor.setValue("HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears. Click divider to change theme. Replace untitled with the title of your document.\n\n",1);
 	editor.renderer.setScrollMargin(5, 5);
