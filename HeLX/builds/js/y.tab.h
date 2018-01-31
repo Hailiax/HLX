@@ -68,49 +68,52 @@
      ADD_ASSIGN = 284,
      EXP_ASSIGN = 285,
      TERN_ASSIGN = 286,
-     SUB_ASSIGN = 287,
-     LEFT_ASSIGN = 288,
-     RIGHT_ASSIGN = 289,
-     ZRIGHT_ASSIGN = 290,
-     AND_ASSIGN = 291,
-     XOR_ASSIGN = 292,
-     OR_ASSIGN = 293,
-     CASE = 294,
-     DEFAULT = 295,
-     IF = 296,
-     ELSE = 297,
-     SWITCH = 298,
-     WHILE = 299,
-     DO = 300,
-     FOR = 301,
-     CONTINUE = 302,
-     BREAK = 303,
-     RETURN = 304,
-     TRY = 305,
-     CATCH = 306,
-     FINALLY = 307,
-     THROW = 308,
-     DEBUGGER = 309,
-     DELETE = 310,
-     IMPORT = 311,
-     IN = 312,
-     OF = 313,
-     INSTANCEOF = 314,
-     NEW = 315,
-     TYPEOF = 316,
-     ELLIPSIS = 317,
-     TREMA = 318,
-     ASSERT = 319,
-     HLX = 320,
-     F_BRACKET = 321,
-     F_PAREN = 322,
-     PTRPTR = 323,
-     BIND_ARW = 324,
-     EXTEND_ARW = 325,
-     ASYNC_ARW = 326,
-     GEN_ARW = 327,
-     REV_ARW = 328,
-     DRFT_ARW = 329
+     PTR_ASSIGN = 287,
+     CONST_ASSIGN = 288,
+     SUB_ASSIGN = 289,
+     LEFT_ASSIGN = 290,
+     RIGHT_ASSIGN = 291,
+     ZRIGHT_ASSIGN = 292,
+     AND_ASSIGN = 293,
+     XOR_ASSIGN = 294,
+     OR_ASSIGN = 295,
+     CASE = 296,
+     DEFAULT = 297,
+     IF = 298,
+     ELSE = 299,
+     SWITCH = 300,
+     WHILE = 301,
+     DO = 302,
+     CONTINUE = 303,
+     BREAK = 304,
+     RETURN = 305,
+     FOR = 306,
+     CNCRNT_FOR = 307,
+     TRY = 308,
+     CATCH = 309,
+     FINALLY = 310,
+     THROW = 311,
+     DEBUGGER = 312,
+     DELETE = 313,
+     IMPORT = 314,
+     INSTANCEOF = 315,
+     NEW = 316,
+     TYPEOF = 317,
+     IN = 318,
+     OF = 319,
+     PTR_OF = 320,
+     ELLIPSIS = 321,
+     TREMA = 322,
+     ASSERT = 323,
+     HLX = 324,
+     F_BRACKET = 325,
+     F_PAREN = 326,
+     BIND_ARW = 327,
+     EXTEND_ARW = 328,
+     ASYNC_ARW = 329,
+     GEN_ARW = 330,
+     REV_ARW = 331,
+     DRFT_ARW = 332
    };
 #endif
 /* Tokens.  */
@@ -143,49 +146,52 @@
 #define ADD_ASSIGN 284
 #define EXP_ASSIGN 285
 #define TERN_ASSIGN 286
-#define SUB_ASSIGN 287
-#define LEFT_ASSIGN 288
-#define RIGHT_ASSIGN 289
-#define ZRIGHT_ASSIGN 290
-#define AND_ASSIGN 291
-#define XOR_ASSIGN 292
-#define OR_ASSIGN 293
-#define CASE 294
-#define DEFAULT 295
-#define IF 296
-#define ELSE 297
-#define SWITCH 298
-#define WHILE 299
-#define DO 300
-#define FOR 301
-#define CONTINUE 302
-#define BREAK 303
-#define RETURN 304
-#define TRY 305
-#define CATCH 306
-#define FINALLY 307
-#define THROW 308
-#define DEBUGGER 309
-#define DELETE 310
-#define IMPORT 311
-#define IN 312
-#define OF 313
-#define INSTANCEOF 314
-#define NEW 315
-#define TYPEOF 316
-#define ELLIPSIS 317
-#define TREMA 318
-#define ASSERT 319
-#define HLX 320
-#define F_BRACKET 321
-#define F_PAREN 322
-#define PTRPTR 323
-#define BIND_ARW 324
-#define EXTEND_ARW 325
-#define ASYNC_ARW 326
-#define GEN_ARW 327
-#define REV_ARW 328
-#define DRFT_ARW 329
+#define PTR_ASSIGN 287
+#define CONST_ASSIGN 288
+#define SUB_ASSIGN 289
+#define LEFT_ASSIGN 290
+#define RIGHT_ASSIGN 291
+#define ZRIGHT_ASSIGN 292
+#define AND_ASSIGN 293
+#define XOR_ASSIGN 294
+#define OR_ASSIGN 295
+#define CASE 296
+#define DEFAULT 297
+#define IF 298
+#define ELSE 299
+#define SWITCH 300
+#define WHILE 301
+#define DO 302
+#define CONTINUE 303
+#define BREAK 304
+#define RETURN 305
+#define FOR 306
+#define CNCRNT_FOR 307
+#define TRY 308
+#define CATCH 309
+#define FINALLY 310
+#define THROW 311
+#define DEBUGGER 312
+#define DELETE 313
+#define IMPORT 314
+#define INSTANCEOF 315
+#define NEW 316
+#define TYPEOF 317
+#define IN 318
+#define OF 319
+#define PTR_OF 320
+#define ELLIPSIS 321
+#define TREMA 322
+#define ASSERT 323
+#define HLX 324
+#define F_BRACKET 325
+#define F_PAREN 326
+#define BIND_ARW 327
+#define EXTEND_ARW 328
+#define ASYNC_ARW 329
+#define GEN_ARW 330
+#define REV_ARW 331
+#define DRFT_ARW 332
 
 
 
@@ -200,7 +206,7 @@ typedef union YYSTYPE
 	} data;
 }
 /* Line 1529 of yacc.c.  */
-#line 204 "y.tab.h"
+#line 210 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

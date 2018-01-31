@@ -53,6 +53,7 @@ F			[igmuy]{0,5}
 "instanceof"				{ count(); return INSTANCEOF; }
 "new"						{ count(); return NEW; }
 "of"						{ count(); return OF; }
+"@of"						{ count(); return PTR_OF; }
 "return"					{ count(); return RETURN; }
 "switch"					{ count(); return SWITCH; }
 "throw"						{ count(); return THROW; }
@@ -102,6 +103,8 @@ F			[igmuy]{0,5}
 "^^="						{ count(); return XOR_ASSIGN; }
 "|="						{ count(); return OR_ASSIGN; }
 "?="						{ count(); return TERN_ASSIGN; }
+"@="						{ count(); return PTR_ASSIGN; }
+"#="						{ count(); return CONST_ASSIGN; }
 ">>>"						{ count(); return ZRIGHT_OP; }
 ">>"						{ count(); return RIGHT_OP; }
 "<<"						{ count(); return LEFT_OP; }
@@ -140,8 +143,6 @@ F			[igmuy]{0,5}
 "^^"						{ count(); return XOR_OP; }
 "|"							{ count(); return '|'; }
 "?"							{ count(); return '?'; }
-"@"							{ count(); return '@'; }
-"@@"						{ count(); return PTRPTR; }
 "#"							{ count(); return '#'; }
 
 [ \v\f]						{ count(); }

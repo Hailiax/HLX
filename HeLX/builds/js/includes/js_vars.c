@@ -59,7 +59,7 @@ rem:
 		snprintf( varName, KEY_MAX_LENGTH, "%s", vars->val );
 		hashmap_remove( varMap, varName );
 		if (vars->next != NULL){
-			out = cat(out,",");
+			out = cat(out,"=new HLX.val(),");
 			vars = vars->next;
 			goto rem;
 		}
@@ -69,7 +69,7 @@ rem:
 	}
 
 	if (strlen(out) != 4){
-		return cat(out,";");
+		return cat(out,"=new HLX.val();");
 	} else{
 		return "";
 	}
@@ -85,7 +85,7 @@ char* var_access(char *rawName){
 	int error = hashmap_get( varMap, varName, (void**)(&var) );
 
 	if ( error == MAP_OK )
-		return cat(rawName,"[0]");
+		return cat(rawName,".h");
 	return rawName;
 }
 
