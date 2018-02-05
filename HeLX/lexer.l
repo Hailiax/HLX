@@ -74,7 +74,7 @@ F			[igmuy]{0,5}
 0[xXbBoO][0-9A-Fa-f]+		{ count(); setyylval(0); return NUMBER; }
 {D}+"."?{D}*{E}?{D}+		{ count(); setyylval(0); return NUMBER; }
 
-'(\\.|[^\\'\n])+'			{ count(); setyylval(1); return STRING_LITERAL; }
+'(\\.|[^\\'\n])*'			{ count(); setyylval(1); return STRING_LITERAL; }
 \"(\\.|[^\\"])*\"			{ count(); setyylval(1); return TEMPLATE_LITERAL; }
 "/"{RF}{R}*"/"{F}			{ count(); setyylval(1); return REGEXP_LITERAL; }
 
