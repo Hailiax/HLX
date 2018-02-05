@@ -15,7 +15,7 @@ Planned major features:
 * Intuitive OOP (compiles to prototypes in JS)  
 * Functional (w/ monads) and concurrent programming (compiles to WebWorkers in JS)  
 * Optional static typing, pure funcs & immutable objs, operator overloading, assertions, etc  
-* Compiler to JVM and/or CLR  
+* Compiler to JVM and/or CLR (compiles to JS currently because I did not think I was ready for bytecode yet; HeLX was the first thing I've ever written in C)  
 * I'll practice some symbolic languages
   
 Note:  
