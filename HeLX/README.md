@@ -1,9 +1,21 @@
-Experiment in unifing many programming paradigms  
-New ways to handle (concurrent) async flow and pointers  
-New way to handle backwards-compatability  
+Experiment in programming languages.  
+Check it out at [hailiax.io/HeLX/](https://hailiax.io/HeLX/)
   
-Currently compiles to JS to save writing CommonJS stuff  
-Plans to utilize a JIT compiler  
+This language was originally inspired by Javascript. (The e in HeLX stands for ECMAScript)  
+I thought that there were a few things under the hood that should be explicit while some other featues (like prototypes) that should have been abstracted. In addition, I felt the syntax was a little inconsistent and could be cleaned up.  
+The goal of this language was to create a language easier to learn than JS and cleaner than Python.  
   
-HeLX - Hyperbolic Ecmascript Language eXtention  
-Named after ECMAScript because it's the basis of HeLX. However, many ideas were also taken from Haskell and Python.
+Current major features:  
+* References (intuitive but slower pointers)  
+* The fact this works  
+* The language has been reduced to simple expressions and statements. (only first class functions and no class decs)  
+  
+Planned major features:  
+* Intuitive OOP (compiles to prototypes in JS)  
+* Functional (w/ monads) and concurrent programming (compiles to WebWorkers in JS)  
+* Optional static typing, pure funcs & immutable objs, operator overloading, assertions, etc  
+* Compiler to JVM and/or CLR  
+* Symbolic programming of some sort? I have no clue how I will implement this right now.
+  
+Note:  
+After experimenting with other languages, I had realized that HeLX was beginning to look like a lisp so I will need time to think about and reconsider HeLX.
