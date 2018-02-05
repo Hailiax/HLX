@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "js_genrange.h"
-#include "js_common.h"
+#include "genrange.h"
+#include "common.h"
 
 char* genrange_dc(char *a, char *z){
 	double A = atof(a);

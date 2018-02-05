@@ -1,7 +1,7 @@
 %{
 
 #include <stdio.h>
-#include "includes/js_vars.h"
+#include "includes/vars.h"
 #include "y.tab.h"
 
 void count();

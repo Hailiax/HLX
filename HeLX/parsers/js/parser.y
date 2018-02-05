@@ -4,9 +4,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "includes/hashmap.h"
-#include "includes/js_genrange.h"
-#include "includes/js_vars.h"
-#include "includes/js_common.h"
+#include "includes/genrange.h"
+#include "includes/vars.h"
+#include "includes/common.h"
 
 void yyerror (char *s);
 int yylex();

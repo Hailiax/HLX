@@ -6,7 +6,7 @@ Point = ( xx yy ) =>
 	hypot = ( n m ) => { n^2 + m^2 } ^ 0.5
 	distance: ( ) => hypot( x y )
 
-pt = new Point( 3 4 )
+pt = Point( 3 4 )
 print( pt.x )
 print( pt.y )
 print( pt.distance() )

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "js_common.h"
+#include "common.h"
 
 char* cat(char *a, char *b){
 	char *c = (char *) malloc(1 +sizeof(char*) * (strlen(a)+ strlen(b)));

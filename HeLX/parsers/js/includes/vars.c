@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "js_vars.h"
-#include "js_common.h"
+#include "vars.h"
+#include "common.h"
 
 llnode* llcat(llnode *a, llnode *b){
 	if (a == 0) return b;
