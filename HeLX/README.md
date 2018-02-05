@@ -1,5 +1,6 @@
 Experiment in programming languages.  
-Check it out at [hailiax.io/HeLX/](https://hailiax.io/HeLX/)
+Check it out at [hailiax.io/HeLX/](https://hailiax.io/HeLX/)  
+That website used Emscripten to convert the compiler here (written in C) to asm.js
   
 This language was originally inspired by Javascript. (The e in HeLX stands for ECMAScript)  
 I thought that there were a few things under the hood that should be explicit while some other featues (like prototypes) should have been abstracted. In addition, I felt the syntax was a little inconsistent and could be cleaned up.  
