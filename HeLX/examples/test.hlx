@@ -1,6 +1,6 @@
 HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears. Click divider to change theme. Replace untitled with the title of your document.
 
-// A few important things:
+// Major differences from common programming languages:
 // 0t is true, 0f is false
 // 0n is null, 0u is undefined
 // 0i is Infinity, 0l is epsilon (limit)
@@ -8,6 +8,7 @@ HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears. Click divi
 //
 // Exponentiation operator is ^ (2^3 == 8)
 // Bitwise xor is ^^, bitwise not is !! (typically ~)
+// a ?= b means if a evaluates to 0f, then a = b. Otherwise, a stays the same
 //
 // Single quotes wrap normal strings
 // Double quotes wrap template literals
@@ -21,8 +22,11 @@ HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears. Click divi
 // Postfix inc/decrement (++i) not supported due to references implementation
 // i++ is what ++i traditionally is. Traditional i++ does not exist
 //
+// Think of [] as array, () as function, and {} as an evaulation
+// {3 +5} ^2 is valid while (3 +5) ^2 is not
+//
 // Finally, whitespace is not ignored!
-// Commas are almost equivalent to line breaks
+// Commas are almost equivalent to line breaks (line breaks can be followed by tabbed blocks)
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -35,6 +39,7 @@ for i of [0 2 .. 100]
 	if i % 3 == 0, output += 'Fizz'
 	if i % 5 == 0, output += 'Buzz'
 	if output != '', print( i output )
+
 
 print('')
 
@@ -52,29 +57,32 @@ print( 'Modified Array:' arr )
 print( 'Array Copy:' arrCopy )
 print( 'Array Reference:' arrRef )
 
+
 print('')
 
 // Quick, a factorial function
 fac = ( x ) =>
 	if x == 0, return 1
 	return fac( x-1 ) *x
-print( fac(5) )
 
-/*
-// Classes are not a finished feature but here it is
+print( fac(5) )
+print( fac(10) )
+
+
+print('')
+
+// Classes are not a finished feature
+// They look similar to functions except lack a return statement
+// Below is a linear congruential generator class
 lcg = ( seed mult inc mod ) =>
 	mult ?= 378
 	inc ?= 2310
 	mod ?= 10000
 	state: seed
 	next: () =>
-		return state = { state *mult +inc } %mod // Curly brackets replace neumerical evaluation parentheeses like this
+		return state = { state *mult +inc } %mod
 
 rand = lcg( 1248 )
-print( rand )
 print( rand.next() )
 print( rand.next() )
 print( rand.next() )
-print( rand.next() )
-print( lcg( 1248 ) )
-print()
