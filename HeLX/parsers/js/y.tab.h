@@ -196,7 +196,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 18 "js.y"
+#line 18 "parser.y"
 {
 	struct {
 		char* s;

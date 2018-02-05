@@ -51,7 +51,6 @@ F			[igmuy]{0,5}
 "import"					{ count(); return IMPORT; }
 "in"						{ count(); return IN; }
 "instanceof"				{ count(); return INSTANCEOF; }
-"new"						{ count(); return NEW; }
 "of"						{ count(); return OF; }
 "@of"						{ count(); return PTR_OF; }
 "return"					{ count(); return RETURN; }
