@@ -45,8 +45,8 @@ translation_unit
 	;
 
 /************* Todo: able to add funcs and objs, fix ranges, assertions, # notation, ~ notation?, imports exports HLX acts as separate file DocsJS = import '../dep/docs.js', more elegant terneary exp, macros
-* Statements *
-*************/
+* Statements * charAt and other JS methods
+*************/ 
 
 statement_list
 	: statement														{;}
@@ -258,7 +258,7 @@ function_literal
 	;
 
 identifier_list
-	: IDENTIFIER IDENTIFIER											{$$.s = cat(cat($1.s,","),$2.s); llnode* tmp = malloc(sizeof(llnode)); tmp->val = $1.s; tmp->next = $$.v; $$.v = tmp; tmp = malloc(sizeof(llnode)); tmp->val = $2.s; tmp->next = $$.v; $$.v = tmp;}
+	: IDENTIFIER													{llnode* tmp = malloc(sizeof(llnode)); tmp->val = $1.s; tmp->next = $$.v; $$.v = tmp;}
 	| identifier_list IDENTIFIER									{$$.s = cat(cat($1.s,","),$2.s); llnode* tmp = malloc(sizeof(llnode)); tmp->val = $2.s; tmp->next = $1.v; $1.v = tmp; $$.v = $1.v;}
 	;
 

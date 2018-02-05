@@ -24,9 +24,57 @@ HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears. Click divi
 // Finally, whitespace is not ignored!
 // Commas are almost equivalent to line breaks
 
-// Let's begin with Fizzbuzz
-for i of [0 2 .. 100] // .. indicates a range and this compiles to [0 2 4 6 8 etc 100]
-	output = 'a'
+
+//////////////////////////////////////////////////////////////////////////
+// Variable names over 11 characters long encounter bugs in the web IDE //
+//////////////////////////////////////////////////////////////////////////
+
+// Let's look at Fizzbuzz for basic syntax
+for i of [0 2 .. 100]
+	output = ''
 	if i % 3 == 0, output += 'Fizz'
 	if i % 5 == 0, output += 'Buzz'
-	print( output )
+	if output != '', print( i output )
+
+print('')
+
+// Now let's see how references work
+arr = [ [1 2 3] [4 5 6] ]
+print( 'Original Array:' arr )
+
+arrCopy = arr[0]
+arrRef @= arr[1]
+
+arrCopy = 'Replaced'
+arrRef = 'Replaced'
+
+print( 'Modified Array:' arr )
+print( 'Array Copy:' arrCopy )
+print( 'Array Reference:' arrRef )
+
+print('')
+
+// Quick, a factorial function
+fac = ( x ) =>
+	if x == 0, return 1
+	return fac( x-1 ) *x
+print( fac(5) )
+
+/*
+// Classes are not a finished feature but here it is
+lcg = ( seed mult inc mod ) =>
+	mult ?= 378
+	inc ?= 2310
+	mod ?= 10000
+	state: seed
+	next: () =>
+		return state = { state *mult +inc } %mod // Curly brackets replace neumerical evaluation parentheeses like this
+
+rand = lcg( 1248 )
+print( rand )
+print( rand.next() )
+print( rand.next() )
+print( rand.next() )
+print( rand.next() )
+print( lcg( 1248 ) )
+print()
