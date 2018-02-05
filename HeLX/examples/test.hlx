@@ -1,12 +1,32 @@
-HeLX Spec A 'Main'
+HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears. Click divider to change theme. Replace untitled with the title of your document.
 
-Point = ( xx yy ) =>
-	x: xx
-	y: yy
-	hypot = ( n m ) => { n^2 + m^2 } ^ 0.5
-	distance: ( ) => hypot( x y )
+// A few important things:
+// 0t is true, 0f is false
+// 0n is null, 0u is undefined
+// 0i is Infinity, 0l is epsilon (limit)
+// 0v is NotANumber (think of it as void)
+//
+// Exponentiation operator is ^ (2^3 == 8)
+// Bitwise xor is ^^, bitwise not is !! (typically ~)
+//
+// Single quotes wrap normal strings
+// Double quotes wrap template literals
+// Forward slashes wrap regular expressions
+//
+// All variables are block scoped and no shadowing allowed
+// PublicVariable = 3
+// PrivateVariable: 3
+// Public and private variables cannot have the same name
+//
+// Postfix inc/decrement (++i) not supported due to references implementation
+// i++ is what ++i traditionally is. Traditional i++ does not exist
+//
+// Finally, whitespace is not ignored!
+// Commas are almost equivalent to line breaks
 
-pt = Point( 3 4 )
-print( pt.x )
-print( pt.y )
-print( pt.distance() )
+// Let's begin with Fizzbuzz
+for i of [0 2 .. 100] // .. indicates a range and this compiles to [0 2 4 6 8 etc 100]
+	output = 'a'
+	if i % 3 == 0, output += 'Fizz'
+	if i % 5 == 0, output += 'Buzz'
+	print( output )
