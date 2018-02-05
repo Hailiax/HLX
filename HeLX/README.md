@@ -2,7 +2,7 @@ Experiment in programming languages.
 Check it out at [hailiax.io/HeLX/](https://hailiax.io/HeLX/)
   
 This language was originally inspired by Javascript. (The e in HeLX stands for ECMAScript)  
-I thought that there were a few things under the hood that should be explicit while some other featues (like prototypes) that should have been abstracted. In addition, I felt the syntax was a little inconsistent and could be cleaned up.  
+I thought that there were a few things under the hood that should be explicit while some other featues (like prototypes) should have been abstracted. In addition, I felt the syntax was a little inconsistent and could be cleaned up.  
 The goal of this language was to create a language easier to learn than JS and cleaner than Python. (I got annoyed at some of my friends saying programming looked really hard and confusing so I asked what would make a clean, easy language)  
   
 Current major features:  
