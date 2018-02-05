@@ -2012,7 +2012,7 @@ yyreduce:
 
   case 25:
 #line 91 "parser.y"
-    {llnode* tmp = malloc(sizeof(llnode)); tmp->val = (yyvsp[(2) - (6)].data).s; tmp->next = NULL; (yyval.data).s = cat(cat(cat(cat(cat(cat("for(let ",(yyvsp[(2) - (6)].data).s)," of HLX.clone("),(yyvsp[(4) - (6)].data).s),")._[0]){"),cat(end_scope((yyvsp[(6) - (6)].data).v,tmp),(yyvsp[(6) - (6)].data).s)),"}"); (yyval.data).v = (yyvsp[(4) - (6)].data).v;}
+    {llnode* tmp = malloc(sizeof(llnode)); tmp->val = (yyvsp[(2) - (6)].data).s; tmp->next = NULL; (yyval.data).s = cat(cat(cat(cat(cat(cat("for(let ",(yyvsp[(2) - (6)].data).s)," of HLX.clone("),(yyvsp[(4) - (6)].data).s),"._[0],true)){"),cat(end_scope((yyvsp[(6) - (6)].data).v,tmp),(yyvsp[(6) - (6)].data).s)),"}"); (yyval.data).v = (yyvsp[(4) - (6)].data).v;}
     break;
 
   case 26:

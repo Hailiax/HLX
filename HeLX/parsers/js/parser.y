@@ -88,7 +88,7 @@ iteration_statement
 	: WHILE expression ',' statement								{$$.s = cat(cat(cat(cat("while(",$2.s),"._[0]){"),cat(end_scope($4.v,0),$4.s)),"}"); $$.v = $2.v;}
 	| DO ',' statement WHILE expression ','							{$$.s = cat(cat(cat(cat("do{",cat(end_scope($3.v,0),$3.s)),"}while("),$5.s),"._[0]);"); $$.v = $5.v;}
 	| FOR IDENTIFIER IN expression ',' statement					{llnode* tmp = malloc(sizeof(llnode)); tmp->val = $2.s; tmp->next = NULL; $$.s = cat(cat(cat(cat(cat(cat("for(let ",$2.s)," in "),$4.s),"._[0]){"),cat(end_scope($6.v,tmp),$6.s)),"}"); $$.v = $4.v;}
-	| FOR IDENTIFIER OF expression ',' statement					{llnode* tmp = malloc(sizeof(llnode)); tmp->val = $2.s; tmp->next = NULL; $$.s = cat(cat(cat(cat(cat(cat("for(let ",$2.s)," of HLX.clone("),$4.s),")._[0]){"),cat(end_scope($6.v,tmp),$6.s)),"}"); $$.v = $4.v;}
+	| FOR IDENTIFIER OF expression ',' statement					{llnode* tmp = malloc(sizeof(llnode)); tmp->val = $2.s; tmp->next = NULL; $$.s = cat(cat(cat(cat(cat(cat("for(let ",$2.s)," of HLX.clone("),$4.s),"._[0],true)){"),cat(end_scope($6.v,tmp),$6.s)),"}"); $$.v = $4.v;}
 	| FOR IDENTIFIER PTR_OF expression ',' statement				{llnode* tmp = malloc(sizeof(llnode)); tmp->val = $2.s; tmp->next = NULL; $$.s = cat(cat(cat(cat(cat(cat("for(let ",$2.s)," of "),$4.s),"._[0]){"),cat(end_scope($6.v,tmp),$6.s)),"}"); $$.v = $4.v;}
 	| FOR expression ';' expression ';' expression ',' statement	{$$.s = cat(cat(cat(cat(cat(cat(cat(cat("for(",$2.s),";"),$4.s),"._[0];"),$6.s),"){"),cat(end_scope($8.v,$2.v),$8.s)),"}"); $$.v = llcat($2.v,llcat($4.v,$6.v));}
 	; // Replace IN and ;

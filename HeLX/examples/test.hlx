@@ -60,6 +60,17 @@ print( 'Array Reference:' arrRef )
 
 print('')
 
+// References in a for loop
+arr = [ 1..5 ]
+print( 'Original Array:' arr )
+for i of arr, i ^= 2
+print( 'Array iterated w/ for of:' arr )
+for i @of arr, i ^= 2
+print( 'Array iterated w/ for @of:' arr )
+
+
+print('')
+
 // Quick, a factorial function
 fac = ( x ) =>
 	if x == 0, return 1
