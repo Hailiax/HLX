@@ -5,7 +5,7 @@ map_t varMap;
 #define KEY_COUNT (4*4)
 typedef struct variable {
     char name[KEY_MAX_LENGTH];
-    char type; // 1: public; 2: private; 3: constant public; 4: constant private
+    char type; // 1: public; 2: constant
 } variable;
 
 typedef struct llnode {

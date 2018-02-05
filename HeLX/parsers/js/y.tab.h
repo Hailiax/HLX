@@ -97,23 +97,22 @@
      DELETE = 313,
      IMPORT = 314,
      INSTANCEOF = 315,
-     NEW = 316,
-     TYPEOF = 317,
-     IN = 318,
-     OF = 319,
-     PTR_OF = 320,
-     ELLIPSIS = 321,
-     TREMA = 322,
-     ASSERT = 323,
-     HLX = 324,
-     F_BRACKET = 325,
-     F_PAREN = 326,
-     BIND_ARW = 327,
-     EXTEND_ARW = 328,
-     ASYNC_ARW = 329,
-     GEN_ARW = 330,
-     REV_ARW = 331,
-     DRFT_ARW = 332
+     TYPEOF = 316,
+     IN = 317,
+     OF = 318,
+     PTR_OF = 319,
+     ELLIPSIS = 320,
+     TREMA = 321,
+     ASSERT = 322,
+     HLX = 323,
+     F_BRACKET = 324,
+     F_PAREN = 325,
+     BIND_ARW = 326,
+     EXTEND_ARW = 327,
+     ASYNC_ARW = 328,
+     GEN_ARW = 329,
+     REV_ARW = 330,
+     DRFT_ARW = 331
    };
 #endif
 /* Tokens.  */
@@ -175,23 +174,22 @@
 #define DELETE 313
 #define IMPORT 314
 #define INSTANCEOF 315
-#define NEW 316
-#define TYPEOF 317
-#define IN 318
-#define OF 319
-#define PTR_OF 320
-#define ELLIPSIS 321
-#define TREMA 322
-#define ASSERT 323
-#define HLX 324
-#define F_BRACKET 325
-#define F_PAREN 326
-#define BIND_ARW 327
-#define EXTEND_ARW 328
-#define ASYNC_ARW 329
-#define GEN_ARW 330
-#define REV_ARW 331
-#define DRFT_ARW 332
+#define TYPEOF 316
+#define IN 317
+#define OF 318
+#define PTR_OF 319
+#define ELLIPSIS 320
+#define TREMA 321
+#define ASSERT 322
+#define HLX 323
+#define F_BRACKET 324
+#define F_PAREN 325
+#define BIND_ARW 326
+#define EXTEND_ARW 327
+#define ASYNC_ARW 328
+#define GEN_ARW 329
+#define REV_ARW 330
+#define DRFT_ARW 331
 
 
 
@@ -206,7 +204,7 @@ typedef union YYSTYPE
 	} data;
 }
 /* Line 1529 of yacc.c.  */
-#line 210 "y.tab.h"
+#line 208 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

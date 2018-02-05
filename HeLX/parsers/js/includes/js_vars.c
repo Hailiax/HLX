@@ -85,7 +85,7 @@ char* var_access(char *rawName){
 	int error = hashmap_get( varMap, varName, (void**)(&var) );
 
 	if ( error == MAP_OK )
-		return cat(rawName,".h");
+		return cat(rawName,"._[0]");
 	return rawName;
 }
 
@@ -103,14 +103,10 @@ char* var_declare(char *rawName, llnode **vars, char type){
 		var->type = type;
 		hashmap_put( varMap, var->name, var );
 
-		if (type == 2){
-			return "this.";
-		} else{
-			llnode* tmp = malloc(sizeof(llnode));
-			tmp->val = name;
-			tmp->next = *vars;
-			*vars = tmp;
-		}
+		llnode* tmp = malloc(sizeof(llnode));
+		tmp->val = name;
+		tmp->next = *vars;
+		*vars = tmp;
 	}
 
 	return "";
