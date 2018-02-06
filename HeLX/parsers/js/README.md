@@ -19,4 +19,4 @@ HeLXc creates a .js file with the same name as the input file using HeLXtoJSc. T
 HeLXc and HeLXtoJSc must be in the same location.  
   
 ## Note  
-The outputted javascript is very unoptimized. I recommend using google closure compiler to clean it up. The output from this version of HeLXc is very human-unreadable anyways.
+The outputted javascript is very unoptimized. I recommend using google closure compiler to clean it up. The output from this version of HeLXc isn't very human-unreadable anyways.
