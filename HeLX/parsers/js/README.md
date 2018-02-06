@@ -9,7 +9,8 @@ Compile together:
 
 The resulting executable will take in HeLX code via stdin and output javascript via stdout. Using `<` and `>` to redirect those might help you.
   
-## Use prebuilt HeLXc
+## Use prebuilt HeLXc  
+Locate HeLXc and HeLXtoJSc at bin/  
 HeLXc is a bash script that depends on HeLXtoJSc and node.
 ```sh
 HeLXc path/to/input/file.hlx
