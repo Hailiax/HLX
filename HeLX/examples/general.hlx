@@ -28,11 +28,6 @@ HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears. Click divi
 // Finally, whitespace is not ignored!
 // Commas are almost equivalent to line breaks (line breaks can be followed by tabbed blocks)
 
-
-//////////////////////////////////////////////////////////////////////////
-// Variable names over 11 characters long encounter bugs in the web IDE //
-//////////////////////////////////////////////////////////////////////////
-
 // Let's look at Fizzbuzz for basic syntax
 for i of [0 2 .. 100]
 	output = ''
@@ -84,10 +79,8 @@ print( fac(10) )
 
 print('')
 
-// Classes are not a finished feature
-// They look similar to functions except lack a return statement
-// Below is a linear congruential generator class
-lcg = ( seed mult inc mod ) =>
+// Classes are functions that don't return anything
+Lcg = ( seed mult inc mod ) =>
 	mult ?= 378
 	inc ?= 2310
 	mod ?= 10000
@@ -95,7 +88,29 @@ lcg = ( seed mult inc mod ) =>
 	next: () =>
 		return state = { state *mult +inc } %mod
 
-rand = lcg( 1248 )
+rand = Lcg( 1248 )
 print( rand.next() )
 print( rand.next() )
 print( rand.next() )
+
+
+print('')
+
+// Encapsulated functional inheritance
+Dice = ( seed mult inc ) =>
+	rng = lcg( seed mult inc 6000 )
+	roll: () => rng.next()/1000 + 1
+	
+dice = Dice( 1234 )
+for i in [1..5], print( dice.roll() )
+
+
+print('')
+
+// Concatenated functional inheritance
+/*
+Multidice = Dice + ( ~ ~ ~ count ) =>
+	rollAll: () =>
+		o = 0
+		for i in [1..count], o += roll()
+		return o
