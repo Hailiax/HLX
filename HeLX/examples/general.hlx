@@ -97,7 +97,7 @@ print('')
 
 // Encapsulated functional inheritance
 Dice = ( seed mult inc ) =>
-	rng = lcg( seed mult inc 6000 )
+	rng = Lcg( seed mult inc 6000 )
 	roll: () => rng.next()/1000 + 1
 	
 dice = Dice( 1234 )
