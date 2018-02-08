@@ -1,10 +1,9 @@
 #include "hashmap.h"
 
 map_t varMap;
-#define KEY_MAX_LENGTH (256)
 #define KEY_COUNT (4*4)
 typedef struct variable {
-    char name[KEY_MAX_LENGTH];
+    char* name;
     char type; // 1: public; 2: constant
 } variable;
 

@@ -114,7 +114,7 @@ expression
 assignment_expression
 	: constant_expression											{;}
 	| assignment_expression assignment_operator constant_expression	{$$.s = cat(cat(cat(cat(cat(cat(cat("(",$1.s),"._[0]"),$2.s),$3.s),"._[0],"),$1.s),")"); $$.v = llcat($1.v,$3.v);}
-	| assignment_expression TERN_ASSIGN constant_expression			{$$.s = cat(cat(cat(cat(cat(cat($1.s,"="),$1.s),"?"),$1.s),":"),$3.s); $$.v = llcat($1.v,$3.v);}
+	| assignment_expression TERN_ASSIGN constant_expression			{$$.s = cat(cat(cat(cat(cat(cat($1.s,"=HLX.enval("),$1.s),")._[0]?"),$1.s),":"),$3.s); $$.v = llcat($1.v,$3.v);}
 	;
 
 constant_expression // Add third arg for stuff after expr

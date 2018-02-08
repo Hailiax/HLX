@@ -2077,7 +2077,7 @@ yyreduce:
 
   case 38:
 #line 117 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat(cat(cat((yyvsp[(1) - (3)].data).s,"="),(yyvsp[(1) - (3)].data).s),"?"),(yyvsp[(1) - (3)].data).s),":"),(yyvsp[(3) - (3)].data).s); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat(cat(cat((yyvsp[(1) - (3)].data).s,"=HLX.enval("),(yyvsp[(1) - (3)].data).s),")._[0]?"),(yyvsp[(1) - (3)].data).s),":"),(yyvsp[(3) - (3)].data).s); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 39:

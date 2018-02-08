@@ -16,7 +16,6 @@ llnode* llcat(llnode *a, llnode *b){
 char* end_scope(llnode *vars, llnode *exclude){
 	if (vars == 0) return "";
 	char* out = "let ";
-	char varName[KEY_MAX_LENGTH];
 	if (exclude == 0) goto rem;
 
 	llnode* tmp = malloc(sizeof(llnode));
@@ -56,8 +55,7 @@ clean:
 rem:
 	if (vars->val != NULL){
 		out = cat(out, vars->val);
-		snprintf( varName, KEY_MAX_LENGTH, "%s", vars->val );
-		hashmap_remove( varMap, varName );
+		hashmap_remove( varMap, vars->val );
 		if (vars->next != NULL){
 			out = cat(out,"=new HLX.val(),");
 			vars = vars->next;
@@ -80,9 +78,7 @@ char* var_access(char *rawName){
 
 	char* name = var_clean(rawName);
 
-	char varName[KEY_MAX_LENGTH];
-	snprintf( varName, KEY_MAX_LENGTH, "%s", name );
-	int error = hashmap_get( varMap, varName, (void**)(&var) );
+	int error = hashmap_get( varMap, name, (void**)(&var) );
 
 	if ( error == MAP_OK )
 		return cat(rawName,"._[0]");
@@ -93,13 +89,12 @@ char* var_declare(char *rawName, llnode **vars, char type){
 	variable* var;
 	char* name = var_clean(rawName);
 
-	char varName[KEY_MAX_LENGTH];
-	snprintf( varName, KEY_MAX_LENGTH, "%s", name );
-	int error = hashmap_get( varMap, varName, (void**)(&var) );
+	int error = hashmap_get( varMap, name, (void**)(&var) );
 
 	if ( error == MAP_MISSING ){
 		var = malloc( sizeof(var) );
-		snprintf( var->name, KEY_MAX_LENGTH, "%s", name );
+		var->name = malloc(sizeof(char) * strlen(name));
+		strcpy( var->name, name );
 		var->type = type;
 		hashmap_put( varMap, var->name, var );
 
