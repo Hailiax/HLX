@@ -1,4 +1,4 @@
-HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears. Click divider to change theme. Replace untitled with the title of your document.
+HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears.
 
 // Major differences from common programming languages:
 // 0t is true, 0f is false
@@ -85,8 +85,7 @@ Lcg = ( seed mult inc mod ) =>
 	inc ?= 2310
 	mod ?= 10000
 	state: seed
-	next: () =>
-		return state = { state *mult +inc } %mod
+	next: () => state = { state *mult +inc } %mod
 
 rand = Lcg( 1248 )
 print( rand.next() )
