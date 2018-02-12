@@ -3,8 +3,7 @@ Compile together:
 * y.tab.c (from `yacc -d parser.y`)  
 * lex.yy.c (from `lex lexer.l`)  
 * includes/common.c  
-* includes/hashmap.c  
-* includes/genrange.c  
+* includes/hashmap.c   
 * includes/vars.c  
 
 The resulting executable will take in HeLX code via stdin and output javascript via stdout. Using `<` and `>` to redirect those might help you.
