@@ -104,11 +104,11 @@ $r = function(a,b){
 	var out = [];
 	if (a < b){
 		while (a <= b){
-			out.push(a++);
+			out.push($v(a++));
 		}
 	} else{
 		while (a >= b){
-			out.push(a--);
+			out.push($v(a--));
 		}
 	}
 	return out;
