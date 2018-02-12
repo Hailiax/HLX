@@ -11,7 +11,8 @@ HeLX, once finished, will:
 * compile to run on the JVM or CLR
 
 Check it out at [hailiax.io/HeLX/](https://hailiax.io/HeLX/)  
-That website used Emscripten to convert the compiler here (written in C) to asm.js
+That website used Emscripten to convert the compiler here (written in C) to asm.js  
+Also, I plan on writing a bunch of algos (quine, sorts, etc) in HeLX to essentially prove HeLX's capabilities. (Formal proofs are beyond me at the moment.)
   
 ## Why
 HeLX was originally inspired by Javascript and currently compiles to it. That's why the e in HeLX stands for ECMAScript.  
@@ -30,6 +31,6 @@ Since you can add functions and strings, HeLX also allows you to add arrays and 
 
 #### References (pointers)  
 I named these references instead of pointers because naming them pointers would be misleading.  
-* First, scalar and vector values behave the same way to the programmer. In other languages, for `A = 3; B = a` B would be a copy of A but for `A = [3]; B = A` B and A would be pointers to the same array. In HeLX, for `A = [3], B = A` B would be a new array with copied values from A. (Perhaps this is ultra-call-by-value?)  
+* First, scalar and vector values behave the same way to the programmer. In other languages, for `A = 3; B = a` B would be a copy of A but for `A = [3]; B = A` B and A would be pointers to the same array. In HeLX, for `A = [3], B = A` B would be a new array with deep-copied values from A. (Perhaps this is ultra-call-by-value?)  
 * Referencing a value requires the new `@=` operator. For `A = [3], B @= A`, B and A would now be pointers to the same array.  
 While this is quite unusual, it forces the programmer to be explicit when taking the value or reference of a variable and I believe this will reduce errors.
