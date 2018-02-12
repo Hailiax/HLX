@@ -79,7 +79,7 @@ print( fac(10) )
 
 print('')
 
-// Classes are functions that don't return anything
+// Functions that don't return anything return a class instance
 Lcg = ( seed mult inc mod ) =>
 	mult ?= 378
 	inc ?= 2310
@@ -96,20 +96,48 @@ print( rand.next() )
 print('')
 
 // Encapsulated functional inheritance
-Dice = ( seed mult inc ) =>
-	rng = Lcg( seed mult inc 6000 )
+Dice = () =>
+	rng = Lcg( 1248 0u 0u 6000 )
 	roll: () => rng.next()/1000 + 1
 	
-dice = Dice( 1234 )
+dice = Dice()
 for i in [1..5], print( dice.roll() )
 
 
 print('')
 
 // Concatenated functional inheritance
-/*
-Multidice = Dice + ( ~ ~ ~ count ) =>
+Multidice = Dice + ( count ) =>
+	addDice: () => count++
+	removeDice: () => count--
 	rollAll: () =>
-		o = 0
-		for i in [1..count], o += roll()
-		return o
+		total = 0
+		i = 0, while i < count
+			total += roll()
+			i++
+		return total
+		
+multidice = Multidice( 5 )
+for i in [1..3], print( '1 roll: ' multidice.roll() )
+for i in [1..3], print( '5 rolls: ' multidice.rollAll() )
+multidice.addDice()
+multidice.addDice()
+for i in [1..3], print( '7 rolls: ' multidice.rollAll() )
+
+
+print('')
+
+// Why stop at adding functions and strings
+obj1 = () =>
+	a: 1
+	b: 1
+obj1 = obj1()
+obj2 = () =>
+	b: 2
+	c: 2
+obj2 = obj2()
+print( obj1 obj2 obj1+obj2 )
+
+arr1 = [ 1 2 ]
+arr2 = [ 3 4 ]
+print( arr1 arr2 arr1+arr2 )
