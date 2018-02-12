@@ -113,6 +113,7 @@ expression
 assignment_expression
 	: constant_expression											{;}
 	| assignment_expression assignment_operator constant_expression	{$$.s = cat(cat(cat(cat(cat(cat(cat("(",$1.s),".$[0]"),$2.s),$3.s),".$[0],"),$1.s),")"); $$.v = llcat($1.v,$3.v);}
+	| assignment_expression ADD_ASSIGN constant_expression			{$$.s = cat(cat(cat(cat(cat($1.s,"=$v($a("),$1.s),".$[0],"),$3.s),".$[0]))"); $$.v = llcat($1.v,$3.v);}
 	| assignment_expression TERN_ASSIGN constant_expression			{$$.s = cat(cat(cat(cat(cat(cat($1.s,"=$w("),$1.s),").$[0]?"),$1.s),":"),$3.s); $$.v = llcat($1.v,$3.v);}
 	;
 
@@ -259,7 +260,6 @@ assignment_operator
 	| MUL_ASSIGN													{$$.s = "*=";}
 	| DIV_ASSIGN													{$$.s = "/=";}
 	| MOD_ASSIGN													{$$.s = "%=";}
-	| ADD_ASSIGN													{$$.s = "+=";}
 	| SUB_ASSIGN													{$$.s = "-=";}
 	| LEFT_ASSIGN													{$$.s = "<<=";}
 	| RIGHT_ASSIGN													{$$.s = ">>=";}

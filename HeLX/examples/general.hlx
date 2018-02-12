@@ -113,9 +113,8 @@ Multidice = Dice + ( count ) =>
 	removeDice: () => count--
 	rollAll: () =>
 		total = 0
-		i = 0, while i < count
+		for i in [1..count]
 			total += roll()
-			i++
 		return total
 		
 multidice = Multidice( 5 )
