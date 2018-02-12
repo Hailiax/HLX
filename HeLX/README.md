@@ -2,7 +2,7 @@
 HeLX is a new language that:  
 * introduces OOP without any keywords (no new, this, super, extends, class, etc)  
 * introduces a new pointer model that's explicit and intuitive  
-* is built only from expressions and statements  
+* is built only from expressions and statements (this might change as I learn LISPs)  
 
 HeLX, once finished, will:  
 * introduce a single intuitive token to unify functional programming, concurrent/async flow, and static properties (no static, async, await, etc)  
