@@ -1,22 +1,18 @@
-HeLX is a dynamically typed, object-oriented, and functional language that's optionally statically typed and/or purely functional with a new pointer, concurrency, and inheritance model.  
+HeLX is a new language that:  
+* introduces OOP without any keywords (new, this, super, extends, class, etc)  
+* introduces a new pointer model that's explicit and intuitive  
+* is built only from expressions and statements  
+
+HeLX, once finished, will:  
+* introduce a single intuitive token to unify functional programming, concurrent/async flow, and static properties (no static, async, await, etc)  
+* support monads
+* support optional static typing, pure functions, and constants
+* compile to JVM or CLR
+
 Check it out at [hailiax.io/HeLX/](https://hailiax.io/HeLX/)  
 That website used Emscripten to convert the compiler here (written in C) to asm.js
   
-This language was originally inspired by Javascript. (The e in HeLX stands for ECMAScript)  
-I thought that there were a few things under the hood that should be explicit while some other featues (like prototypes) should have been abstracted out. In addition, I felt the syntax was a little inconsistent and could be cleaned up.  
-The goal of this language was to create a language easier to learn than JS and cleaner than Python. (I got annoyed at some of my friends saying programming looked really hard and confusing so I asked what would make a clean, easy language)  
+HeLX was originally inspired by Javascript and currently compiles to it. That's why the e in HeLX stands for ECMAScript.  
+After hearing some of my friends say programming looked confusing/hard over and over again, I decided I wanted to create an extremely consistent, clean, intuitive, and unified programming language. HeLX aims to remove as many keywords as possible while supporting as many programming styles as possible in the most elegant syntax ever created (shoot for the stars right? ;).  
   
-Current major features:  
-* References (intuitive but slower pointers)  
-* The fact this works :D  
-* The language has been reduced to simple expressions and statements. (only first class functions and no class decs)  
-  
-Planned major features:  
-* Intuitive OOP (compiles to prototypes in JS)  
-* Functional (w/ monads) and concurrent programming (compiles to WebWorkers in JS)  
-* Optional static typing, pure funcs & immutable objs, operator overloading, assertions, etc  
-* Compiler to JVM and/or CLR (compiles to JS currently because I did not think I was ready for bytecode yet; HeLX was the first thing I've ever written in C)  
-* I'll practice some symbolic languages
-  
-Note:  
-After experimenting with other languages, I had realized that HeLX was beginning to look like a lisp so I will need time to think about and reconsider HeLX.
+
