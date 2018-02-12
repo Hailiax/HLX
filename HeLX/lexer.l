@@ -32,6 +32,7 @@ F			[igmuy]{0,5}
 "\t"						{ count(); return '\t'; }
 "\b"						{ count(); return '\b'; }
 "HeLX".*					{ count(); return HLX; }
+"HLX("						{ count(); return FROM_HLX; }
 
 <INITIAL><<EOF>>			{ end_file(); BEGIN(READYEND); }
 <READYEND><<EOF>>			{ return 0; }

@@ -3,27 +3,32 @@
 ***************************/
 
 try{global}catch(e){var global=window}
+$$ = function(o){this.$ = [o];};
+$v = function(o){return new $$(o);}
+
+var JS = new $$(function(str){
+	function wrap(obj){
+		if (obj !== null && (typeof obj === 'object' || typeof obj === 'function')){
+			for (i in obj){
+				obj[i] = wrap(obj[i]);
+			}
+		}
+		return new $$(obj);
+	}
+	return wrap(eval(str.$[0]));
+});
 var HLX = function(obj){
+	if (obj instanceof $$){
+		obj = obj.$[0];
+	}
 	if (obj !== null && (typeof obj === 'object' || typeof obj === 'function')){
 		for (i in obj){
 			obj[i] = HLX(obj[i]);
 		}
 	}
-	return new $$(obj);
-};
-$$ = function(o){this._ = [o];};
-$v = function(o){return new $$(o);}
-var JS = new $$(function(obj){
-	if (obj instanceof $$){
-		obj = obj._[0];
-	}
-	if (obj !== null && (typeof obj === 'object' || typeof obj === 'function')){
-		for (i in obj){
-			obj[i] = JS._[0](obj[i]);
-		}
-	}
 	return obj;
-});
+};
+
 // Clone
 $c = function(o,force){
 	var f;
@@ -43,6 +48,7 @@ $c = function(o,force){
 	}
 	return f;
 };
+
 // Equals operator
 $e = function(a,b){
 	// Maybe check if prototypes are equal
@@ -93,6 +99,21 @@ $a = function(a,b){
 		return a + b;
 	}
 };
+// Generate range
+$r = function(a,b){
+	var out = [];
+	if (a < b){
+		while (a <= b){
+			out.push(a++);
+		}
+	} else{
+		while (a >= b){
+			out.push(a--);
+		}
+	}
+	return out;
+};
+
 // Chain prototypes
 $p = function(base, adj){
 	var $ = $c(adj);
@@ -106,7 +127,7 @@ $w = function(o){
 HLX.isFloat = function(n){return n === +n && n !== (n|0);}
 HLX.isInt = function(n){return n === +n && n === (n|0);}
 var print = new $$(function (){
-	var s = [].slice.call( arguments ).map( function(x){return JS._[0]($c(x,true));} );
+	var s = [].slice.call( arguments ).map( function(x){return HLX($c(x,true));} );
 	console.log.apply(null,s); return s;
 });
 

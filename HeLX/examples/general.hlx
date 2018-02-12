@@ -25,11 +25,12 @@ HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears.
 // Think of [] as array, () as function, and {} as an evaulation
 // {3 +5} ^2 is valid while (3 +5) ^2 is not
 //
-// Finally, whitespace is not ignored!
-// Commas are almost equivalent to line breaks (line breaks can be followed by tabbed blocks)
+// Finally, if you want to use something from Javascript,
+// use it like JS('js statement here') i.e. JS('console.log')('Log This!')
+// To export a value from HeLX to JS, use HLX( HeLX_value_here )
 
 // Let's look at Fizzbuzz for basic syntax
-for i of [0 2 .. 100]
+for i of [ 1..50 ]
 	output = ''
 	if i % 3 == 0, output += 'Fizz'
 	if i % 5 == 0, output += 'Buzz'
@@ -97,7 +98,7 @@ print('')
 
 // Encapsulated functional inheritance
 Dice = () =>
-	rng = Lcg( 1248 0u 0u 6000 )
+	rng = Lcg( JS('Date.now()') 0u 0u 6000 )
 	roll: () => rng.next()/1000 + 1
 	
 dice = Dice()

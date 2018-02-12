@@ -81,7 +81,7 @@ char* var_access(char *rawName){
 	int error = hashmap_get( varMap, name, (void**)(&var) );
 
 	if ( error == MAP_OK )
-		return cat(rawName,"._[0]");
+		return cat(rawName,".$[0]");
 	return rawName;
 }
 
@@ -117,7 +117,7 @@ char* var_clean(char *rawName){
 			out = "";
 			continue;
 		}
-		if ( !( (64 < name[i] && name[i] < 91) || (96 < name[i] && name[i] < 123) || name[i] == '_' || name[i] == '$' ) )
+		if ( !( (64 < name[i] && name[i] < 91) || (96 < name[i] && name[i] < 123) || (47 < name[i] && name[i] < 58) || name[i] == '_' || name[i] == '$' ) )
 			break;
 		char c[2];
 		c[0] = name[i];

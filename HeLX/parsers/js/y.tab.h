@@ -107,12 +107,13 @@
      HLX = 323,
      F_BRACKET = 324,
      F_PAREN = 325,
-     BIND_ARW = 326,
-     EXTEND_ARW = 327,
-     ASYNC_ARW = 328,
-     GEN_ARW = 329,
-     REV_ARW = 330,
-     DRFT_ARW = 331
+     FROM_HLX = 326,
+     BIND_ARW = 327,
+     EXTEND_ARW = 328,
+     ASYNC_ARW = 329,
+     GEN_ARW = 330,
+     REV_ARW = 331,
+     DRFT_ARW = 332
    };
 #endif
 /* Tokens.  */
@@ -184,19 +185,20 @@
 #define HLX 323
 #define F_BRACKET 324
 #define F_PAREN 325
-#define BIND_ARW 326
-#define EXTEND_ARW 327
-#define ASYNC_ARW 328
-#define GEN_ARW 329
-#define REV_ARW 330
-#define DRFT_ARW 331
+#define FROM_HLX 326
+#define BIND_ARW 327
+#define EXTEND_ARW 328
+#define ASYNC_ARW 329
+#define GEN_ARW 330
+#define REV_ARW 331
+#define DRFT_ARW 332
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 18 "parser.y"
+#line 17 "parser.y"
 {
 	struct {
 		char* s;
@@ -204,7 +206,7 @@ typedef union YYSTYPE
 	} data;
 }
 /* Line 1529 of yacc.c.  */
-#line 208 "y.tab.h"
+#line 210 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
