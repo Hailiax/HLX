@@ -44,7 +44,7 @@ translation_unit
 	| translation_unit translation_unit								{;}
 	;
 
-/************* Todo: able to add funcs and objs, fix ranges, assertions, # notation, ~ notation?, imports exports HLX acts as separate file DocsJS = import '../dep/docs.js', more elegant terneary exp, macros
+/************* Todo: make whitespace useless, cleanup for in, fix ranges, assertions, # notation, ~ notation?, imports exports HLX acts as separate file DocsJS = import '../dep/docs.js', more elegant terneary exp, macros
 * Statements * charAt and other JS methods
 *************/ 
 
@@ -88,7 +88,7 @@ iteration_statement
 	: WHILE expression ',' statement								{$$.s = cat(cat(cat(cat("while(",$2.s),"._[0]){"),cat(end_scope($4.v,0),$4.s)),"}"); $$.v = $2.v;}
 	| DO ',' statement WHILE expression ','							{$$.s = cat(cat(cat(cat("do{",cat(end_scope($3.v,0),$3.s)),"}while("),$5.s),"._[0]);"); $$.v = $5.v;}
 	| FOR IDENTIFIER IN expression ',' statement					{llnode* tmp = malloc(sizeof(llnode)); tmp->val = $2.s; tmp->next = NULL; $$.s = cat(cat(cat(cat(cat(cat("for(let ",$2.s)," in "),$4.s),"._[0]){"),cat(end_scope($6.v,tmp),$6.s)),"}"); $$.v = $4.v;}
-	| FOR IDENTIFIER OF expression ',' statement					{llnode* tmp = malloc(sizeof(llnode)); tmp->val = $2.s; tmp->next = NULL; $$.s = cat(cat(cat(cat(cat(cat("for(let ",$2.s)," of HLX.clone("),$4.s),"._[0],true)){"),cat(end_scope($6.v,tmp),$6.s)),"}"); $$.v = $4.v;}
+	| FOR IDENTIFIER OF expression ',' statement					{llnode* tmp = malloc(sizeof(llnode)); tmp->val = $2.s; tmp->next = NULL; $$.s = cat(cat(cat(cat(cat(cat("for(let ",$2.s)," of $c("),$4.s),"._[0],true)){"),cat(end_scope($6.v,tmp),$6.s)),"}"); $$.v = $4.v;}
 	| FOR IDENTIFIER PTR_OF expression ',' statement				{llnode* tmp = malloc(sizeof(llnode)); tmp->val = $2.s; tmp->next = NULL; $$.s = cat(cat(cat(cat(cat(cat("for(let ",$2.s)," of "),$4.s),"._[0]){"),cat(end_scope($6.v,tmp),$6.s)),"}"); $$.v = $4.v;}
 	| FOR expression ';' expression ';' expression ',' statement	{$$.s = cat(cat(cat(cat(cat(cat(cat(cat("for(",$2.s),";"),$4.s),"._[0];"),$6.s),"){"),cat(end_scope($8.v,$2.v),$8.s)),"}"); $$.v = llcat($2.v,llcat($4.v,$6.v));}
 	; // Replace IN and ;
@@ -106,15 +106,15 @@ jump_statement
 
 expression
 	: assignment_expression											{;}
-	| expression '=' expression										{var_declare($1.s,&$1.v,1); $$.s = cat(cat(cat(cat(cat(cat("(",$1.s),"._[0]=HLX.clone("),$3.s),")._[0],"),$1.s),")"); $$.v = llcat($1.v,$3.v);}
+	| expression '=' expression										{var_declare($1.s,&$1.v,1); $$.s = cat(cat(cat(cat(cat(cat("(",$1.s),"._[0]=$c("),$3.s),")._[0],"),$1.s),")"); $$.v = llcat($1.v,$3.v);}
 	| expression PTR_ASSIGN expression								{var_declare($1.s,&$1.v,1); $$.s = cat(cat(cat(cat(cat(cat("(",$1.s),"._="),$3.s),"._,"),$1.s),")"); $$.v = llcat($1.v,$3.v);}
-	| expression ':' expression										{var_declare($1.s,&$1.v,1); $$.s = cat(cat(cat(cat(cat(cat("(",cat(cat(cat(cat(cat(cat("(",$1.s),"._[0]=HLX.clone("),$3.s),")._[0],"),$1.s),")")),",this."),$1.s),"="),$1.s),")"); $$.v = llcat($1.v,$3.v);}
+	| expression ':' expression										{var_declare($1.s,&$1.v,1); $$.s = cat(cat(cat(cat(cat(cat("(",cat(cat(cat(cat(cat(cat("(",$1.s),"._[0]=$c("),$3.s),")._[0],"),$1.s),")")),",this."),$1.s),"="),$1.s),")"); $$.v = llcat($1.v,$3.v);}
 	;
 
 assignment_expression
 	: constant_expression											{;}
 	| assignment_expression assignment_operator constant_expression	{$$.s = cat(cat(cat(cat(cat(cat(cat("(",$1.s),"._[0]"),$2.s),$3.s),"._[0],"),$1.s),")"); $$.v = llcat($1.v,$3.v);}
-	| assignment_expression TERN_ASSIGN constant_expression			{$$.s = cat(cat(cat(cat(cat(cat($1.s,"=HLX.enval("),$1.s),")._[0]?"),$1.s),":"),$3.s); $$.v = llcat($1.v,$3.v);}
+	| assignment_expression TERN_ASSIGN constant_expression			{$$.s = cat(cat(cat(cat(cat(cat($1.s,"=$w("),$1.s),")._[0]?"),$1.s),":"),$3.s); $$.v = llcat($1.v,$3.v);}
 	;
 
 constant_expression // Add third arg for stuff after expr
@@ -126,74 +126,74 @@ constant_expression // Add third arg for stuff after expr
 
 logical_or_expression
 	: logical_and_expression										{;}
-	| logical_or_expression OR_OP logical_and_expression			{$$.s = cat(cat(cat(cat("new HLX.val(",$1.s),"._[0]||"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
+	| logical_or_expression OR_OP logical_and_expression			{$$.s = cat(cat(cat(cat("$v(",$1.s),"._[0]||"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
 	;
 
 logical_and_expression
 	: inclusive_or_expression										{;}
-	| logical_and_expression AND_OP inclusive_or_expression			{$$.s = cat(cat(cat(cat("new HLX.val(",$1.s),"._[0]&&"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
+	| logical_and_expression AND_OP inclusive_or_expression			{$$.s = cat(cat(cat(cat("$v(",$1.s),"._[0]&&"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
 	;
 
 inclusive_or_expression
 	: exclusive_or_expression										{;}
-	| inclusive_or_expression '|' exclusive_or_expression			{$$.s = cat(cat(cat(cat("new HLX.val(",$1.s),"._[0]|"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
+	| inclusive_or_expression '|' exclusive_or_expression			{$$.s = cat(cat(cat(cat("$v(",$1.s),"._[0]|"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
 	;
 
 exclusive_or_expression
 	: and_expression												{;}
-	| exclusive_or_expression XOR_OP and_expression					{$$.s = cat(cat(cat(cat("new HLX.val(",$1.s),"._[0]^"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
+	| exclusive_or_expression XOR_OP and_expression					{$$.s = cat(cat(cat(cat("$v(",$1.s),"._[0]^"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
 	;
 
 and_expression
 	: equality_expression											{;}
-	| and_expression '&' equality_expression						{$$.s = cat(cat(cat(cat("new HLX.val(",$1.s),"._[0]&"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
+	| and_expression '&' equality_expression						{$$.s = cat(cat(cat(cat("$v(",$1.s),"._[0]&"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
 	;
 
 equality_expression
 	: relational_expression											{;}
-	| equality_expression EQ_OP relational_expression				{$$.s = cat(cat(cat(cat("new HLX.val(HLX.equal(",$1.s),"._[0],"),$3.s),"._[0]))"); $$.v = llcat($1.v,$3.v);}
-	| equality_expression NE_OP relational_expression				{$$.s = cat(cat(cat(cat("new HLX.val(!HLX.equal(",$1.s),"._[0],"),$3.s),"._[0]))"); $$.v = llcat($1.v,$3.v);}
+	| equality_expression EQ_OP relational_expression				{$$.s = cat(cat(cat(cat("$v($e(",$1.s),"._[0],"),$3.s),"._[0]))"); $$.v = llcat($1.v,$3.v);}
+	| equality_expression NE_OP relational_expression				{$$.s = cat(cat(cat(cat("$v(!$e(",$1.s),"._[0],"),$3.s),"._[0]))"); $$.v = llcat($1.v,$3.v);}
 	;
 
 relational_expression
 	: shift_expression												{;}
-	| relational_expression '<' shift_expression					{$$.s = cat(cat(cat(cat("new HLX.val(",$1.s),"._[0]<"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
-	| relational_expression '>' shift_expression					{$$.s = cat(cat(cat(cat("new HLX.val(",$1.s),"._[0]>"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
+	| relational_expression '<' shift_expression					{$$.s = cat(cat(cat(cat("$v(",$1.s),"._[0]<"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
+	| relational_expression '>' shift_expression					{$$.s = cat(cat(cat(cat("$v(",$1.s),"._[0]>"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
 	;
 
 shift_expression
 	: additive_expression											{;}
-	| shift_expression LEFT_OP additive_expression					{$$.s = cat(cat(cat(cat("new HLX.val(",$1.s),"._[0]<<"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
-	| shift_expression RIGHT_OP additive_expression					{$$.s = cat(cat(cat(cat("new HLX.val(",$1.s),"._[0]>>"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
+	| shift_expression LEFT_OP additive_expression					{$$.s = cat(cat(cat(cat("$v(",$1.s),"._[0]<<"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
+	| shift_expression RIGHT_OP additive_expression					{$$.s = cat(cat(cat(cat("$v(",$1.s),"._[0]>>"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
 	| shift_expression ZRIGHT_OP additive_expression				{$$.s = cat(cat(cat(cat("[",$1.s),"._[0]>>>"),$3.s),"._[0]]"); $$.v = llcat($1.v,$3.v);}
 	;
 
 additive_expression
 	: multiplicative_expression										{;}
-	| additive_expression '+' multiplicative_expression				{$$.s = cat(cat(cat(cat("new HLX.val(HLX.add(",$1.s),"._[0],"),$3.s),"._[0]))"); $$.v = llcat($1.v,$3.v);}
-	| additive_expression '-' multiplicative_expression				{$$.s = cat(cat(cat(cat("new HLX.val(",$1.s),"._[0]-"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
+	| additive_expression '+' multiplicative_expression				{$$.s = cat(cat(cat(cat("$v($a(",$1.s),"._[0],"),$3.s),"._[0]))"); $$.v = llcat($1.v,$3.v);}
+	| additive_expression '-' multiplicative_expression				{$$.s = cat(cat(cat(cat("$v(",$1.s),"._[0]-"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
 
 multiplicative_expression
 	: prefix_expression												{;}
-	| multiplicative_expression '*' prefix_expression				{$$.s = cat(cat(cat(cat("new HLX.val(",$1.s),"._[0]*"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
-	| multiplicative_expression '/' prefix_expression				{$$.s = cat(cat(cat(cat("new HLX.val(",$1.s),"._[0]/"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
-	| multiplicative_expression '^' prefix_expression				{$$.s = cat(cat(cat(cat("new HLX.val(",$1.s),"._[0]**"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
-	| multiplicative_expression '%' prefix_expression				{$$.s = cat(cat(cat(cat("new HLX.val(",$1.s),"._[0]%"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
+	| multiplicative_expression '*' prefix_expression				{$$.s = cat(cat(cat(cat("$v(",$1.s),"._[0]*"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
+	| multiplicative_expression '/' prefix_expression				{$$.s = cat(cat(cat(cat("$v(",$1.s),"._[0]/"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
+	| multiplicative_expression '^' prefix_expression				{$$.s = cat(cat(cat(cat("$v(",$1.s),"._[0]**"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
+	| multiplicative_expression '%' prefix_expression				{$$.s = cat(cat(cat(cat("$v(",$1.s),"._[0]%"),$3.s),"._[0])"); $$.v = llcat($1.v,$3.v);}
 	;
 
 prefix_expression
 	: postfix_expression											{;}
-	| '+' prefix_expression											{$$.s = cat(cat("new HLX.val(+",$2.s),"._[0])"); $$.v = $2.v;}
-	| '-' prefix_expression											{$$.s = cat(cat("new HLX.val(-",$2.s),"._[0])"); $$.v = $2.v;}
-	| '!' prefix_expression											{$$.s = cat(cat("new HLX.val(!",$2.s),"._[0])"); $$.v = $2.v;}
-	| NOT_OP prefix_expression										{$$.s = cat(cat("new HLX.val(~",$2.s),"._[0])"); $$.v = $2.v;}
+	| '+' prefix_expression											{$$.s = cat(cat("$v(+",$2.s),"._[0])"); $$.v = $2.v;}
+	| '-' prefix_expression											{$$.s = cat(cat("$v(-",$2.s),"._[0])"); $$.v = $2.v;}
+	| '!' prefix_expression											{$$.s = cat(cat("$v(!",$2.s),"._[0])"); $$.v = $2.v;}
+	| NOT_OP prefix_expression										{$$.s = cat(cat("$v(~",$2.s),"._[0])"); $$.v = $2.v;}
 	;
 
 postfix_expression
 	: primary_expression											{;}
 	| postfix_expression '[' expression ']'							{$$.s = cat(cat(cat(cat(cat(cat(cat(cat(cat($1.s,"._[0][1/"),$3.s),"._[0]>0?"),$3.s),"._[0]:"),$3.s),"._[0]+"),$1.s),"._[0].length-1]"); $$.v = $3.v;}
-	| postfix_expression '(' ')'									{$$.s = cat(cat("HLX.enval(new ",$1.s),"._[0]())");}
-	| postfix_expression '(' expression_list ')'					{$$.s = cat(cat(cat(cat("HLX.enval(new ",$1.s),"._[0]("),$3.s),"))"); $$.v = $3.v;}
+	| postfix_expression '(' ')'									{$$.s = cat(cat("$w(new ",$1.s),"._[0]())");}
+	| postfix_expression '(' expression_list ')'					{$$.s = cat(cat(cat(cat("$w(new ",$1.s),"._[0]("),$3.s),"))"); $$.v = $3.v;}
 	| postfix_expression '.' IDENTIFIER								{$$.s = cat(cat($1.s,"._[0]."),$3.s);}
 	| postfix_expression '.' '{' primary_expression '}'				{$$.s = cat(cat(cat($1.s,"._[0]["),$4.s),"._[0]]");}
 	| postfix_expression INC_OP										{$$.s = cat(cat(cat(cat("(",$1.s),"._[0]+=1,"),$1.s),")");}
@@ -202,38 +202,38 @@ postfix_expression
 
 primary_expression
 	: IDENTIFIER													{;}
-	| NUMBER														{$$.s = cat(cat("new HLX.val(",$1.s),")");}
-	| TRU															{$$.s = "new HLX.val(true)";}
-	| FALS															{$$.s = "new HLX.val(false)";}
-	| NUL															{$$.s = "new HLX.val(null)";}
-	| UNDEFINED														{$$.s = "new HLX.val(undefined)";}
-	| INFINITY														{$$.s = "new HLX.val(Infinity)";}
-	| EPSILON														{$$.s = "new HLX.val(Number.EPSILON)";}
-	| NOTNUMBER														{$$.s = "new HLX.val(NaN)";}
-	| STRING_LITERAL												{$$.s = cat(cat("new HLX.val('",$1.s),"')");}
-	| TEMPLATE_LITERAL												{$$.s = cat(cat("new HLX.val(`",$1.s),"`)");}
-	| REGEXP_LITERAL												{$$.s = cat(cat("new HLX.val(/",$1.s),"/)");}
-	| function_literal												{$$.s = cat(cat("new HLX.val(",$1.s),")");}
+	| NUMBER														{$$.s = cat(cat("$v(",$1.s),")");}
+	| TRU															{$$.s = "$v(true)";}
+	| FALS															{$$.s = "$v(false)";}
+	| NUL															{$$.s = "$v(null)";}
+	| UNDEFINED														{$$.s = "$v(undefined)";}
+	| INFINITY														{$$.s = "$v(Infinity)";}
+	| EPSILON														{$$.s = "$v(Number.EPSILON)";}
+	| NOTNUMBER														{$$.s = "$v(NaN)";}
+	| STRING_LITERAL												{$$.s = cat(cat("$v('",$1.s),"')");}
+	| TEMPLATE_LITERAL												{$$.s = cat(cat("$v(`",$1.s),"`)");}
+	| REGEXP_LITERAL												{$$.s = cat(cat("$v(/",$1.s),"/)");}
+	| function_literal												{$$.s = cat(cat("$v(",$1.s),")");}
 	| range															{;}
-	| '[' expression_list ']' 										{$$.s = cat(cat("new HLX.val([",$2.s),"])"); $$.v = $2.v;}
-	| F_BRACKET expression_list ']' 								{$$.s = cat(cat("new HLX.val([",$2.s),"])"); $$.v = $2.v;}
-	| '[' ']'														{$$.s = "new HLX.val([])";}
-	| F_BRACKET ']'													{$$.s = "new HLX.val([])";}
-	| '(' ')'														{$$.s = "new HLX.val(function(){})";}
-	| F_PAREN ')'													{$$.s = "new HLX.val(function(){})";}
+	| '[' expression_list ']' 										{$$.s = cat(cat("$v([",$2.s),"])"); $$.v = $2.v;}
+	| F_BRACKET expression_list ']' 								{$$.s = cat(cat("$v([",$2.s),"])"); $$.v = $2.v;}
+	| '[' ']'														{$$.s = "$v([])";}
+	| F_BRACKET ']'													{$$.s = "$v([])";}
+	| '(' ')'														{$$.s = "$v(function(){})";}
+	| F_PAREN ')'													{$$.s = "$v(function(){})";}
 	| '{' expression '}'											{$$.s = cat(cat("(",$2.s),")"); $$.v = $2.v;}
 	| '{' range '}'													{$$.s = $2.s;}
 	;
 
 range
 	: NUMBER TREMA NUMBER											{$$.s = genrange_dc($1.s,$3.s);}
-	| NUMBER NUMBER													{$$.s = cat(cat(cat("new HLX.val(",$1.s),"),"),cat(cat("new HLX.val(",$2.s),")"));}
+	| NUMBER NUMBER													{$$.s = cat(cat(cat("$v(",$1.s),"),"),cat(cat("$v(",$2.s),")"));}
 	| NUMBER NUMBER TREMA NUMBER									{$$.s = genrange_da($1.s,$2.s,$4.s);}
 	/*| STRING_LITERAL TREMA STRING_LITERAL							{$$.s = genrange_sc("'",$1.s,$3.s);}
-	| STRING_LITERAL STRING_LITERAL									{$$.s = cat(cat(cat(cat("new HLX.val('",$1.s),"')"),","),cat(cat("new HLX.val('",$2.s),"')"));}
+	| STRING_LITERAL STRING_LITERAL									{$$.s = cat(cat(cat(cat("$v('",$1.s),"')"),","),cat(cat("$v('",$2.s),"')"));}
 	| STRING_LITERAL STRING_LITERAL TREMA STRING_LITERAL			{$$.s = genrange_sa("'",$1.s,$2.s,$4.s);}
 	| TEMPLATE_LITERAL TREMA TEMPLATE_LITERAL						{$$.s = genrange_sc("`",$1.s,$3.s);}
-	| TEMPLATE_LITERAL TEMPLATE_LITERAL								{$$.s = cat(cat(cat(cat("new HLX.val(`",$1.s),"`)"),","),cat(cat("new HLX.val(`",$2.s),"`)"));}
+	| TEMPLATE_LITERAL TEMPLATE_LITERAL								{$$.s = cat(cat(cat(cat("$v(`",$1.s),"`)"),","),cat(cat("$v(`",$2.s),"`)"));}
 	| TEMPLATE_LITERAL TEMPLATE_LITERAL TREMA TEMPLATE_LITERAL		{$$.s = genrange_sa("`",$1.s,$2.s,$4.s);}*/
 	;
 
@@ -247,14 +247,14 @@ expression_list
 	;
 
 function_literal
-	: '(' identifier_list ')' BIND_ARW ',' compound_statement		{$$.s = cat(cat(cat(cat("function(",$2.s),"){'use strict';"),cat(end_scope($6.v,$2.v),$6.s)),"}");}
-	| F_PAREN identifier_list ')' BIND_ARW ',' compound_statement	{$$.s = cat(cat(cat(cat("function(",$2.s),"){'use strict';"),cat(end_scope($6.v,$2.v),$6.s)),"}");}
-	| '(' identifier_list ')' BIND_ARW expression 					{$$.s = cat(cat(cat(cat("function(",$2.s),"){'use strict';return "),cat(end_scope($5.v,$2.v),$5.s)),";}");}
-	| F_PAREN identifier_list ')' BIND_ARW expression 				{$$.s = cat(cat(cat(cat("function(",$2.s),"){'use strict';return "),cat(end_scope($5.v,$2.v),$5.s)),";}");}
-	| '(' ')' BIND_ARW ',' compound_statement						{$$.s = cat(cat("function(){'use strict';",cat(end_scope($5.v,0),$5.s)),"}");}
-	| F_PAREN ')' BIND_ARW ',' compound_statement					{$$.s = cat(cat("function(){'use strict';",cat(end_scope($5.v,0),$5.s)),"}");}
-	| '(' ')' BIND_ARW expression 									{$$.s = cat(cat("function(){'use strict';return ",cat(end_scope($4.v,0),$4.s)),";}");}
-	| F_PAREN ')' BIND_ARW expression 								{$$.s = cat(cat("function(){'use strict';return ",cat(end_scope($4.v,0),$4.s)),";}");}
+	: '(' identifier_list ')' BIND_ARW ',' compound_statement		{$$.s = cat(cat(cat(cat(cat("function(",$2.s),"){"),FuncHeader),cat(end_scope($6.v,$2.v),$6.s)),"}");}
+	| F_PAREN identifier_list ')' BIND_ARW ',' compound_statement	{$$.s = cat(cat(cat(cat(cat("function(",$2.s),"){"),FuncHeader),cat(end_scope($6.v,$2.v),$6.s)),"}");}
+	| '(' identifier_list ')' BIND_ARW expression 					{$$.s = cat(cat(cat(cat(cat(cat("function(",$2.s),"){"),FuncHeader),"return "),cat(end_scope($5.v,$2.v),$5.s)),";}");}
+	| F_PAREN identifier_list ')' BIND_ARW expression 				{$$.s = cat(cat(cat(cat(cat(cat("function(",$2.s),"){"),FuncHeader),"return "),cat(end_scope($5.v,$2.v),$5.s)),";}");}
+	| '(' ')' BIND_ARW ',' compound_statement						{$$.s = cat(cat(cat("function(){",FuncHeader),cat(end_scope($5.v,0),$5.s)),"}");}
+	| F_PAREN ')' BIND_ARW ',' compound_statement					{$$.s = cat(cat(cat("function(){",FuncHeader),cat(end_scope($5.v,0),$5.s)),"}");}
+	| '(' ')' BIND_ARW expression 									{$$.s = cat(cat(cat(cat("function(){",FuncHeader),"return "),cat(end_scope($4.v,0),$4.s)),";}");}
+	| F_PAREN ')' BIND_ARW expression 								{$$.s = cat(cat(cat(cat("function(){",FuncHeader),"return "),cat(end_scope($4.v,0),$4.s)),";}");}
 	;
 
 identifier_list

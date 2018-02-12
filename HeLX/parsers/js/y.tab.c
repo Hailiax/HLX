@@ -2012,7 +2012,7 @@ yyreduce:
 
   case 25:
 #line 91 "parser.y"
-    {llnode* tmp = malloc(sizeof(llnode)); tmp->val = (yyvsp[(2) - (6)].data).s; tmp->next = NULL; (yyval.data).s = cat(cat(cat(cat(cat(cat("for(let ",(yyvsp[(2) - (6)].data).s)," of HLX.clone("),(yyvsp[(4) - (6)].data).s),"._[0],true)){"),cat(end_scope((yyvsp[(6) - (6)].data).v,tmp),(yyvsp[(6) - (6)].data).s)),"}"); (yyval.data).v = (yyvsp[(4) - (6)].data).v;}
+    {llnode* tmp = malloc(sizeof(llnode)); tmp->val = (yyvsp[(2) - (6)].data).s; tmp->next = NULL; (yyval.data).s = cat(cat(cat(cat(cat(cat("for(let ",(yyvsp[(2) - (6)].data).s)," of $c("),(yyvsp[(4) - (6)].data).s),"._[0],true)){"),cat(end_scope((yyvsp[(6) - (6)].data).v,tmp),(yyvsp[(6) - (6)].data).s)),"}"); (yyval.data).v = (yyvsp[(4) - (6)].data).v;}
     break;
 
   case 26:
@@ -2052,7 +2052,7 @@ yyreduce:
 
   case 33:
 #line 109 "parser.y"
-    {var_declare((yyvsp[(1) - (3)].data).s,&(yyvsp[(1) - (3)].data).v,1); (yyval.data).s = cat(cat(cat(cat(cat(cat("(",(yyvsp[(1) - (3)].data).s),"._[0]=HLX.clone("),(yyvsp[(3) - (3)].data).s),")._[0],"),(yyvsp[(1) - (3)].data).s),")"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {var_declare((yyvsp[(1) - (3)].data).s,&(yyvsp[(1) - (3)].data).v,1); (yyval.data).s = cat(cat(cat(cat(cat(cat("(",(yyvsp[(1) - (3)].data).s),"._[0]=$c("),(yyvsp[(3) - (3)].data).s),")._[0],"),(yyvsp[(1) - (3)].data).s),")"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 34:
@@ -2062,7 +2062,7 @@ yyreduce:
 
   case 35:
 #line 111 "parser.y"
-    {var_declare((yyvsp[(1) - (3)].data).s,&(yyvsp[(1) - (3)].data).v,1); (yyval.data).s = cat(cat(cat(cat(cat(cat("(",cat(cat(cat(cat(cat(cat("(",(yyvsp[(1) - (3)].data).s),"._[0]=HLX.clone("),(yyvsp[(3) - (3)].data).s),")._[0],"),(yyvsp[(1) - (3)].data).s),")")),",this."),(yyvsp[(1) - (3)].data).s),"="),(yyvsp[(1) - (3)].data).s),")"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {var_declare((yyvsp[(1) - (3)].data).s,&(yyvsp[(1) - (3)].data).v,1); (yyval.data).s = cat(cat(cat(cat(cat(cat("(",cat(cat(cat(cat(cat(cat("(",(yyvsp[(1) - (3)].data).s),"._[0]=$c("),(yyvsp[(3) - (3)].data).s),")._[0],"),(yyvsp[(1) - (3)].data).s),")")),",this."),(yyvsp[(1) - (3)].data).s),"="),(yyvsp[(1) - (3)].data).s),")"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 36:
@@ -2077,7 +2077,7 @@ yyreduce:
 
   case 38:
 #line 117 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat(cat(cat((yyvsp[(1) - (3)].data).s,"=HLX.enval("),(yyvsp[(1) - (3)].data).s),")._[0]?"),(yyvsp[(1) - (3)].data).s),":"),(yyvsp[(3) - (3)].data).s); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat(cat(cat((yyvsp[(1) - (3)].data).s,"=$w("),(yyvsp[(1) - (3)].data).s),")._[0]?"),(yyvsp[(1) - (3)].data).s),":"),(yyvsp[(3) - (3)].data).s); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 39:
@@ -2107,7 +2107,7 @@ yyreduce:
 
   case 44:
 #line 129 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("new HLX.val(",(yyvsp[(1) - (3)].data).s),"._[0]||"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat("$v(",(yyvsp[(1) - (3)].data).s),"._[0]||"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 45:
@@ -2117,7 +2117,7 @@ yyreduce:
 
   case 46:
 #line 134 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("new HLX.val(",(yyvsp[(1) - (3)].data).s),"._[0]&&"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat("$v(",(yyvsp[(1) - (3)].data).s),"._[0]&&"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 47:
@@ -2127,7 +2127,7 @@ yyreduce:
 
   case 48:
 #line 139 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("new HLX.val(",(yyvsp[(1) - (3)].data).s),"._[0]|"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat("$v(",(yyvsp[(1) - (3)].data).s),"._[0]|"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 49:
@@ -2137,7 +2137,7 @@ yyreduce:
 
   case 50:
 #line 144 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("new HLX.val(",(yyvsp[(1) - (3)].data).s),"._[0]^"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat("$v(",(yyvsp[(1) - (3)].data).s),"._[0]^"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 51:
@@ -2147,7 +2147,7 @@ yyreduce:
 
   case 52:
 #line 149 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("new HLX.val(",(yyvsp[(1) - (3)].data).s),"._[0]&"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat("$v(",(yyvsp[(1) - (3)].data).s),"._[0]&"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 53:
@@ -2157,12 +2157,12 @@ yyreduce:
 
   case 54:
 #line 154 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("new HLX.val(HLX.equal(",(yyvsp[(1) - (3)].data).s),"._[0],"),(yyvsp[(3) - (3)].data).s),"._[0]))"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat("$v($e(",(yyvsp[(1) - (3)].data).s),"._[0],"),(yyvsp[(3) - (3)].data).s),"._[0]))"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 55:
 #line 155 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("new HLX.val(!HLX.equal(",(yyvsp[(1) - (3)].data).s),"._[0],"),(yyvsp[(3) - (3)].data).s),"._[0]))"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat("$v(!$e(",(yyvsp[(1) - (3)].data).s),"._[0],"),(yyvsp[(3) - (3)].data).s),"._[0]))"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 56:
@@ -2172,12 +2172,12 @@ yyreduce:
 
   case 57:
 #line 160 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("new HLX.val(",(yyvsp[(1) - (3)].data).s),"._[0]<"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat("$v(",(yyvsp[(1) - (3)].data).s),"._[0]<"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 58:
 #line 161 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("new HLX.val(",(yyvsp[(1) - (3)].data).s),"._[0]>"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat("$v(",(yyvsp[(1) - (3)].data).s),"._[0]>"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 59:
@@ -2187,12 +2187,12 @@ yyreduce:
 
   case 60:
 #line 166 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("new HLX.val(",(yyvsp[(1) - (3)].data).s),"._[0]<<"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat("$v(",(yyvsp[(1) - (3)].data).s),"._[0]<<"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 61:
 #line 167 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("new HLX.val(",(yyvsp[(1) - (3)].data).s),"._[0]>>"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat("$v(",(yyvsp[(1) - (3)].data).s),"._[0]>>"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 62:
@@ -2207,12 +2207,12 @@ yyreduce:
 
   case 64:
 #line 173 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("new HLX.val(HLX.add(",(yyvsp[(1) - (3)].data).s),"._[0],"),(yyvsp[(3) - (3)].data).s),"._[0]))"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat("$v($a(",(yyvsp[(1) - (3)].data).s),"._[0],"),(yyvsp[(3) - (3)].data).s),"._[0]))"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 65:
 #line 174 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("new HLX.val(",(yyvsp[(1) - (3)].data).s),"._[0]-"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat("$v(",(yyvsp[(1) - (3)].data).s),"._[0]-"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 66:
@@ -2222,22 +2222,22 @@ yyreduce:
 
   case 67:
 #line 178 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("new HLX.val(",(yyvsp[(1) - (3)].data).s),"._[0]*"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat("$v(",(yyvsp[(1) - (3)].data).s),"._[0]*"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 68:
 #line 179 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("new HLX.val(",(yyvsp[(1) - (3)].data).s),"._[0]/"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat("$v(",(yyvsp[(1) - (3)].data).s),"._[0]/"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 69:
 #line 180 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("new HLX.val(",(yyvsp[(1) - (3)].data).s),"._[0]**"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat("$v(",(yyvsp[(1) - (3)].data).s),"._[0]**"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 70:
 #line 181 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("new HLX.val(",(yyvsp[(1) - (3)].data).s),"._[0]%"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
+    {(yyval.data).s = cat(cat(cat(cat("$v(",(yyvsp[(1) - (3)].data).s),"._[0]%"),(yyvsp[(3) - (3)].data).s),"._[0])"); (yyval.data).v = llcat((yyvsp[(1) - (3)].data).v,(yyvsp[(3) - (3)].data).v);}
     break;
 
   case 71:
@@ -2247,22 +2247,22 @@ yyreduce:
 
   case 72:
 #line 186 "parser.y"
-    {(yyval.data).s = cat(cat("new HLX.val(+",(yyvsp[(2) - (2)].data).s),"._[0])"); (yyval.data).v = (yyvsp[(2) - (2)].data).v;}
+    {(yyval.data).s = cat(cat("$v(+",(yyvsp[(2) - (2)].data).s),"._[0])"); (yyval.data).v = (yyvsp[(2) - (2)].data).v;}
     break;
 
   case 73:
 #line 187 "parser.y"
-    {(yyval.data).s = cat(cat("new HLX.val(-",(yyvsp[(2) - (2)].data).s),"._[0])"); (yyval.data).v = (yyvsp[(2) - (2)].data).v;}
+    {(yyval.data).s = cat(cat("$v(-",(yyvsp[(2) - (2)].data).s),"._[0])"); (yyval.data).v = (yyvsp[(2) - (2)].data).v;}
     break;
 
   case 74:
 #line 188 "parser.y"
-    {(yyval.data).s = cat(cat("new HLX.val(!",(yyvsp[(2) - (2)].data).s),"._[0])"); (yyval.data).v = (yyvsp[(2) - (2)].data).v;}
+    {(yyval.data).s = cat(cat("$v(!",(yyvsp[(2) - (2)].data).s),"._[0])"); (yyval.data).v = (yyvsp[(2) - (2)].data).v;}
     break;
 
   case 75:
 #line 189 "parser.y"
-    {(yyval.data).s = cat(cat("new HLX.val(~",(yyvsp[(2) - (2)].data).s),"._[0])"); (yyval.data).v = (yyvsp[(2) - (2)].data).v;}
+    {(yyval.data).s = cat(cat("$v(~",(yyvsp[(2) - (2)].data).s),"._[0])"); (yyval.data).v = (yyvsp[(2) - (2)].data).v;}
     break;
 
   case 76:
@@ -2277,12 +2277,12 @@ yyreduce:
 
   case 78:
 #line 195 "parser.y"
-    {(yyval.data).s = cat(cat("HLX.enval(new ",(yyvsp[(1) - (3)].data).s),"._[0]())");}
+    {(yyval.data).s = cat(cat("$w(new ",(yyvsp[(1) - (3)].data).s),"._[0]())");}
     break;
 
   case 79:
 #line 196 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("HLX.enval(new ",(yyvsp[(1) - (4)].data).s),"._[0]("),(yyvsp[(3) - (4)].data).s),"))"); (yyval.data).v = (yyvsp[(3) - (4)].data).v;}
+    {(yyval.data).s = cat(cat(cat(cat("$w(new ",(yyvsp[(1) - (4)].data).s),"._[0]("),(yyvsp[(3) - (4)].data).s),"))"); (yyval.data).v = (yyvsp[(3) - (4)].data).v;}
     break;
 
   case 80:
@@ -2312,62 +2312,62 @@ yyreduce:
 
   case 85:
 #line 205 "parser.y"
-    {(yyval.data).s = cat(cat("new HLX.val(",(yyvsp[(1) - (1)].data).s),")");}
+    {(yyval.data).s = cat(cat("$v(",(yyvsp[(1) - (1)].data).s),")");}
     break;
 
   case 86:
 #line 206 "parser.y"
-    {(yyval.data).s = "new HLX.val(true)";}
+    {(yyval.data).s = "$v(true)";}
     break;
 
   case 87:
 #line 207 "parser.y"
-    {(yyval.data).s = "new HLX.val(false)";}
+    {(yyval.data).s = "$v(false)";}
     break;
 
   case 88:
 #line 208 "parser.y"
-    {(yyval.data).s = "new HLX.val(null)";}
+    {(yyval.data).s = "$v(null)";}
     break;
 
   case 89:
 #line 209 "parser.y"
-    {(yyval.data).s = "new HLX.val(undefined)";}
+    {(yyval.data).s = "$v(undefined)";}
     break;
 
   case 90:
 #line 210 "parser.y"
-    {(yyval.data).s = "new HLX.val(Infinity)";}
+    {(yyval.data).s = "$v(Infinity)";}
     break;
 
   case 91:
 #line 211 "parser.y"
-    {(yyval.data).s = "new HLX.val(Number.EPSILON)";}
+    {(yyval.data).s = "$v(Number.EPSILON)";}
     break;
 
   case 92:
 #line 212 "parser.y"
-    {(yyval.data).s = "new HLX.val(NaN)";}
+    {(yyval.data).s = "$v(NaN)";}
     break;
 
   case 93:
 #line 213 "parser.y"
-    {(yyval.data).s = cat(cat("new HLX.val('",(yyvsp[(1) - (1)].data).s),"')");}
+    {(yyval.data).s = cat(cat("$v('",(yyvsp[(1) - (1)].data).s),"')");}
     break;
 
   case 94:
 #line 214 "parser.y"
-    {(yyval.data).s = cat(cat("new HLX.val(`",(yyvsp[(1) - (1)].data).s),"`)");}
+    {(yyval.data).s = cat(cat("$v(`",(yyvsp[(1) - (1)].data).s),"`)");}
     break;
 
   case 95:
 #line 215 "parser.y"
-    {(yyval.data).s = cat(cat("new HLX.val(/",(yyvsp[(1) - (1)].data).s),"/)");}
+    {(yyval.data).s = cat(cat("$v(/",(yyvsp[(1) - (1)].data).s),"/)");}
     break;
 
   case 96:
 #line 216 "parser.y"
-    {(yyval.data).s = cat(cat("new HLX.val(",(yyvsp[(1) - (1)].data).s),")");}
+    {(yyval.data).s = cat(cat("$v(",(yyvsp[(1) - (1)].data).s),")");}
     break;
 
   case 97:
@@ -2377,32 +2377,32 @@ yyreduce:
 
   case 98:
 #line 218 "parser.y"
-    {(yyval.data).s = cat(cat("new HLX.val([",(yyvsp[(2) - (3)].data).s),"])"); (yyval.data).v = (yyvsp[(2) - (3)].data).v;}
+    {(yyval.data).s = cat(cat("$v([",(yyvsp[(2) - (3)].data).s),"])"); (yyval.data).v = (yyvsp[(2) - (3)].data).v;}
     break;
 
   case 99:
 #line 219 "parser.y"
-    {(yyval.data).s = cat(cat("new HLX.val([",(yyvsp[(2) - (3)].data).s),"])"); (yyval.data).v = (yyvsp[(2) - (3)].data).v;}
+    {(yyval.data).s = cat(cat("$v([",(yyvsp[(2) - (3)].data).s),"])"); (yyval.data).v = (yyvsp[(2) - (3)].data).v;}
     break;
 
   case 100:
 #line 220 "parser.y"
-    {(yyval.data).s = "new HLX.val([])";}
+    {(yyval.data).s = "$v([])";}
     break;
 
   case 101:
 #line 221 "parser.y"
-    {(yyval.data).s = "new HLX.val([])";}
+    {(yyval.data).s = "$v([])";}
     break;
 
   case 102:
 #line 222 "parser.y"
-    {(yyval.data).s = "new HLX.val(function(){})";}
+    {(yyval.data).s = "$v(function(){})";}
     break;
 
   case 103:
 #line 223 "parser.y"
-    {(yyval.data).s = "new HLX.val(function(){})";}
+    {(yyval.data).s = "$v(function(){})";}
     break;
 
   case 104:
@@ -2422,7 +2422,7 @@ yyreduce:
 
   case 107:
 #line 230 "parser.y"
-    {(yyval.data).s = cat(cat(cat("new HLX.val(",(yyvsp[(1) - (2)].data).s),"),"),cat(cat("new HLX.val(",(yyvsp[(2) - (2)].data).s),")"));}
+    {(yyval.data).s = cat(cat(cat("$v(",(yyvsp[(1) - (2)].data).s),"),"),cat(cat("$v(",(yyvsp[(2) - (2)].data).s),")"));}
     break;
 
   case 108:
@@ -2442,42 +2442,42 @@ yyreduce:
 
   case 111:
 #line 250 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("function(",(yyvsp[(2) - (6)].data).s),"){'use strict';"),cat(end_scope((yyvsp[(6) - (6)].data).v,(yyvsp[(2) - (6)].data).v),(yyvsp[(6) - (6)].data).s)),"}");}
+    {(yyval.data).s = cat(cat(cat(cat(cat("function(",(yyvsp[(2) - (6)].data).s),"){"),FuncHeader),cat(end_scope((yyvsp[(6) - (6)].data).v,(yyvsp[(2) - (6)].data).v),(yyvsp[(6) - (6)].data).s)),"}");}
     break;
 
   case 112:
 #line 251 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("function(",(yyvsp[(2) - (6)].data).s),"){'use strict';"),cat(end_scope((yyvsp[(6) - (6)].data).v,(yyvsp[(2) - (6)].data).v),(yyvsp[(6) - (6)].data).s)),"}");}
+    {(yyval.data).s = cat(cat(cat(cat(cat("function(",(yyvsp[(2) - (6)].data).s),"){"),FuncHeader),cat(end_scope((yyvsp[(6) - (6)].data).v,(yyvsp[(2) - (6)].data).v),(yyvsp[(6) - (6)].data).s)),"}");}
     break;
 
   case 113:
 #line 252 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("function(",(yyvsp[(2) - (5)].data).s),"){'use strict';return "),cat(end_scope((yyvsp[(5) - (5)].data).v,(yyvsp[(2) - (5)].data).v),(yyvsp[(5) - (5)].data).s)),";}");}
+    {(yyval.data).s = cat(cat(cat(cat(cat(cat("function(",(yyvsp[(2) - (5)].data).s),"){"),FuncHeader),"return "),cat(end_scope((yyvsp[(5) - (5)].data).v,(yyvsp[(2) - (5)].data).v),(yyvsp[(5) - (5)].data).s)),";}");}
     break;
 
   case 114:
 #line 253 "parser.y"
-    {(yyval.data).s = cat(cat(cat(cat("function(",(yyvsp[(2) - (5)].data).s),"){'use strict';return "),cat(end_scope((yyvsp[(5) - (5)].data).v,(yyvsp[(2) - (5)].data).v),(yyvsp[(5) - (5)].data).s)),";}");}
+    {(yyval.data).s = cat(cat(cat(cat(cat(cat("function(",(yyvsp[(2) - (5)].data).s),"){"),FuncHeader),"return "),cat(end_scope((yyvsp[(5) - (5)].data).v,(yyvsp[(2) - (5)].data).v),(yyvsp[(5) - (5)].data).s)),";}");}
     break;
 
   case 115:
 #line 254 "parser.y"
-    {(yyval.data).s = cat(cat("function(){'use strict';",cat(end_scope((yyvsp[(5) - (5)].data).v,0),(yyvsp[(5) - (5)].data).s)),"}");}
+    {(yyval.data).s = cat(cat(cat("function(){",FuncHeader),cat(end_scope((yyvsp[(5) - (5)].data).v,0),(yyvsp[(5) - (5)].data).s)),"}");}
     break;
 
   case 116:
 #line 255 "parser.y"
-    {(yyval.data).s = cat(cat("function(){'use strict';",cat(end_scope((yyvsp[(5) - (5)].data).v,0),(yyvsp[(5) - (5)].data).s)),"}");}
+    {(yyval.data).s = cat(cat(cat("function(){",FuncHeader),cat(end_scope((yyvsp[(5) - (5)].data).v,0),(yyvsp[(5) - (5)].data).s)),"}");}
     break;
 
   case 117:
 #line 256 "parser.y"
-    {(yyval.data).s = cat(cat("function(){'use strict';return ",cat(end_scope((yyvsp[(4) - (4)].data).v,0),(yyvsp[(4) - (4)].data).s)),";}");}
+    {(yyval.data).s = cat(cat(cat(cat("function(){",FuncHeader),"return "),cat(end_scope((yyvsp[(4) - (4)].data).v,0),(yyvsp[(4) - (4)].data).s)),";}");}
     break;
 
   case 118:
 #line 257 "parser.y"
-    {(yyval.data).s = cat(cat("function(){'use strict';return ",cat(end_scope((yyvsp[(4) - (4)].data).v,0),(yyvsp[(4) - (4)].data).s)),";}");}
+    {(yyval.data).s = cat(cat(cat(cat("function(){",FuncHeader),"return "),cat(end_scope((yyvsp[(4) - (4)].data).v,0),(yyvsp[(4) - (4)].data).s)),";}");}
     break;
 
   case 119:

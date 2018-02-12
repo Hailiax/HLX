@@ -57,7 +57,7 @@ rem:
 		out = cat(out, vars->val);
 		hashmap_remove( varMap, vars->val );
 		if (vars->next != NULL){
-			out = cat(out,"=new HLX.val(),");
+			out = cat(out,"=$v(),");
 			vars = vars->next;
 			goto rem;
 		}
@@ -67,7 +67,7 @@ rem:
 	}
 
 	if (strlen(out) != 4){
-		return cat(out,"=new HLX.val();");
+		return cat(out,"=$v();");
 	} else{
 		return "";
 	}
