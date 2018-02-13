@@ -22,7 +22,7 @@ After hearing some of my friends say programming looked confusing/hard over and 
 Below, I explain HeLX's OOP and pointer model. There are very nice examples on [hailiax.io/HeLX/](https://hailiax.io/HeLX/).  
 
 #### Keywordless Object Oriented
-* If a function doesn't return anything (void function), it returns a class instance where that function is the constructor. (replaces `new`)  
+* If a function doesn't return anything, it returns a class instance where that function is the constructor. Can also be thought of as all functions return class instances but a return statement overrides that. (replaces `new`)  
 * Public variables are declared using a colon, then behave like any other regular variable. i.e. `this.x = 5` is `x: 5` in HeLX. (partially replaces `this`)  
 * A new model for inheritance: you can literally add functions like adding strings in HeLX. i.e. `superclass = subclass + function`. This mix between the `super`, `extends`, and `this` keywords allows for extreme flexibility.  
 * Keywords are not functions; removing them allows for better integration of functional and object-oriented programming.  
