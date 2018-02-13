@@ -16,6 +16,7 @@ Also, I plan on writing a bunch of algos (quine, sorts, etc) in HeLX to essentia
   
 ## A little background
 HeLX was originally inspired by Javascript and currently compiles to it. That's why the e in HeLX stands for ECMAScript. HeLX also has and will have taken inspiration from Haskell, Python, Scheme & Clojure, C, and Java.  
+  
 After hearing some of my friends say programming looked confusing/hard over and over again, I decided I wanted to create an extremely consistent, clean, intuitive, and unified programming language. HeLX aims to remove as many keywords as possible while supporting as many programming styles as possible in the most elegant syntax ever created (shoot for the stars right? ;).  
   
 ## Features explained  
