@@ -1,4 +1,4 @@
-## What
+## What is HeLX?
 HeLX is a new language that:  
 * introduces OOP without any keywords (no new, this, super, extends, class, etc)  
 * introduces a new pointer model that's explicit and intuitive  
@@ -14,20 +14,18 @@ Check it out at [hailiax.io/HeLX/](https://hailiax.io/HeLX/) (Press the arrow bu
 That website used Emscripten to convert the compiler here (written in C) to asm.js  
 Also, I plan on writing a bunch of algos (quine, sorts, etc) in HeLX to essentially prove HeLX's capabilities. (Formal proofs are beyond me at the moment.)
   
-## Why
+## A little background
 HeLX was originally inspired by Javascript and currently compiles to it. That's why the e in HeLX stands for ECMAScript.  
 After hearing some of my friends say programming looked confusing/hard over and over again, I decided I wanted to create an extremely consistent, clean, intuitive, and unified programming language. HeLX aims to remove as many keywords as possible while supporting as many programming styles as possible in the most elegant syntax ever created (shoot for the stars right? ;).  
   
-## How  
-Below, I explain HeLX's OOP and pointer model. However, looking at the examples on [hailiax.io/HeLX/](https://hailiax.io/HeLX/) may be more useful.
-#### Keywordless Object Oriented
-I'm aware this sounds ridiculous but hear me out. I believe HeLX's implementation is truly more intuitive and powerful than current OOP models.  
-* In other languages, objects are typically created using `new` on a class/function/etc. In HeLX, objects are created by simply calling a function that doesn't return anything. In other words `thisFunctionReturnsSomething()` behaves normally but `thisFunctionDoesntReturn()` is basically `new thisFunctionDoesntReturn()`. This also allows you to create functions that sometimes return instances and other times return values.  
-* In other languages, public variables look like `this.pubVar = 5` but in HeLX, public variables look like `pubVar: 5`. The equals sign is just replaced by a colon for public variables. This has the added benefit of proper scoping and disallowing public and private variables that the same name.  
-* HeLX implements inheritance in two ways. First, you can add functions just like you can add strings. For example, `subclass = superclass + FUNCTION_LITERAL`. The eqivalent of calling super midway through a subclass constructor would be `subclass = FUNCTION_LITERAL + superclass + FUNCTION_LITERAL`. (Adding functions is kinda similar to `extends`. I call this concatenated functional inheritance.)  
-* The second way is more normal. `subclass = function{ super = superclass() }`. (HeLX syntax doesn't look like that. I call this encapsulated functional inheritance)  
+## Features explained  
+Below, I explain HeLX's OOP and pointer model. However, looking at the examples on [hailiax.io/HeLX/](https://hailiax.io/HeLX/) may be more useful.  
 
-Since you can add functions and strings, HeLX also allows you to add arrays and objects. I think being able to plainly add first-class functions opens up a lot of flexibility. In addition, since keywords are not functions, removing them makes integrating OOP and FP easier. (functional programming features aren't done yet though)  
+#### Keywordless Object Oriented
+* If a function doesn't return anything (void function), it returns a class instance where that function is the constructor. (replaces `new`)  
+* Public variables are declared using a colon, then behave like any other regular variable. i.e. `this.x = 5` is `x: 5` in HeLX. (partially replaces `this`)  
+* A new model for inheritance: you can literally add functions like adding strings in HeLX. i.e. `superclass = subclass + function`. This mix between the `super`, `extends`, and `this` keywords allows for extreme flexibility.  
+* Keywords are not functions; removing them allows for better integration of functional and object-oriented programming.  
 
 #### References (pointers)  
 I named these references instead of pointers because naming them pointers would be misleading.  
