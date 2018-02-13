@@ -19,7 +19,7 @@ HeLX was originally inspired by Javascript and currently compiles to it. That's 
 After hearing some of my friends say programming looked confusing/hard over and over again, I decided I wanted to create an extremely consistent, clean, intuitive, and unified programming language. HeLX aims to remove as many keywords as possible while supporting as many programming styles as possible in the most elegant syntax ever created (shoot for the stars right? ;).  
   
 ## Features explained  
-Below, I explain HeLX's OOP and pointer model. However, looking at the examples on [hailiax.io/HeLX/](https://hailiax.io/HeLX/) may be more useful.  
+Below, I explain HeLX's OOP and pointer model. There are very nice examples on [hailiax.io/HeLX/](https://hailiax.io/HeLX/).  
 
 #### Keywordless Object Oriented
 * If a function doesn't return anything (void function), it returns a class instance where that function is the constructor. (replaces `new`)  
