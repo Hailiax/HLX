@@ -10,7 +10,7 @@ HeLX, once finished, will:
 * support optional static typing, pure functions, and constants
 * compile to run on the JVM or CLR
 
-Check it out at [hailiax.io/HeLX/](https://hailiax.io/HeLX/)  
+Check it out at [hailiax.io/HeLX/](https://hailiax.io/HeLX/) (Press the arrow button in the middle to compile & run)  
 That website used Emscripten to convert the compiler here (written in C) to asm.js  
 Also, I plan on writing a bunch of algos (quine, sorts, etc) in HeLX to essentially prove HeLX's capabilities. (Formal proofs are beyond me at the moment.)
   
