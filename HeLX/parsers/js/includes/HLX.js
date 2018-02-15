@@ -9,7 +9,7 @@ $v = function(o){return new $$(o);}
 var JS = new $$(function(str){
 	function wrap(obj){
 		if (obj !== null && (typeof obj === 'object' || typeof obj === 'function')){
-			for (i in obj){
+			for (var i in obj){
 				obj[i] = wrap(obj[i]);
 			}
 		}
@@ -22,7 +22,7 @@ var HLX = function(obj){
 		obj = obj.$[0];
 	}
 	if (obj !== null && (typeof obj === 'object' || typeof obj === 'function')){
-		for (i in obj){
+		for (var i in obj){
 			obj[i] = HLX(obj[i]);
 		}
 	}
@@ -43,7 +43,7 @@ $c = function(o,force){
 	} else{
 		return o;
 	}
-	for (prop in o){
+	for (var prop in o){
 		f[prop] = $c(o[prop],force);
 	}
 	return f;
