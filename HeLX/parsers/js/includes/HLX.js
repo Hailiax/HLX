@@ -34,7 +34,7 @@ $c = function(o,force){
 	var f;
 	if (Array.isArray(o)){
 		f = o.slice();
-	} else if (typeof o === 'object'){
+	} else if (typeof o === 'object' && o !== null){
 		if (o instanceof $$ && !force){
 			f = o;
 		} else{
@@ -52,7 +52,7 @@ $c = function(o,force){
 // Equals operator
 $e = function(a,b){
 	// Maybe check if prototypes are equal
-	if (typeof a === 'object' && typeof b === 'object' || typeof a === 'function' && typeof b === 'function'){
+	if (typeof a === 'object' && typeof b === 'object' && a !== null && b !== null || typeof a === 'function' && typeof b === 'function'){
 		for (prop in a){
 			if (Object.keys(a).length !== Object.keys(b).length){
 				return false;
@@ -73,6 +73,8 @@ $a = function(a,b){
 	if (Array.isArray(a) && Array.isArray(b)){
 		return a.concat(b);
 	} else if (typeof a === 'object' && typeof b === 'object'){
+		if (a === null){ return b; }
+		if (b === null){ return a; }
 		return Object.assign(
 			$p(
 				Object.getPrototypeOf(a),

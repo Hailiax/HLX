@@ -19,15 +19,25 @@ HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears.
 // PrivateVariable: 3
 // Public and private variables cannot have the same name
 //
-// Postfix inc/decrement (++i) not supported due to references implementation
+// Postfix inc/decrement (i++) not supported due to references implementation
 // i++ is what ++i traditionally is. Traditional i++ does not exist
 //
 // Think of [] as array, () as function, and {} as an evaulation
 // {3 +5} ^2 is valid while (3 +5) ^2 is not
 //
-// Finally, if you want to use something from Javascript,
+// If you want to use something from Javascript,
 // use it like JS('js statement here') i.e. JS('console.log')('Log This!')
 // To export a value from HeLX to JS, use HLX( HeLX_value_here )
+//
+// Finally, tabs are only allowed at the start of every line and are meaingful
+// Spaces are meaningful but groups of spaces are treated as one space
+// Linebreaks allow tabbed grops below but otherwise can be replaced with a comma.
+// Flip brackets for tabbed groups and use semicolons to continue.
+// Other Langs          HeLX
+// var[][] a = [        a = ][
+//   [1, 2],              [1 2]
+//   [3, 4]               [1 2]
+// ].map(transform);    ;.map(transform)
 
 // Let's look at Fizzbuzz for basic syntax
 for i of [ 1..30 ]
@@ -118,11 +128,11 @@ Multidice = Dice + ( count ) =>
 		return total
 		
 multidice = Multidice( 5 )
-for i in [1..3], print( '1 roll: ' multidice.roll() )
-for i in [1..3], print( '5 rolls: ' multidice.rollAll() )
+for i in [1..3], print( '1 roll:' multidice.roll() )
+for i in [1..3], print( '5 rolls:' multidice.rollAll() )
 multidice.addDice()
 multidice.addDice()
-for i in [1..3], print( '7 rolls: ' multidice.rollAll() )
+for i in [1..3], print( '7 rolls:' multidice.rollAll() )
 
 
 print('')

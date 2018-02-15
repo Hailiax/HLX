@@ -121,10 +121,10 @@ F			[igmuy]{0,5}
 ","							{ count(); return ','; }
 ":"							{ count(); return ':'; }
 "="							{ count(); return '='; }
-" ("						{ count(); return F_PAREN; }
+[ \t]"("					{ count(); return F_PAREN; }
 "("							{ count(); return '('; }
 ")"							{ count(); return ')'; }
-" ["						{ count(); return F_BRACKET; }
+[ \t]"["					{ count(); return F_BRACKET; }
 "["							{ count(); return '['; }
 "]"							{ count(); return ']'; }
 "."							{ count(); return '.'; }

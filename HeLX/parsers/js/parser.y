@@ -31,7 +31,7 @@ void new_HLX();
 %token TRY CATCH FINALLY THROW DEBUGGER DELETE IMPORT INSTANCEOF TYPEOF IN OF PTR_OF
 %token ELLIPSIS TREMA ASSERT HLX F_BRACKET F_PAREN FROM_HLX
 %token BIND_ARW EXTEND_ARW ASYNC_ARW GEN_ARW REV_ARW DRFT_ARW
- 
+
 %type <data> range translation_unit assignment_expression function_literal primary_expression assignment_operator compound_statement statement_list statement expression_statement labeled_statement selection_statement iteration_statement jump_statement constant_expression logical_or_expression logical_and_expression inclusive_or_expression exclusive_or_expression and_expression equality_expression relational_expression shift_expression additive_expression multiplicative_expression prefix_expression postfix_expression expression identifier_list expression_list
 
 %start translation_unit
@@ -43,7 +43,7 @@ translation_unit
 	| translation_unit translation_unit								{;}
 	;
 
-/************* Todo: +=, make whitespace useless, cleanup for in, fix ranges, assertions, # notation, ~ notation?, imports exports HLX acts as separate file DocsJS = import '../dep/docs.js', more elegant terneary exp, macros
+/************* Todo: make whitespace useless, cleanup for in, fix ranges, assertions, # notation, ~ notation?, imports exports HLX acts as separate file DocsJS = import '../dep/docs.js', more elegant terneary exp, macros
 * Statements * charAt and other JS methods
 *************/ 
 
