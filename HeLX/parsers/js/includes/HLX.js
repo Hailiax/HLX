@@ -53,7 +53,7 @@ $c = function(o,force){
 $e = function(a,b){
 	// Maybe check if prototypes are equal
 	if (typeof a === 'object' && typeof b === 'object' && a !== null && b !== null || typeof a === 'function' && typeof b === 'function'){
-		for (prop in a){
+		for (var prop in a){
 			if (Object.keys(a).length !== Object.keys(b).length){
 				return false;
 			}
