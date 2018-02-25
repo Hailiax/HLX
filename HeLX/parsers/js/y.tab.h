@@ -102,18 +102,13 @@
      OF = 318,
      PTR_OF = 319,
      ELLIPSIS = 320,
-     TREMA = 321,
-     ASSERT = 322,
-     HLX = 323,
-     F_BRACKET = 324,
-     F_PAREN = 325,
-     FROM_HLX = 326,
-     BIND_ARW = 327,
-     EXTEND_ARW = 328,
-     ASYNC_ARW = 329,
-     GEN_ARW = 330,
-     REV_ARW = 331,
-     DRFT_ARW = 332
+     ASSERT = 321,
+     HLX = 322,
+     F_BRACKET = 323,
+     F_PAREN = 324,
+     FROM_HLX = 325,
+     FUNC = 326,
+     END_STMT = 327
    };
 #endif
 /* Tokens.  */
@@ -180,18 +175,13 @@
 #define OF 318
 #define PTR_OF 319
 #define ELLIPSIS 320
-#define TREMA 321
-#define ASSERT 322
-#define HLX 323
-#define F_BRACKET 324
-#define F_PAREN 325
-#define FROM_HLX 326
-#define BIND_ARW 327
-#define EXTEND_ARW 328
-#define ASYNC_ARW 329
-#define GEN_ARW 330
-#define REV_ARW 331
-#define DRFT_ARW 332
+#define ASSERT 321
+#define HLX 322
+#define F_BRACKET 323
+#define F_PAREN 324
+#define FROM_HLX 325
+#define FUNC 326
+#define END_STMT 327
 
 
 
@@ -206,7 +196,7 @@ typedef union YYSTYPE
 	} data;
 }
 /* Line 1529 of yacc.c.  */
-#line 210 "y.tab.h"
+#line 200 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

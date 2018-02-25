@@ -12,6 +12,11 @@ typedef struct llnode {
 	struct llnode* next;
 } llnode;
 
+typedef struct ilnode {
+	int val;
+	struct ilnode* next;
+} ilnode;
+
 extern llnode* llcat(llnode* a, llnode* b);
 
 char* end_scope(llnode *vars, llnode *exclude);

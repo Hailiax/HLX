@@ -7,7 +7,8 @@ HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears.
 // 0v is NotANumber (think of it as void)
 //
 // Exponentiation operator is ^ (2^3 == 8)
-// Bitwise xor is ^^, bitwise not is !! (typically ~)
+// AND is &, OR is |
+// Bitwise operators: $&, $|, $^, $!, $<, $>, $% (zero-fill right shift)
 // a ?= b means if a evaluates to 0f, then a = b. Otherwise, a stays the same
 //
 // Single quotes wrap normal strings
@@ -28,126 +29,118 @@ HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears.
 // If you want to use something from Javascript,
 // use it like JS('js statement here') i.e. JS('console.log')('Log This!')
 // To export a value from HeLX to JS, use HLX( HeLX_value_here )
-//
-// Finally, tabs are only allowed at the start of every line and are meaingful
-// Spaces are meaningful but groups of spaces are treated as one space
-// Linebreaks allow tabbed grops below but otherwise can be replaced with a comma.
-// Flip brackets for tabbed groups and use semicolons to continue.
-// Other Langs          HeLX
-// var[][] a = [        a = ][
-//   [1, 2],              [1 2]
-//   [3, 4]               [1 2]
-// ].map(transform);    ;.map(transform)
 
 // Let's look at Fizzbuzz for basic syntax
 for i of [ 1..30 ]
 	output = ''
 	if i % 3 == 0, output += 'Fizz'
 	if i % 5 == 0, output += 'Buzz'
-	if output != '', print( i output )
+	if output != '', print.( i output )
 
-
-print('')
+print.('')
 
 // Now let's see how references work
 arr = [ [1 2 3] [4 5 6] ]
-print( 'Original Array:' arr )
+print.( 'Original Array:' arr )
 
-arrCopy = arr[0]
-arrRef @= arr[1]
+arrCopy = arr.[0]
+arrRef @= arr.[1]
 
 arrCopy = 'Replaced'
 arrRef = 'Replaced'
 
-print( 'Modified Array:' arr )
-print( 'Array Copy:' arrCopy )
-print( 'Array Reference:' arrRef )
+print.( 'Modified Array:' arr )
+print.( 'Array Copy:' arrCopy )
+print.( 'Array Reference:' arrRef )
 
 
-print('')
+print.('')
 
 // References in a for loop
 arr = [ 1..5 ]
-print( 'Original Array:' arr )
+print.( 'Original Array:' arr )
 
 for i of arr, i ^= 2
-print( 'Array iterated w/ for of:' arr )
+print.( 'Array iterated w/ for of:' arr )
 
 for i @of arr, i ^= 2
-print( 'Array iterated w/ for @of:' arr )
+print.( 'Array iterated w/ for @of:' arr )
 
 
-print('')
+print.('')
 
 // Quick, a factorial function
-fac = ( x ) =>
-	if x == 0, return 1
-	return fac( x-1 ) *x
+fac = ( x ) >>
+	if x == 0, << 1
+	<< fac.( x-1 ) *x
 
-print( '5! =' fac(5) )
-print( '10! =' fac(10) )
+print.( '5! =' fac.(5) )
+print.( '10! =' fac.(10) )
 
 
-print('')
+print.('')
 
-// Functions that don't return anything return a class instance
-Lcg = ( seed mult inc mod ) =>
+// Functions that don't << anything << a class instance
+Lcg = ( seed mult inc mod ) >>
 	mult ?= 378
 	inc ?= 2310
 	mod ?= 10000
 	state: seed
-	next: () => state = { state *mult +inc } %mod
+	next: () >>
+		<< state = { state *mult +inc } %mod //!!!!!!!!!!!!!!!One line
 
-rand = Lcg( 1248 )
-print( 'Random number:' rand.next() )
-print( 'Random number:' rand.next() )
-print( 'Random number:' rand.next() )
+rand = Lcg.( 1248 )
+print.( 'Random number:' rand.next.() )
+print.( 'Random number:' rand.next.() )
+print.( 'Random number:' rand.next.() )
 
 
-print('')
+print.('')
 
 // Encapsulated functional inheritance
-Dice = () =>
-	rng = Lcg( JS('Date.now()') 379 1234 6000 )
-	roll: () => JS('Math.ceil('+rng.next()/1000+')')
-	
-dice = Dice()
-for i in [1..5], print( 'Dice roll:' dice.roll() )
+Dice = () >>
+	rng = Lcg.( JS.('Date.now()') 379 1234 6000 )
+	roll: () >>
+		<< JS.('Math.ceil('+rng.next.()/1000+')')
+	//!!!!!!!!!!!!!!!One line
+
+dice = Dice.()
+for i in [1..5], print.( 'Dice roll:' dice.roll.() )
 
 
-print('')
+print.('')
 
 // Concatenated functional inheritance
-Multidice = Dice + ( count ) =>
-	addDice: () => count++
-	removeDice: () => count--
-	rollAll: () =>
+Multidice = Dice + ( count ) >>
+	addDice: () >> count++
+	removeDice: () >> count--
+	rollAll: () >>
 		total = 0
 		for i in [1..count]
-			total += roll()
-		return total
+			total += roll.()
+		<< total
 		
-multidice = Multidice( 5 )
-for i in [1..3], print( '1 roll:' multidice.roll() )
-for i in [1..3], print( '5 rolls:' multidice.rollAll() )
-multidice.addDice()
-multidice.addDice()
-for i in [1..3], print( '7 rolls:' multidice.rollAll() )
+multidice = Multidice.( 5 )
+for i in [1..3], print.( '1 roll:' multidice.roll.() )
+for i in [1..3], print.( '5 rolls:' multidice.rollAll.() )
+multidice.addDice.()
+multidice.addDice.()
+for i in [1..3], print.( '7 rolls:' multidice.rollAll.() )
 
 
-print('')
+print.('')
 
 // Lets add objects and arrays too
-obj1 = () =>
+obj1 = () >>
 	a: 1
 	b: 1
-obj1 = obj1()
-obj2 = () =>
+obj1 = obj1.()
+obj2 = () >>
 	b: 2
 	c: 2
-obj2 = obj2()
-print( obj1 obj2 obj1+obj2 )
+obj2 = obj2.()
+print.( obj1 obj2 obj1+obj2 )
 
 arr1 = [ 1 2 ]
 arr2 = [ 3 4 ]
-print( arr1 arr2 arr1+arr2 )
+print.( arr1 arr2 arr1+arr2 )
