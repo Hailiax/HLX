@@ -87,28 +87,30 @@
      CONTINUE = 303,
      BREAK = 304,
      RETURN = 305,
-     FOR = 306,
-     CNCRNT_FOR = 307,
-     TRY = 308,
-     CATCH = 309,
-     FINALLY = 310,
-     THROW = 311,
-     DEBUGGER = 312,
-     DELETE = 313,
-     IMPORT = 314,
-     INSTANCEOF = 315,
-     TYPEOF = 316,
-     IN = 317,
-     OF = 318,
-     PTR_OF = 319,
-     ELLIPSIS = 320,
-     ASSERT = 321,
-     HLX = 322,
-     F_BRACKET = 323,
-     F_PAREN = 324,
-     FROM_HLX = 325,
-     FUNC = 326,
-     END_STMT = 327
+     RETURN_NOTHING = 306,
+     FOR = 307,
+     CNCRNT_FOR = 308,
+     TRY = 309,
+     CATCH = 310,
+     FINALLY = 311,
+     THROW = 312,
+     DEBUGGER = 313,
+     DELETE = 314,
+     IMPORT = 315,
+     INSTANCEOF = 316,
+     TYPEOF = 317,
+     IN = 318,
+     OF = 319,
+     PTR_OF = 320,
+     ELLIPSIS = 321,
+     ASSERT = 322,
+     HLX = 323,
+     F_BRACKET = 324,
+     F_PAREN = 325,
+     FROM_HLX = 326,
+     FUNC = 327,
+     FUNC_1VAR = 328,
+     END_STMT = 329
    };
 #endif
 /* Tokens.  */
@@ -160,28 +162,30 @@
 #define CONTINUE 303
 #define BREAK 304
 #define RETURN 305
-#define FOR 306
-#define CNCRNT_FOR 307
-#define TRY 308
-#define CATCH 309
-#define FINALLY 310
-#define THROW 311
-#define DEBUGGER 312
-#define DELETE 313
-#define IMPORT 314
-#define INSTANCEOF 315
-#define TYPEOF 316
-#define IN 317
-#define OF 318
-#define PTR_OF 319
-#define ELLIPSIS 320
-#define ASSERT 321
-#define HLX 322
-#define F_BRACKET 323
-#define F_PAREN 324
-#define FROM_HLX 325
-#define FUNC 326
-#define END_STMT 327
+#define RETURN_NOTHING 306
+#define FOR 307
+#define CNCRNT_FOR 308
+#define TRY 309
+#define CATCH 310
+#define FINALLY 311
+#define THROW 312
+#define DEBUGGER 313
+#define DELETE 314
+#define IMPORT 315
+#define INSTANCEOF 316
+#define TYPEOF 317
+#define IN 318
+#define OF 319
+#define PTR_OF 320
+#define ELLIPSIS 321
+#define ASSERT 322
+#define HLX 323
+#define F_BRACKET 324
+#define F_PAREN 325
+#define FROM_HLX 326
+#define FUNC 327
+#define FUNC_1VAR 328
+#define END_STMT 329
 
 
 
@@ -196,7 +200,7 @@ typedef union YYSTYPE
 	} data;
 }
 /* Line 1529 of yacc.c.  */
-#line 200 "y.tab.h"
+#line 204 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

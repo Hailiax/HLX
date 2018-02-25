@@ -14,14 +14,7 @@ void setyylval();
 void end_file();
 void count_tabs();
 void indent();
-
-int tab_level = 0;
-/*
 int last_tab = 0;
-ilnode* sig_tabs = malloc(sizeof(ilnode));
-sig_tabs->val = -1;
-sig_tabs->next = NULL;
-*/
 
 %}
 
@@ -58,18 +51,18 @@ F			[igmuy]{0,5}
 "try"						{ count(); indent(); return TRY; }
 "catch"						{ count(); indent(); return CATCH; }
 ">>"						{ count(); indent(); return FUNC; }
+">>>"						{ count(); indent(); return FUNC_1VAR; }
 
+"<<"						{ count(); return RETURN; }
+"<<<"						{ count(); return RETURN_NOTHING; }
 "break"						{ count(); return BREAK; }
 "continue"					{ count(); return CONTINUE; }
-"debugger"					{ count(); return DEBUGGER; }
-"delete"					{ count(); return DELETE; }
 "finally"					{ count(); return FINALLY; }
 "import"					{ count(); return IMPORT; }
 "in"						{ count(); return IN; }
 "instanceof"				{ count(); return INSTANCEOF; }
 "of"						{ count(); return OF; }
 "@of"						{ count(); return PTR_OF; }
-"<<"						{ count(); return RETURN; }
 "throw"						{ count(); return THROW; }
 "typeof"					{ count(); return TYPEOF; }
 
@@ -151,7 +144,7 @@ F			[igmuy]{0,5}
 "]"							{ count(); return ']'; }
 "."							{ count(); return '.'; }
 
-[ ,\v\f\t]					{ count(); }
+[ ,\v\f\t\n]				{ count(); }
 .							{ /* ignore bad characters */ }
 
 %%
@@ -168,8 +161,7 @@ loop:
 	while ((c = input()) != '*' && c != 0)
 		;// putchar(c);
 
-	if ((c1 = input()) != '/' && c != 0)
-	{
+	if ((c1 = input()) != '/' && c != 0) {
 		unput(c1);
 		goto loop;
 	}
@@ -185,22 +177,29 @@ void line_comment(){
 
 
 void indent() {
-	tab_level++;
+	ilnode* tmp = malloc(sizeof(ilnode));
+	tmp->val = last_tab;
+	tmp->next = sig_tabs;
+	sig_tabs = tmp;
 }
 
 void count_tabs() {
-	int this_tab_level = 0, delta;
+	int this_tab = 0;
 	char c;
 
-	while ((c = input()) == '\t')
-		this_tab_level++;
-
+	while ( (c = input()) == '\t' )
+		this_tab++;
 	unput(c);
 
-	delta = this_tab_level - tab_level;
-	while (delta++ < 0){
+	if ( c == '\n' )
+		return;
+	last_tab = this_tab;
+
+	while ( this_tab <= sig_tabs->val ){
 		unput('\b');
-		tab_level--;
+		ilnode* tmp = sig_tabs;
+		sig_tabs = sig_tabs->next;
+		free( tmp );
 	}
 }
 
@@ -216,11 +215,13 @@ void setyylval(int trim){
 
 
 void end_file() {
-	unput(',');
-	for ( ; tab_level > 0; tab_level-- ){
+	while ( sig_tabs->next != NULL ){
 		unput('\b');
+		ilnode* tmp = sig_tabs;
+		sig_tabs = sig_tabs->next;
+		free( tmp );
 	}
-	unput(',');
+	free( sig_tabs );
 }
 
 

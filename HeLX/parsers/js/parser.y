@@ -27,11 +27,11 @@ void new_HLX();
 %token MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN EXP_ASSIGN TERN_ASSIGN PTR_ASSIGN CONST_ASSIGN
 %token SUB_ASSIGN LEFT_ASSIGN RIGHT_ASSIGN ZRIGHT_ASSIGN AND_ASSIGN XOR_ASSIGN OR_ASSIGN
 
-%token CASE DEFAULT IF ELSE SWITCH WHILE DO CONTINUE BREAK RETURN FOR CNCRNT_FOR
+%token CASE DEFAULT IF ELSE SWITCH WHILE DO CONTINUE BREAK RETURN RETURN_NOTHING FOR CNCRNT_FOR
 %token TRY CATCH FINALLY THROW DEBUGGER DELETE IMPORT INSTANCEOF TYPEOF IN OF PTR_OF
-%token ELLIPSIS ASSERT HLX F_BRACKET F_PAREN FROM_HLX FUNC END_STMT
+%token ELLIPSIS ASSERT HLX F_BRACKET F_PAREN FROM_HLX FUNC FUNC_1VAR END_STMT
 
-%type <data> range translation_unit assignment_expression function_literal primary_expression assignment_operator statement_block statement_list statement labeled_statement selection_statement iteration_statement jump_statement constant_expression logical_or_expression logical_and_expression inclusive_or_expression exclusive_or_expression and_expression equality_expression relational_expression shift_expression additive_expression multiplicative_expression prefix_expression postfix_expression expression identifier_list expression_list
+%type <data> range translation_unit function_literal primary_expression assign_operator statement_block statement_list statement labeled_statement selection_statement iteration_statement jump_statement constant_expression logical_or_expression logical_and_expression inclusive_or_expression exclusive_or_expression and_expression equality_expression relational_expression shift_expression additive_expression multiplicative_expression prefix_expression postfix_expression expression identifier_list expression_list
 
 %start translation_unit
 
@@ -39,10 +39,10 @@ void new_HLX();
 
 translation_unit
 	: HLX statement_list											{$$.s = cat(end_scope($2.v,0),$2.s); printf("%s\n",$$.s); new_HLX();}
-	| translation_unit translation_unit								{;}
+	| translation_unit HLX statement_list							{$$.s = cat(end_scope($3.v,0),$3.s); printf("%s\n",$$.s); new_HLX();}
 	;
 
-/************* Todo: Make tab counting smarter, cleanup for in, assertions, # notation, ~ notation, imports exports HLX acts as separate file DocsJS = import '../dep/docs.js', macros?
+/************* Todo: try catch, add $ in front of vars, Make tab counting smarter, cleanup for in, assertions, # notation, ~ notation, imports exports HLX acts as separate file DocsJS = import '../dep/docs.js', macros?
 * Statements * charAt and other JS methods
 *************/ 
 
@@ -88,7 +88,7 @@ iteration_statement
 jump_statement
 	: CONTINUE														{$$.s = "continue;";}
 	| BREAK															{$$.s = "break;";}
-	| RETURN														{$$.s = "return;";}
+	| RETURN_NOTHING												{$$.s = "return;";}
 	| RETURN expression												{$$.s = cat(cat("return ",$2.s),";"); $$.v = $2.v;}
 	;
 
@@ -97,27 +97,23 @@ jump_statement
 **************/
 
 expression
-	: assignment_expression											{;}
-	| expression '=' expression										{var_declare($1.s,&$1.v,1); $$.s = cat(cat(cat(cat(cat(cat("(",$1.s),".$[0]=$c("),$3.s),").$[0],"),$1.s),")"); $$.v = llcat($1.v,$3.v);}
-	| expression PTR_ASSIGN expression								{var_declare($1.s,&$1.v,1); $$.s = cat(cat(cat(cat(cat(cat("(",$1.s),".$="),$3.s),".$,"),$1.s),")"); $$.v = llcat($1.v,$3.v);}
-	| expression ':' expression										{var_declare($1.s,&$1.v,1); $$.s = cat(cat(cat(cat(cat(cat("(",cat(cat(cat(cat(cat(cat("(",$1.s),".$[0]=$c("),$3.s),").$[0],"),$1.s),")")),",this."),$1.s),"="),$1.s),")"); $$.v = llcat($1.v,$3.v);}
-	;
-
-assignment_expression
 	: constant_expression											{;}
-	| assignment_expression assignment_operator constant_expression	{$$.s = cat(cat(cat(cat(cat(cat(cat("(",$1.s),".$[0]"),$2.s),$3.s),".$[0],"),$1.s),")"); $$.v = llcat($1.v,$3.v);}
-	| assignment_expression ADD_ASSIGN constant_expression			{$$.s = cat(cat(cat(cat(cat($1.s,"=$v($a("),$1.s),".$[0],"),$3.s),".$[0]))"); $$.v = llcat($1.v,$3.v);}
-	| assignment_expression TERN_ASSIGN constant_expression			{$$.s = cat(cat(cat(cat(cat(cat($1.s,"=$w("),$1.s),").$[0]?"),$1.s),":"),$3.s); $$.v = llcat($1.v,$3.v);}
+	| constant_expression '=' expression							{var_declare($1.s,&$1.v,1); $$.s = cat(cat(cat(cat(cat(cat("(",$1.s),".$[0]=$c("),$3.s),").$[0],"),$1.s),")"); $$.v = llcat($1.v,$3.v);}
+	| constant_expression PTR_ASSIGN expression						{var_declare($1.s,&$1.v,1); $$.s = cat(cat(cat(cat(cat(cat("(",$1.s),".$="),$3.s),".$,"),$1.s),")"); $$.v = llcat($1.v,$3.v);}
+	| constant_expression ':' expression							{var_declare($1.s,&$1.v,1); $$.s = cat(cat(cat(cat(cat(cat("(",cat(cat(cat(cat(cat(cat("(",$1.s),".$[0]=$c("),$3.s),").$[0],"),$1.s),")")),",this."),$1.s),"="),$1.s),")"); $$.v = llcat($1.v,$3.v);}
+	| constant_expression assign_operator expression				{$$.s = cat(cat(cat(cat(cat(cat(cat("(",$1.s),".$[0]"),$2.s),$3.s),".$[0],"),$1.s),")"); $$.v = llcat($1.v,$3.v);}
+	| constant_expression ADD_ASSIGN expression						{$$.s = cat(cat(cat(cat(cat($1.s,"=$v($a("),$1.s),".$[0],"),$3.s),".$[0]))"); $$.v = llcat($1.v,$3.v);}
+	| constant_expression TERN_ASSIGN expression					{$$.s = cat(cat(cat(cat(cat(cat($1.s,"=$w("),$1.s),").$[0]?"),$1.s),":"),$3.s); $$.v = llcat($1.v,$3.v);}
 	;
 
 constant_expression
 	: logical_or_expression											{;}
-	| logical_or_expression '?' expression expression				{$$.s = cat(cat(cat(cat($1.s,"?"),$3.s ),":"),$4.s); $$.v = llcat(llcat($1.v,$3.v),$4.v);}
+//	| logical_or_expression '?' expression_list						{$$.s = cat(cat(cat(cat($1.s,"?"),$3.s ),":"),$4.s); $$.v = llcat(llcat($1.v,$3.v),$4.v);}
 	;
 
 logical_or_expression
 	: logical_and_expression										{;}
-	| logical_or_expression '|' logical_and_expression			{$$.s = cat(cat(cat(cat("$v(",$1.s),".$[0]||"),$3.s),".$[0])"); $$.v = llcat($1.v,$3.v);}
+	| logical_or_expression '|' logical_and_expression				{$$.s = cat(cat(cat(cat("$v(",$1.s),".$[0]||"),$3.s),".$[0])"); $$.v = llcat($1.v,$3.v);}
 	;
 
 logical_and_expression
@@ -236,7 +232,7 @@ identifier_list
 	| identifier_list IDENTIFIER									{$$.s = cat(cat($1.s,","),$2.s); llnode* tmp = malloc(sizeof(llnode)); tmp->val = $2.s; tmp->next = $1.v; $1.v = tmp; $$.v = $1.v;}
 	;
 
-assignment_operator
+assign_operator
 	: EXP_ASSIGN													{$$.s = "**=";}
 	| MUL_ASSIGN													{$$.s = "*=";}
 	| DIV_ASSIGN													{$$.s = "/=";}
@@ -253,6 +249,7 @@ assignment_operator
 %%
 extern char yytext[];
 extern int column;
+ilnode* sig_tabs;
 
 void new_HLX(){
 	// free old HLX
@@ -266,6 +263,9 @@ void yyerror(char *s){
 
 int main(){
 	new_HLX();
+	sig_tabs = malloc(sizeof(ilnode));
+	sig_tabs->val = -1;
+	sig_tabs->next = NULL;
 	printf("%s\n",HLXHeader);
 	return yyparse();
 }

@@ -16,6 +16,7 @@ typedef struct ilnode {
 	int val;
 	struct ilnode* next;
 } ilnode;
+extern ilnode* sig_tabs;
 
 extern llnode* llcat(llnode* a, llnode* b);
 

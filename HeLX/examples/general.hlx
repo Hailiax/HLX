@@ -15,6 +15,9 @@ HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears.
 // Double quotes wrap template literals
 // Forward slashes wrap regular expressions
 //
+// Functions look like ( parameters ) >> statements
+// << is used instead of return. <<< ends function early
+//
 // All variables are block scoped and no shadowing allowed
 // PublicVariable = 3
 // PrivateVariable: 3
@@ -29,6 +32,10 @@ HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears.
 // If you want to use something from Javascript,
 // use it like JS('js statement here') i.e. JS('console.log')('Log This!')
 // To export a value from HeLX to JS, use HLX( HeLX_value_here )
+//
+// All whitespace is insignificant except `some newlines followed by
+// a group of tabs (or nothing) not followed by a newline` that are
+// used to close blocks. A comma is treated as whitespace.
 
 // Let's look at Fizzbuzz for basic syntax
 for i of [ 1..30 ]
@@ -40,7 +47,10 @@ for i of [ 1..30 ]
 print.('')
 
 // Now let's see how references work
-arr = [ [1 2 3] [4 5 6] ]
+arr = [
+	[1 2 3]
+	[4 5 6]
+]
 print.( 'Original Array:' arr )
 
 arrCopy = arr.[0]
@@ -80,14 +90,13 @@ print.( '10! =' fac.(10) )
 
 print.('')
 
-// Functions that don't << anything << a class instance
+// Functions that don't return anything return a class instance
 Lcg = ( seed mult inc mod ) >>
 	mult ?= 378
 	inc ?= 2310
 	mod ?= 10000
 	state: seed
-	next: () >>
-		<< state = { state *mult +inc } %mod //!!!!!!!!!!!!!!!One line
+	next: () >> << state = { state *mult +inc } %mod
 
 rand = Lcg.( 1248 )
 print.( 'Random number:' rand.next.() )
@@ -100,9 +109,7 @@ print.('')
 // Encapsulated functional inheritance
 Dice = () >>
 	rng = Lcg.( JS.('Date.now()') 379 1234 6000 )
-	roll: () >>
-		<< JS.('Math.ceil('+rng.next.()/1000+')')
-	//!!!!!!!!!!!!!!!One line
+	roll: () >> << JS.('Math.ceil('+rng.next.()/1000+')')
 
 dice = Dice.()
 for i in [1..5], print.( 'Dice roll:' dice.roll.() )
