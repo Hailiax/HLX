@@ -28,7 +28,7 @@ Below, I explain HeLX's major features. There are very nice examples on [hailiax
 * A new model for inheritance: you can literally add functions like adding strings in HeLX. i.e. `superclass = subclass + function`. This mix between the `super`, `extends`, and `this` keywords allows for extreme flexibility.  
 * Keywords are not functions; removing them allows for better integration of functional and object-oriented programming.  
 
-#### References: intuitive pointers  
+#### @ References: intuitive pointers  
 I named these references instead of pointers because naming them pointers would be misleading.  
 * First, scalar and vector values behave the same way to the programmer. In other languages, for `A = 3; B = A` B would be a copy of A but for `A = [3]; B = A` B and A would be pointers to the same array. In HeLX, for `A = [3], B = A` B would be a new array with deep-copied values from A. (Perhaps this is ultra-call-by-value?)  
 * Referencing a value requires the new `@=` operator. For `A = [3], B @= A`, B and A would now be pointers to the same array. 
