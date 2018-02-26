@@ -20,7 +20,7 @@ HeLX was originally inspired by Javascript and currently compiles to it. That's 
 After hearing some of my friends say programming looked confusing/hard over and over again, I decided I wanted to create an extremely consistent, clean, intuitive, and unified programming language. HeLX aims to remove as many keywords as possible while supporting as many programming styles as possible in the most elegant syntax ever created (shoot for the stars right? ;).  
   
 ## Features explained  
-Below, I explain HeLX's OOP and pointer model. There are very nice examples on [hailiax.io/HeLX/](https://hailiax.io/HeLX/).  
+Below, I explain HeLX's major features. There are very nice examples on [hailiax.io/HeLX/](https://hailiax.io/HeLX/).  
 
 #### Keywordless Object Oriented
 * If a function doesn't return anything, it returns a class instance where that function is the constructor. Can also be thought of as all functions return class instances but a return statement overrides that. (replaces `new`)  
@@ -34,6 +34,6 @@ I named these references instead of pointers because naming them pointers would 
 * Referencing a value requires the new `@=` operator. For `A = [3], B @= A`, B and A would now be pointers to the same array. 
 
 #### Magic whitespace  
-Description WIP. No semicolons or commas. Language so minimal that a visible whitespace was introduced for readability. Commas are equiv to spaces. All whitespace insignificant except some newlines followed by a group of tabs (or no tabs) not followed by another newline. These are used to end statements. Not all newline-tabs groups are significant, only the ones which are important are counted (for flexibility and breaking up lines). Arguably better whitespace and cleanliness than Python!
+Description WIP. No semicolons or commas. Language so minimal that a visible whitespace was introduced for readability. Commas are equiv to spaces. All whitespace insignificant except some newlines followed by a group of tabs (or no tabs) not followed by another newline. These are used to end statements. Not all newline-tabs groups are significant, only the ones which are important are counted (for flexibility and breaking up lines). Arguably better whitespace and cleanliness than Python! Finally, old conventions were changed. Bitwise operators are now $&, $|, $^, $!, $<, $>, $% (zero-fill right shift), logical and/or are `&`/`|`, exponent operator is `^`, 0t is true, 0f is false, 0n is null, 0u is undefined, 0i is Infinity, 0l is epsilon (limit), 0v is NotANumber (think of it as void), and a new ternary assign is introduced `?=`.
 
 While this is quite unusual, it forces the programmer to be explicit when taking the value or reference of a variable and I believe this will reduce errors.
