@@ -5,9 +5,10 @@ HeLX is a new language that introduces:
 * a completly new insanely minimal, clean, flexible, and intuitive syntax  
 
 HeLX, once finished, will:  
-* introduce a single intuitive token to unify functional programming, concurrent/async flow, and static properties (no static, async, await, etc)  
+* include JS-esque built-in libraries
+* introduce a single intuitive token to unify functional programming, concurrent/async flow, and static properties (no static, async, await, etc) (actually, there's probably a better way to do this)  
 * support monads
-* support optional static typing, pure functions, and constants
+* support optional static typing, pure functions, and constants beautifully
 * compile to run on the JVM or CLR
 
 Check it out at [hailiax.io/HeLX/](https://hailiax.io/HeLX/) (Press the arrow button in the middle to compile & run)  
