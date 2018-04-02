@@ -24,6 +24,7 @@ E			([eE][+-]|[eE])
 R			(\\.|[^\\/\n])
 RF			(\\.|[^*\\/\n])
 F			[igmuy]{0,5}
+W			[ ,;\v\f\t\n]
 
 %s READYEND
 
@@ -42,9 +43,8 @@ F			[igmuy]{0,5}
 
 "if"						{ count(); indent(); return IF; }
 "else"						{ count(); indent(); return ELSE; }
+"else"{W}+"if"				{ count(); indent(); return ELSEIF; }
 "for"						{ count(); indent(); return FOR; }
-"do"						{ count(); indent(); return DO; }
-"while"						{ count(); indent(); return WHILE; }
 "switch"					{ count(); indent(); return SWITCH; }
 "case"						{ count(); indent(); return CASE; }
 "default"					{ count(); indent(); return DEFAULT; }
@@ -57,12 +57,12 @@ F			[igmuy]{0,5}
 "<<<"						{ count(); return RETURN_NOTHING; }
 "break"						{ count(); return BREAK; }
 "continue"					{ count(); return CONTINUE; }
-"finally"					{ count(); return FINALLY; }
 "import"					{ count(); return IMPORT; }
+"to"						{ count(); return TO; }
 "in"						{ count(); return IN; }
-"instanceof"				{ count(); return INSTANCEOF; }
 "of"						{ count(); return OF; }
-"@of"						{ count(); return PTR_OF; }
+"at"						{ count(); return AT; }
+"instanceof"				{ count(); return INSTANCEOF; }
 "throw"						{ count(); return THROW; }
 "typeof"					{ count(); return TYPEOF; }
 
@@ -132,7 +132,9 @@ F			[igmuy]{0,5}
 "=="						{ count(); return EQ_OP; }
 "!="						{ count(); return NE_OP; }
 "<"							{ count(); return '<'; }
+"<="						{ count(); return LE_OP; }
 ">"							{ count(); return '>'; }
+">="						{ count(); return GE_OP; }
 
 "{"							{ count(); return '{'; }
 "}"							{ count(); return '}'; }
@@ -144,7 +146,7 @@ F			[igmuy]{0,5}
 "]"							{ count(); return ']'; }
 "."							{ count(); return '.'; }
 
-[ ,\v\f\t\n]				{ count(); }
+{W}							{ count(); }
 .							{ /* ignore bad characters */ }
 
 %%

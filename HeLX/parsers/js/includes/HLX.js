@@ -5,6 +5,7 @@
 try{global}catch(e){var global=window}
 $$ = function(o){this.$ = [o];};
 $v = function(o){return new $$(o);}
+// $f is reserved: for ... in
 
 var JS = new $$(function(str){
 	function wrap(obj){
@@ -101,6 +102,16 @@ $a = function(a,b){
 		return a + b;
 	}
 };
+// Array index interpretation
+$i = function(a,i){
+	if (i === 0){
+		return $v(a.length);
+	} else if (i < 0){
+		return a[a.length+i];
+	} else{
+		return a[i-1]
+	}
+}
 // Generate range
 $r = function(a,b){
 	var out = [];

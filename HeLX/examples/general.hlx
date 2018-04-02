@@ -5,9 +5,21 @@ HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears.
 // 0n is null, 0u is undefined
 // 0i is Infinity, 0l is epsilon (limit)
 // 0v is NotANumber (think of it as void)
+// 0-2 is negative 2. (No -2)
+//
+// Arrays start at one, negative indicies read array backwards, zero returns length
+// Ex. for arr = [2 4 6], arr.[1] == 2, arr.[3] == 6, arr.[0-2] == 4, arr.[0] == 3
+//
+// There are 6 for-loops and no while-loops:
+// for <bool> <statements> acts like a while(<bool>){<statements>} loop
+// for to <bool> <statements> acts like a do{<statements>}while(<bool>) loop
+// for <statement> to <bool> <statements> acts like a post-check for(<statement>;<bool>;){<statements>}
+// for <variable> in <iteratable> assigns the index of each element to the variable
+// for <variable> of <iteratable> assigns the value of each element to the variable
+// for <variable> at <iteratable> assigns the reference of each element to the variable
 //
 // Exponentiation operator is ^ (2^3 == 8)
-// AND is &, OR is |
+// AND is &, OR is |. No conditional expression as if now (a?b:c)
 // Bitwise operators: $&, $|, $^, $!, $<, $>, $% (zero-fill right shift)
 // a ?= b means if a evaluates to 0f, then a = b. Otherwise, a stays the same
 //
@@ -38,7 +50,7 @@ HeLX Spec A 'untitled' //Cmd-b builds, cmd-s downloads, cmd-k clears.
 // used to close blocks. A comma is treated as whitespace.
 
 // Let's look at Fizzbuzz for basic syntax
-for i of [ 1..30 ]
+for i = 1 to i++ <= 30
 	output = ''
 	if i % 3 == 0, output += 'Fizz'
 	if i % 5 == 0, output += 'Buzz'
@@ -72,7 +84,7 @@ print.( 'Original Array:' arr )
 for i of arr, i ^= 2
 print.( 'Array iterated w/ for of:' arr )
 
-for i @of arr, i ^= 2
+for i at arr, i ^= 2
 print.( 'Array iterated w/ for @of:' arr )
 
 
@@ -111,7 +123,7 @@ Dice = () >>
 	roll: () >> << JS.('Math.ceil('+rng.next.()/1000+')')
 
 dice = Dice.()
-for i in [1..5], print.( 'Dice roll:' dice.roll.() )
+for i = 1 to i++ <= 5, print.( 'Dice roll:' dice.roll.() )
 
 
 print.('')
@@ -122,16 +134,16 @@ Multidice = Dice + ( count ) >>
 	removeDice: () >> count--
 	rollAll: () >>
 		total = 0
-		for i in [1..count]
+		for i = 1 to i++ <= count
 			total += roll.()
 		<< total
 		
 multidice = Multidice.( 5 )
-for i in [1..3], print.( '1 roll:' multidice.roll.() )
-for i in [1..3], print.( '5 rolls:' multidice.rollAll.() )
+for i = 1 to i++ <= 3, print.( '1 roll:' multidice.roll.() )
+for i = 1 to i++ <= 3, print.( '5 rolls:' multidice.rollAll.() )
 multidice.addDice.()
 multidice.addDice.()
-for i in [1..3], print.( '7 rolls:' multidice.rollAll.() )
+for i = 1 to i++ <= 3, print.( '7 rolls:' multidice.rollAll.() )
 
 
 print.('')
