@@ -5,8 +5,9 @@
 try{global}catch(e){var global=window}
 $$ = function(o){this.$ = [o];};
 $v = function(o){return new $$(o);}
-// $f is reserved: for ... in
+// $f is reserved for for-loops
 
+// Bridge commonJS to HLX
 var JS = new $$(function(str){
 	function wrap(obj){
 		if (obj !== null && (typeof obj === 'object' || typeof obj === 'function')){
@@ -29,6 +30,24 @@ var HLX = function(obj){
 	}
 	return obj;
 };
+
+function wrap(obj){
+	for (i of Object.getOwnPropertyNames(obj)){
+		console.log(i);
+		if (typeof obj[i] === 'function'){
+			obj[i] = function(){
+				for (j in arguments){
+					arguments[j] = wrap(arguments[j]);
+				}
+				return obj[i].apply(arguments);
+			}
+		} else if (typeof obj[i] === 'object'){
+			obj[i] = wrap(obj[i]);
+		}
+	}
+	return $v(obj);
+}
+Array = wrap(Array);
 
 // Clone
 $c = function(o,force){
@@ -143,7 +162,6 @@ var print = new $$(function (){
 	var s = [].slice.call( arguments ).map( function(x){return HLX($c(x,true));} );
 	console.log.apply(null,s); return s;
 });
-
 
 /****************************
 * At the beginning of funcs *
