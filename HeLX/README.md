@@ -1,10 +1,11 @@
 ## What is HeLX?
-HeLX is a new language that introduces:  
+HeLX is a new high-level language that introduces:  
 * OOP without any keywords (no new, this, super, extends, class, etc)  
 * a new pointer model that's explicit and intuitive  
 * a completly new insanely minimal, clean, flexible, and intuitive syntax  
 
-HeLX, once finished, will:  
+HeLX, once finished, might:  
+* add `goto` statements
 * include JS-esque built-in libraries
 * introduce a single intuitive token to unify functional programming, concurrent/async flow, and static properties (no static, async, await, etc) (actually, there's probably a better way to do this)  
 * support monads
@@ -36,7 +37,15 @@ I named these references instead of pointers because naming them pointers would 
 
 While this is quite unusual, it forces the programmer to be explicit when taking the value or reference of a variable and I believe this will reduce errors.
 
-#### Magic whitespace: better syntax  
-Description WIP. No semicolons or commas. Language so minimal that a visible whitespace was introduced for readability. Commas are equiv to spaces. All whitespace insignificant except some newlines followed by a group of tabs (or no tabs) not followed by another newline. These are used to end statements. Yes, you can chain statements in the same line without a delimiting character like `a = 3 func.() b = a + 3`. Magic. Not all newline-tabs groups are significant, only the ones which are important are counted (for flexibility and breaking up lines). Arguably better whitespace and cleanliness than Python! Finally, old conventions were changed. Bitwise operators are now $&, $|, $^, $!, $<, $>, $% (zero-fill right shift), logical and/or are `&`/`|`, exponent operator is `^`, `0t` is true, `0f` is false, `0n` is null, `0u` is undefined, `0i` is Infinity, `0l` is epsilon (limit), `0v` is NotANumber (think of it as void), and a new ternary assign is introduced `?=`.  
+#### Magic syntax: human-friendly grammar  
+This language is heavily designed around infix operators – the lack of which is equivalent to semicolons or commas in older languages. This means that this language, while having no semicolons or commas, can still chain statements in the same line or other creative ways. (`a = 3 func.() b = a + 3` is valid HeLX while `a = 3 func() b = a + 3` is not valid python.) This is so minimal that a visible whitespace (comma) was introduced for readability.  
 
-In addition, the three-statement semicolon separated for loop is gone in favor of a `for assignment to boolean` like statement. Removing the assignment makes `for to` act like a `do ... while` loop (This means `do ...while` is gone too). In addition a `goto` statement is back to provide ultimate flexibility. Also, array indicies will start at one now to prevent off by one errors. i.e. `arr.[1]` is the first element in `arr`, `arr.[-2]` is the second to last element, and `arr.[0]` may do something special like return the length of the array.
+Commans and all other whitespace are insignificant except *some* newlines followed by a group of tabs (or no tabs) not followed by another newline. These are used to end if/switch/for/etc statements.  
+
+Finally, old conventions were changed. Bitwise operators are now $&, $|, $^, $!, $<, $>, $% (zero-fill right shift), logical and/or are `&`/`|`, exponent operator is `^`, `0t` is true, `0f` is false, `0n` is null, `0u` is undefined, `0i` is Infinity, `0l` is epsilon (limit), `0v` is NotANumber (think of it as void), and a new ternary assign is introduced `a ?= b` (if `a` evals to `0f`/`0u`/`0n`/etc, it is set to `b`).  
+
+All loops are now use `for`. `for <bool> <statements>` acts like a `while(<bool>){<statements>}` loop, `for to <bool> <statements>` acts like a `do{<statements>}while(<bool>)` loop, `for <statement> to <bool> <statements>` acts like a post-check `for(<statement>;<bool>;){<statements>}`, `for <variable> in <iteratable>` assigns the index of each element to the variable, `for <variable> of <iteratable>` assigns the value of each element to the variable, `for <variable> at <iteratable>` assigns the reference of each element to the variable
+
+Array indicies will start at one now to prevent off by one errors. i.e. `arr.[1]` is the first element in `arr`, `arr.[-2]` is the second to last element, and `arr.[0]` returns the length of the array.  
+
+Finally, square brackets `[]` are used exclusivly for arrays, parentheeses `()` are used exclusivly for functions, are curly brackets `{}` are used exclusivly for evaluations.
