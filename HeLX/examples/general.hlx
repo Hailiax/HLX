@@ -85,7 +85,7 @@ for i of arr, i ^= 2
 print.( 'Array iterated w/ for of:' arr )
 
 for i at arr, i ^= 2
-print.( 'Array iterated w/ for @of:' arr )
+print.( 'Array iterated w/ for at:' arr )
 
 
 print.('')
